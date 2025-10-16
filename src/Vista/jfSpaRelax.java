@@ -4,6 +4,11 @@
  */
 package Vista;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author matute
@@ -15,6 +20,9 @@ public class jfSpaRelax extends javax.swing.JFrame {
      */
     public jfSpaRelax() {
         initComponents();
+        
+        jdpEscritorio = new DesktopConFondo("/img/spa.jpeg");
+        setContentPane(jdpEscritorio);
     }
 
     /**
@@ -26,21 +34,60 @@ public class jfSpaRelax extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdpEscritorio = new javax.swing.JDesktopPane();
+        jmbBarraMenu = new javax.swing.JMenuBar();
+        jmClientes = new javax.swing.JMenu();
+        jmiGestionClientes = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jdpEscritorioLayout = new javax.swing.GroupLayout(jdpEscritorio);
+        jdpEscritorio.setLayout(jdpEscritorioLayout);
+        jdpEscritorioLayout.setHorizontalGroup(
+            jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 621, Short.MAX_VALUE)
+        );
+        jdpEscritorioLayout.setVerticalGroup(
+            jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 485, Short.MAX_VALUE)
+        );
+
+        jmClientes.setText("Clientes");
+
+        jmiGestionClientes.setText("Gestion de Clientes");
+        jmiGestionClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiGestionClientesActionPerformed(evt);
+            }
+        });
+        jmClientes.add(jmiGestionClientes);
+
+        jmbBarraMenu.add(jmClientes);
+
+        setJMenuBar(jmbBarraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jdpEscritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jdpEscritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmiGestionClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionClientesActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        jifGestionClientes g = new jifGestionClientes();
+        g.setVisible(true);
+        jdpEscritorio.add(g);
+        g.toFront();
+    }//GEN-LAST:event_jmiGestionClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +126,28 @@ public class jfSpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jdpEscritorio;
+    private javax.swing.JMenu jmClientes;
+    private javax.swing.JMenuBar jmbBarraMenu;
+    private javax.swing.JMenuItem jmiGestionClientes;
     // End of variables declaration//GEN-END:variables
+class DesktopConFondo extends JDesktopPane {
+        private Image imagen;
+        public DesktopConFondo(String rutaImagen) {
+            java.net.URL imgURL = getClass().getResource(rutaImagen);
+        if (imgURL != null) {
+            this.imagen = new ImageIcon(imgURL).getImage();
+        } else {
+            System.err.println("No se encontró la imagen: " + rutaImagen);
+            }
+        }
+        
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (imagen != null) {
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+    }
 }
