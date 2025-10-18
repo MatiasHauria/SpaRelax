@@ -24,7 +24,7 @@ public class ClienteData {
     public ClienteData(Conexion con) {
         this.con = (Connection) con.establecerConexion();
     }
-    public void insertarAlumno(Cliente e) {
+    public void insertarCliente(Cliente e) {
         String query = "INSERT INTO cliente(dni,nombre_completo,telefono,edad,afecciones,estado) VALUES(?,?,?,?,?,?) ";
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -44,7 +44,7 @@ public class ClienteData {
             }
 
             ps.close();
-            System.out.println("Alumno guardado correctamente");
+            System.out.println("Cliente guardado correctamente");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class ClienteData {
     }
     
    public void actualizarCliente(int id,int dniNuevo, String nuevoNombre,int telefonoNuevo,int edadNueva, String afeccionesNuevo) {
-        String sql = "UPDATE Cliente SET dni=?, nombre=?,telefono=?,edad=?,afecciones=? WHERE id_cliente=?";
+        String sql = "UPDATE Cliente SET dni=?, nombre_completo=?,telefono=?,edad=?,afecciones=? WHERE id_cliente=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dniNuevo);
@@ -125,7 +125,7 @@ public class ClienteData {
     }
    
    public void bajaCliente(int id) {
-        String sql = "UPDATE cliente SET estado=false WHERE id_cliente=?";
+        String sql = "UPDATE Cliente SET estado=false WHERE id_cliente=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -191,6 +191,7 @@ public class ClienteData {
            
            Cliente cliente = new Cliente( dni,  nombreCompleto,  telefono,  edad,  afecciones);
            cliente.setCodCli(codCli);
+           cliente.setEstado(estado);
            listaDeClientes.add(cliente);
        }
         

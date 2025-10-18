@@ -8,17 +8,20 @@ import Modelo.Cliente;
 import Persistencia.ClienteData;
 import Persistencia.Conexion;
 import static Vista.jfSpaRelax.listaClientes;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Juan
+ * @author Luca
  */
 public class jifGestionClientes extends javax.swing.JInternalFrame {
     Conexion conexion = new Conexion();
-    ClienteData ad = new ClienteData(conexion);
+    ClienteData cd = new ClienteData(conexion);
     private String estadoOperacion = "ninguno";
+    private int codClienteSeleccionado = -1;
     private boolean tablaVisible = false;
+    private boolean estadoLogicoCambiado = false;
     
     private final DefaultTableModel modelo = new DefaultTableModel(){
         @Override
@@ -127,7 +130,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
                     .addComponent(jtfTelefono)
                     .addComponent(jtfEdad)
                     .addComponent(jtfAfecciones)
-                    .addComponent(jtfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -169,18 +172,43 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
 
         jbActualizar.setText("Actualizar");
         jbActualizar.setEnabled(false);
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         jbBorrar.setText("Borrar");
         jbBorrar.setEnabled(false);
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
 
         jbAlta.setText("Alta");
         jbAlta.setEnabled(false);
+        jbAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAltaActionPerformed(evt);
+            }
+        });
 
         jbBaja.setText("Baja");
         jbBaja.setEnabled(false);
+        jbBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBajaActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setText("Guardar");
         jbGuardar.setEnabled(false);
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jtTablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,6 +221,11 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtTablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtTablaClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtTablaClientes);
 
         jbMostrarClientes.setText("Mostrar Clientes");
@@ -276,7 +309,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void cargarTabla() {
-        listaClientes = ad.obtenerClientes();
+        listaClientes = cd.obtenerClientes();
         modelo.setRowCount(0);
 
         for (Cliente c : listaClientes) {
@@ -290,6 +323,17 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             };
             modelo.addRow(fila);
         }
+    }
+    
+    private Cliente buscarClientePorCodigo(int codigoCliente) {
+        listaClientes = cd.obtenerClientes();
+        
+        for (Cliente c : listaClientes) {
+            if (c.getCodCli() == codigoCliente) {
+                return c;
+            }
+        }
+        return null;
     }
     
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
@@ -325,6 +369,217 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             tablaVisible = false;
         }
     }//GEN-LAST:event_jbMostrarClientesActionPerformed
+
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+        estadoOperacion = "Actualizar";
+        int filaSeleccionada = jtTablaClientes.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            Object valorId = jtTablaClientes.getValueAt(filaSeleccionada, 0);
+
+            int codigoCliente = Integer.parseInt(valorId.toString());
+            this.codClienteSeleccionado = codigoCliente;
+            Cliente clienteSeleccionado = buscarClientePorCodigo(codigoCliente);
+
+            if (clienteSeleccionado != null) {
+                jtfDNI.setText(String.valueOf(clienteSeleccionado.getDni()));
+                jtfNombreCompleto.setText(clienteSeleccionado.getNombreCompleto());
+                jtfTelefono.setText(String.valueOf(clienteSeleccionado.getTelefono()));
+                jtfEdad.setText(String.valueOf(clienteSeleccionado.getEdad()));
+                jtfAfecciones.setText(clienteSeleccionado.getAfecciones());
+                jtfEstado.setText(String.valueOf(clienteSeleccionado.isEstado()));
+                
+                jtfDNI.setEnabled(true);
+                jtfNombreCompleto.setEnabled(true);
+                jtfTelefono.setEnabled(true);
+                jtfEdad.setEnabled(true);
+                jtfAfecciones.setEnabled(true);
+
+                jbGuardar.setEnabled(true);
+                jbNuevo.setEnabled(false);
+                jbBorrar.setEnabled(false);
+                jbActualizar.setEnabled(false);
+                jbAlta.setEnabled(true);
+                jbBaja.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jbActualizarActionPerformed
+
+    private void jtTablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTablaClientesMouseClicked
+        int filaSeleccionada = jtTablaClientes.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            jbNuevo.setEnabled(false);
+            jbActualizar.setEnabled(true);
+            jbBorrar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jtTablaClientesMouseClicked
+
+    private void jbAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaActionPerformed
+        if ("false".equals(jtfEstado.getText())) {
+            jtfEstado.setText("true");
+            estadoLogicoCambiado = true;
+        } else{
+            JOptionPane.showMessageDialog(this, "El Estado ya es true, para cambiarlo a false usar el boton 'Baja'"
+                    , "Error de Logica", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbAltaActionPerformed
+
+    private void jbBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBajaActionPerformed
+        if ("true".equals(jtfEstado.getText())) {
+            jtfEstado.setText("false");
+            estadoLogicoCambiado = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "El Estado ya es false, para cambiarlo a true usar el boton 'Alta'"
+            , "Error de Logica", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbBajaActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        jbNuevo.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        
+        int filaSeleccionada = jtTablaClientes.getSelectedRow();
+
+        if (filaSeleccionada != -1) {            
+            int opcion = JOptionPane.showConfirmDialog(this, "Estas seguro de que queres borrar los datos del Cliente?",
+                    "Confirmar Borrado", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                Object valorId = jtTablaClientes.getValueAt(filaSeleccionada, 0);
+                int codigoCliente = Integer.parseInt(valorId.toString());
+                Cliente clienteSeleccionado = buscarClientePorCodigo(codigoCliente);
+                
+                if (clienteSeleccionado != null) {
+                    cd.borrarCliente(clienteSeleccionado.getCodCli());
+                    JOptionPane.showMessageDialog(this, "Cliente borrado con exito.");
+
+                    cargarTabla();
+                    jtfDNI.setText("");
+                    jtfNombreCompleto.setText("");
+                    jtfTelefono.setText("");
+                    jtfEdad.setText("");
+                    jtfAfecciones.setText("");
+                    jtfEstado.setText("");
+                    jbBorrar.setEnabled(false);
+                    jbNuevo.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el Cliente.", "Error de Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else{
+            JOptionPane.showMessageDialog(this, "No se Encontro la Fila Seleccionada.", "Error de Busqueda",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        boolean clienteExiste = false;
+        
+        if (jtfDNI.getText().isEmpty() || jtfNombreCompleto.getText().isEmpty() || jtfTelefono.getText().isEmpty() ||
+                jtfEdad.getText().isEmpty() || jtfAfecciones.getText().isEmpty() || jtfEstado.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos.", "Error, Campos Vacíos",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try {
+            
+            if (!jtfNombreCompleto.getText().matches(regex) && !jtfNombreCompleto.getText().isEmpty() || 
+                    !jtfAfecciones.getText().matches(regex) && !jtfAfecciones.getText().isEmpty() || 
+                    !jtfEstado.getText().matches(regex) && !jtfEstado.getText().isEmpty() || 
+                    jtfDNI.getText().matches(regex) && !jtfDNI.getText().isEmpty() || 
+                    jtfTelefono.getText().matches(regex) && !jtfTelefono.getText().isEmpty() ||
+                    jtfEdad.getText().matches(regex) && !jtfEdad.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Uno o Muchos campos contienen caracteres incorrectos", 
+                            "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "En DNI, Edad y Telefono solo debe ingresar numeros.", 
+                    "Error de Formato Numerico", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        listaClientes = cd.obtenerClientes();
+        int dniIngresado = Integer.parseInt(jtfDNI.getText());
+        
+        if (estadoOperacion.equalsIgnoreCase("Nuevo")) {
+            
+            for (Cliente cliente : listaClientes) {
+                if (cliente.getDni() == dniIngresado) {
+                    clienteExiste = true;
+                    break;
+                } 
+            }
+        
+            if (clienteExiste) {
+                JOptionPane.showMessageDialog(this, "Ya existe un Cliente con el DNI ingresado.",
+                        "Error. Cliente Existente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            
+            Cliente nuevoCliente = new Cliente(Integer.parseInt(jtfDNI.getText()), jtfNombreCompleto.getText(), 
+                    Integer.parseInt(jtfTelefono.getText()), Integer.parseInt(jtfEdad.getText()),
+                    jtfAfecciones.getText());
+            nuevoCliente.setEstado(Boolean.parseBoolean(jtfEstado.getText()));
+            
+            cd.insertarCliente(nuevoCliente);
+            JOptionPane.showMessageDialog(this, "¡Cliente agregado con exito!");
+            
+            estadoOperacion = "Ninguno";
+            
+        } else if (estadoOperacion.equalsIgnoreCase("Actualizar")) {
+            int codClienteActualizar = this.codClienteSeleccionado;
+            boolean estadoFinal = "true".equals(jtfEstado.getText());
+            Cliente clienteActualizar = buscarClientePorCodigo(codClienteActualizar);
+            
+            if (clienteActualizar != null) {                
+                cd.actualizarCliente(codClienteActualizar, Integer.parseInt(jtfDNI.getText()), 
+                        jtfNombreCompleto.getText(), Integer.parseInt(jtfTelefono.getText()), 
+                        Integer.parseInt(jtfEdad.getText()), jtfAfecciones.getText());
+                
+                if (estadoLogicoCambiado) { 
+                    if (estadoFinal) {
+                        cd.altaCliente(codClienteActualizar);
+                    } else {
+                        cd.bajaCliente(codClienteActualizar);
+                    }
+                    estadoLogicoCambiado = false; 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cliente actualizado con Exito!");
+                }
+                this.codClienteSeleccionado = -1;
+            } else{
+                JOptionPane.showMessageDialog(this, "No se encontro el Cliente.", "Error de Busqueda", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            estadoOperacion = "Ninguno";
+        }
+        
+        if (jbMostrarClientes.getText().equalsIgnoreCase("Mostrar Clientes")) {
+                cargarTabla();
+                jbMostrarClientes.setText("Ocultar Clientes");
+            } else if (jbMostrarClientes.getText().equalsIgnoreCase("Ocultar Clientes")) {
+                cargarTabla();
+            }
+        
+        
+        jtfDNI.setText("");
+        jtfNombreCompleto.setText("");
+        jtfTelefono.setText("");
+        jtfEdad.setText("");
+        jtfAfecciones.setText("");
+        jtfEstado.setText("");
+        
+        jbGuardar.setEnabled(false);
+        jbNuevo.setEnabled(true);
+        
+        
+        jtfDNI.setEnabled(false);
+        jtfNombreCompleto.setEnabled(false);
+        jtfTelefono.setEnabled(false);
+        jtfEdad.setEnabled(false);
+        jtfAfecciones.setEnabled(false);
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
