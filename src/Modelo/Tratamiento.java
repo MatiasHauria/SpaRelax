@@ -9,18 +9,18 @@ public class Tratamiento {
     private String nombre;
     private String detalle;
     private List<String> productos;
-    private double duracion;
+    private int duracion;
     private double costo;
     private boolean activo;
 
-    public Tratamiento(String nombre, String detalle, List<String> productos, double duracion, double costo, boolean activo) {
+    public Tratamiento(String nombre, String detalle, List<String> productos, int duracion, double costo) {
         this.idTratamiento = -1;
         this.nombre = nombre;
         this.detalle = detalle;
         this.productos = new ArrayList<>();
         this.duracion = duracion;
         this.costo = costo;
-        this.activo = activo; // Sujeto a cambios. Debería inicializarse en false (?
+        this.activo = false;
     }
 
     public int getIdTratamiento() {
@@ -55,11 +55,11 @@ public class Tratamiento {
         this.productos = productos;
     }
 
-    public double getDuracion() {
+    public int getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(double duracion) {
+    public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 
