@@ -14,7 +14,7 @@ public class Consultorio {
         this.apto = apto; // SUjeto a cambios. Debería inicializarse en false (?
     }
 
-    public int getNroConsultorio() {
+    public int getIdConsultorio() {
         return idConsultorio;
     }
 
@@ -30,7 +30,7 @@ public class Consultorio {
         return apto;
     }
 
-    public void setNroConsultorio(int idConsultorio) {
+    public void setIdConsultorio(int idConsultorio) {
         this.idConsultorio = idConsultorio;
     }
 

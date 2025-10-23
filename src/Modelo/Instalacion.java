@@ -2,26 +2,26 @@ package Modelo;
 
 public class Instalacion {
 
-    private int nroInstalacion;
+    private int idInstalacion;
     private String nombre;
     private String detalleUso;
-    private double precio;
+    private double precioPorHora;
     private boolean estado;
 
-    public Instalacion(String nombre, String detalleUso, double precio, boolean estado) {
-        this.nroInstalacion = -1;
+    public Instalacion(String nombre, String detalleUso, double precioPorHora, boolean estado) {
+        this.idInstalacion = -1;
         this.nombre = nombre;
         this.detalleUso = detalleUso;
-        this.precio = precio;
+        this.precioPorHora = precioPorHora;
         this.estado = estado; // Sujeto a cambios. Debería inicializar en false (?
     }
 
-    public int getId_instalacion() {
-        return nroInstalacion;
+    public int getIdInstalacion() {
+        return idInstalacion;
     }
 
-    public void setId_instalacion(int nroInstalacion) {
-        this.nroInstalacion = nroInstalacion;
+    public void setIdInstalacion(int idInstalacion) {
+        this.idInstalacion = idInstalacion;
     }
 
     public String getNombre() {
@@ -32,20 +32,20 @@ public class Instalacion {
         this.nombre = nombre;
     }
 
-    public String getDetalle_de_uso() {
+    public String getDetalleUso() {
         return detalleUso;
     }
 
-    public void setDetalle_de_uso(String detalleUso) {
+    public void setDetalleUso(String detalleUso) {
         this.detalleUso = detalleUso;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrecioPorHora() {
+        return precioPorHora;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecioPorHora(double precioPorHora) {
+        this.precioPorHora = precioPorHora;
     }
 
     public boolean isEstado() {

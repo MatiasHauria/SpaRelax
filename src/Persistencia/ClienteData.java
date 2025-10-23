@@ -26,7 +26,7 @@ public class ClienteData {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                e.setCodCli(rs.getInt(1));
+                e.setIdCliente(rs.getInt(1));
             } else {
                 System.out.println("No se pudo tener el ID ");
             }
@@ -51,8 +51,8 @@ public class ClienteData {
                         rs.getInt("edad"),
                         rs.getString("afecciones")
                 );
-                a.setCodCli(rs.getInt("id_cliente"));
-                System.out.println("ID: " + a.getCodCli()
+                a.setIdCliente(rs.getInt("id_cliente"));
+                System.out.println("ID: " + a.getIdCliente()
                         + " | DNI: " + a.getDni()
                         + " | " + a.getNombreCompleto() + ", " + a.getTelefono()
                         + " | Afecciones: " + a.getAfecciones()
@@ -79,7 +79,7 @@ public class ClienteData {
                         rs.getInt("edad"),
                         rs.getString("afecciones")
                 );
-                a.setCodCli(rs.getInt("id_cliente"));
+                a.setIdCliente(rs.getInt("id_cliente"));
                 System.out.println("Encontrado: " + a.getNombreCompleto());
             } else {
                 System.out.println("No se encontró el alumno con ID " + id);
@@ -171,7 +171,7 @@ public class ClienteData {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int codCli = rs.getInt("id_cliente");
+                int idCliente = rs.getInt("id_cliente");
                 int dni = rs.getInt("dni");
                 String nombreCompleto = rs.getString("nombre_completo");
                 int telefono = rs.getInt("telefono");
@@ -180,7 +180,7 @@ public class ClienteData {
                 boolean estado = rs.getBoolean("estado");
 
                 Cliente cliente = new Cliente(dni, nombreCompleto, telefono, edad, afecciones);
-                cliente.setCodCli(codCli);
+                cliente.setIdCliente(idCliente);
                 cliente.setEstado(estado);
                 listaDeClientes.add(cliente);
             }

@@ -314,7 +314,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
 
         for (Cliente c : listaClientes) {
             Object[] fila = {
-                c.getCodCli(),
+                c.getIdCliente(),
                 c.getDni(),
                 c.getNombreCompleto(),
                 c.getEdad(),
@@ -329,7 +329,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
         listaClientes = cd.obtenerClientes();
         
         for (Cliente c : listaClientes) {
-            if (c.getCodCli() == codigoCliente) {
+            if (c.getIdCliente()== codigoCliente) {
                 return c;
             }
         }
@@ -449,7 +449,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
                 Cliente clienteSeleccionado = buscarClientePorCodigo(codigoCliente);
                 
                 if (clienteSeleccionado != null) {
-                    cd.borrarCliente(clienteSeleccionado.getCodCli());
+                    cd.borrarCliente(clienteSeleccionado.getIdCliente());
                     JOptionPane.showMessageDialog(this, "Cliente borrado con exito.");
 
                     cargarTabla();

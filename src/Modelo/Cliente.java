@@ -20,11 +20,11 @@ public class Cliente {
         this.estado = false;
     }
 
-    public int getCodCli() {
+    public int getIdCliente() {
         return idCliente;
     }
 
-    public void setCodCli(int idCliente) {
+    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
