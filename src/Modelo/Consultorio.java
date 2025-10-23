@@ -1,28 +1,24 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Modelo;
 
-public class Consultorio {
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
+public class Consultorio {
     private int idConsultorio;
     private String usos;
     private String equipamiento;
     private boolean apto;
 
-<<<<<<< Updated upstream
-    public Consultorio(String usos, String equipamiento, boolean apto) {
-        this.idConsultorio = -1;
-=======
     public Consultorio(int idConsultorio, String equipamiento, String usos, boolean apto) {
         this.idConsultorio = idConsultorio;
->>>>>>> Stashed changes
         this.usos = usos;
         this.equipamiento = equipamiento;
-        this.apto = apto; // SUjeto a cambios. Debería inicializarse en false (?
+        this.apto = apto;
     }
 
-    public int getIdConsultorio() {
+    public int getNroConsultorio() {
         return idConsultorio;
     }
 
@@ -38,13 +34,8 @@ public class Consultorio {
         return apto;
     }
 
-<<<<<<< Updated upstream
-    public void setIdConsultorio(int idConsultorio) {
-        this.idConsultorio = idConsultorio;
-=======
     public void setNroConsultorio(int nroConsultorio) {
         this.idConsultorio = nroConsultorio;
->>>>>>> Stashed changes
     }
 
     public void setUsos(String usos) {
@@ -61,11 +52,9 @@ public class Consultorio {
 
     @Override
     public String toString() {
-<<<<<<< Updated upstream
-        return "Nro de consultorio: " + this.idConsultorio + " | " + "Usos: " + this.usos + " | " + "Equipamiento: " + this.equipamiento + " | " + "Apto: " + this.apto;
-=======
         return "Consultorio{" + "idConsultorio=" + idConsultorio + ", usos=" + usos + ", equipamiento=" + equipamiento + ", apto=" + apto + '}';
->>>>>>> Stashed changes
     }
-
+    
+    
+    
 }

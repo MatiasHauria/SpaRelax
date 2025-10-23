@@ -4,13 +4,7 @@
  */
 package Persistencia;
 
-<<<<<<< Updated upstream
-/**
- *
- * @author matute
- */
-public class ConsultorioData {
-=======
+
 import Modelo.Consultorio;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -22,6 +16,7 @@ import org.mariadb.jdbc.Connection;
 import java.sql.*;
 
 public class ConsultorioData {
+
     private Connection con = null;
 
     public ConsultorioData(Conexion con) {
@@ -33,7 +28,7 @@ public class ConsultorioData {
         
         try{
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, e.getIdConsultorio());
+            ps.setInt(1, e.getNroConsultorio());
             ps.setString(2, e.getUsos());
             ps.setString(3, e.getEquipamiento());
             ps.setBoolean(4, e.isApto());
@@ -66,7 +61,7 @@ public class ConsultorioData {
                         rs.getBoolean("apto")
                 );
                 a.setNroConsultorio(rs.getInt("id_consultorio"));
-                System.out.println("ID: " + a.getIdConsultorio()+
+                System.out.println("ID: " + a.getNroConsultorio()+
                         " | Equipamento: " + a.getEquipamiento()+
                         " | Usos: " + a.getUsos()+ ", " +
                         " | Apto: " + (a.isApto()? "Activo" : "Inactivo"));
@@ -92,7 +87,7 @@ public class ConsultorioData {
                         rs.getBoolean("apto")
                 );
                 a.setNroConsultorio(rs.getInt("id_consultorio"));
-                System.out.println("Encontrado: " + a.getIdConsultorio());
+                System.out.println("Encontrado: " + a.getNroConsultorio());
             } else {
                 System.out.println("No se encuentra el consultorio" + id_consultorio);
             }
@@ -202,6 +197,5 @@ public class ConsultorioData {
         return listaDeConsultorios;
       
   }
->>>>>>> Stashed changes
     
 }
