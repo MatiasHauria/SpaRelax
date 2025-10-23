@@ -1,25 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-
 public class Consultorio {
-    private int nroConsultorio;
+
+    private int idConsultorio;
     private String usos;
     private String equipamiento;
     private boolean apto;
 
-    public Consultorio(int nroConsultorio, String equipamiento, String usos, boolean apto) {
-        this.nroConsultorio = nroConsultorio;
+    public Consultorio(String usos, String equipamiento, boolean apto) {
+        this.idConsultorio = -1;
         this.usos = usos;
         this.equipamiento = equipamiento;
-        this.apto = apto;
+        this.apto = apto; // SUjeto a cambios. Debería inicializarse en false (?
     }
 
     public int getNroConsultorio() {
-        return nroConsultorio;
+        return idConsultorio;
     }
 
     public String getUsos() {
@@ -34,8 +30,8 @@ public class Consultorio {
         return apto;
     }
 
-    public void setNroConsultorio(int nroConsultorio) {
-        this.nroConsultorio = nroConsultorio;
+    public void setNroConsultorio(int idConsultorio) {
+        this.idConsultorio = idConsultorio;
     }
 
     public void setUsos(String usos) {
@@ -52,9 +48,7 @@ public class Consultorio {
 
     @Override
     public String toString() {
-        return "Consultorio{" + "nroConsultorio=" + nroConsultorio + ", usos=" + usos + ", equipamiento=" + equipamiento + ", apto=" + apto + '}';
+        return "Nro de consultorio: " + this.idConsultorio + " | " + "Usos: " + this.usos + " | " + "Equipamiento: " + this.equipamiento + " | " + "Apto: " + this.apto;
     }
-    
-    
-    
+
 }

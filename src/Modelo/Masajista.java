@@ -1,14 +1,13 @@
-
 package Modelo;
 
-
 public class Masajista {
-  private String matricula;
-  private String  nombre;
-  private String  apellido;
-  private int telefono;
-  private String  especialidad;
-  private boolean estado;
+
+    private String matricula;
+    private String nombre;
+    private String apellido;
+    private int telefono;
+    private String especialidad;
+    private boolean estado;
 
     public Masajista(String matricula, String nombre, String apellido, int telefono, String especialidad, boolean estado) {
         this.matricula = matricula;
@@ -16,7 +15,7 @@ public class Masajista {
         this.apellido = apellido;
         this.telefono = telefono;
         this.especialidad = especialidad;
-        this.estado = estado;
+        this.estado = estado; // Sujeto a cambios. Debería inicializarse en false (?
     }
 
     public String getMatricula() {
@@ -69,8 +68,7 @@ public class Masajista {
 
     @Override
     public String toString() {
-        return  "nombre=" + nombre + ", apellido=" + apellido + ", especialidad=" + especialidad ;
+        return "Matrícula: " + this.matricula + " | " + "Apellido: " + this.apellido + " | " + "Especialidad: " + this.especialidad;
     }
-  
-  
+
 }

@@ -1,36 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author matute
- */
 public class Cliente {
-    private int codCli = -1;
+
+    private int idCliente;
     private int dni;
     private String nombreCompleto;
     private int telefono;
     private int edad;
     private String afecciones;
-    private boolean estado = false;
+    private boolean estado;
 
     public Cliente(int dni, String nombreCompleto, int telefono, int edad, String afecciones) {
+        this.idCliente = -1;
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.telefono = telefono;
         this.edad = edad;
         this.afecciones = afecciones;
+        this.estado = false;
     }
 
     public int getCodCli() {
-        return codCli;
+        return idCliente;
     }
 
-    public void setCodCli(int codCli) {
-        this.codCli = codCli;
+    public void setCodCli(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public int getDni() {
@@ -83,7 +78,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return  nombreCompleto;
+        return "Nro de cliente: " + this.idCliente + " | " + "Nombre completo: " + this.nombreCompleto;
     }
-    
+
 }

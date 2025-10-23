@@ -1,30 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 public class Instalacion {
-    private int id_instalacion;
+
+    private int nroInstalacion;
     private String nombre;
-    private String detalle_de_uso;
+    private String detalleUso;
     private double precio;
     private boolean estado;
 
-    public Instalacion(int id_instalacion, String nombre, String detalle_de_uso, double precio, boolean estado) {
-        this.id_instalacion = id_instalacion;
+    public Instalacion(String nombre, String detalleUso, double precio, boolean estado) {
+        this.nroInstalacion = -1;
         this.nombre = nombre;
-        this.detalle_de_uso = detalle_de_uso;
+        this.detalleUso = detalleUso;
         this.precio = precio;
-        this.estado = estado;
+        this.estado = estado; // Sujeto a cambios. Debería inicializar en false (?
     }
 
     public int getId_instalacion() {
-        return id_instalacion;
+        return nroInstalacion;
     }
 
-    public void setId_instalacion(int id_instalacion) {
-        this.id_instalacion = id_instalacion;
+    public void setId_instalacion(int nroInstalacion) {
+        this.nroInstalacion = nroInstalacion;
     }
 
     public String getNombre() {
@@ -36,11 +33,11 @@ public class Instalacion {
     }
 
     public String getDetalle_de_uso() {
-        return detalle_de_uso;
+        return detalleUso;
     }
 
-    public void setDetalle_de_uso(String detalle_de_uso) {
-        this.detalle_de_uso = detalle_de_uso;
+    public void setDetalle_de_uso(String detalleUso) {
+        this.detalleUso = detalleUso;
     }
 
     public double getPrecio() {
@@ -58,6 +55,9 @@ public class Instalacion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
+    public String toString() {
+        return "Nro de instalación: " + " | " + "Nombre: " + this.nombre;
+    }
+
 }
