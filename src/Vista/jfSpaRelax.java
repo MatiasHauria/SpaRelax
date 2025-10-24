@@ -114,6 +114,11 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jMenu4.setText("Tratamientos");
 
         jMenuItem4.setText("Gestion de Tratamientos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
         jmbBarraMenu.add(jMenu4);
@@ -173,6 +178,15 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jdpEscritorio.add(g);
         g.toFront();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        jifGestionTratamientos gT = new jifGestionTratamientos();
+        jdpEscritorio.add(gT);
+        gT.setVisible(true);
+        gT.moveToFront();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
