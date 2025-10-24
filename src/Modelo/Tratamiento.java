@@ -17,7 +17,7 @@ public class Tratamiento {
         this.idTratamiento = -1;
         this.nombre = nombre;
         this.detalle = detalle;
-        this.productos = new ArrayList<>();
+        this.productos = new ArrayList<>(productos);
         this.duracion = duracion;
         this.costo = costo;
         this.activo = false;

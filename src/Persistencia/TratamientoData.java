@@ -13,7 +13,7 @@ public class TratamientoData {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();
-            String query = "INSERT INTO tratamiento (nombre, detalle, productos, duracion, costo, activo) VALUES (?,?,?,?,?,?,?)";
+            String query = "INSERT INTO tratamiento (nombre, detalle, productos, duracion, costo, activo) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, tratamiento.getNombre());
             ps.setString(2, tratamiento.getDetalle());
@@ -28,13 +28,13 @@ public class TratamientoData {
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "Error: No se pudo procesar la consulta.");
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }
@@ -66,13 +66,13 @@ public class TratamientoData {
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "Error: No se pudo procesar la consulta.");
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }
@@ -99,13 +99,13 @@ public class TratamientoData {
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "Error: No se pudo realizar la consulta.");
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }
@@ -126,13 +126,13 @@ public class TratamientoData {
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "No se pudo procesar la consulta.");
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }
@@ -153,13 +153,13 @@ public class TratamientoData {
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "No se pudo procesar la consulta.");
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }
@@ -180,13 +180,13 @@ public class TratamientoData {
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "No se pudo procesar la consulta.");
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }
@@ -216,13 +216,13 @@ public class TratamientoData {
                 tratamiento.setActivo(rs.getBoolean("activo"));
             }
         } catch (SQLException s) {
-            s.getMessage();
+            s.printStackTrace();
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException s) {
-                    s.getMessage();
+                    s.printStackTrace();
                 }
             }
         }

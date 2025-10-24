@@ -4,12 +4,20 @@
  */
 package Vista;
 
+import Modelo.Tratamiento;
+import static Vista.jfSpaRelax.tratamientoData;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dannita
  */
 public class jifGestionTratamientos extends javax.swing.JInternalFrame {
-
+    private boolean aux = false;
+    private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.\\s]+$";
+    private String regex2 = "^[\\d.]+$";
     /**
      * Creates new form jifGestionTratamientos
      */
@@ -183,6 +191,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jButtonCancelar.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setEnabled(false);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Buscar tratamiento por ID:");
 
@@ -284,8 +297,54 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCargarTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarTratamientoActionPerformed
-        // TODO add your handling code here:
+        if (aux == false) {
+            habilitarCampos();
+            deshabilitarBotones();
+            jComboBoxIds.setEnabled(false);
+            jComboBoxProductos.setEnabled(false);
+            jButtonCargarTratamiento.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            aux = true;
+            return;
+        }
+
+        if (aux == true) {
+            if (!jTextFieldNombre.getText().matches(regex) || jTextFieldNombre.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Nombre'.");
+                return;
+            } else if (!jTextFieldDetalle.getText().matches(regex) || jTextFieldDetalle.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Detalle'.");
+                return;
+            } else if (!jTextFieldProductos.getText().matches(regex) || jTextFieldProductos.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Productos'.");
+                return;
+            } else if (!jTextFieldDuracion.getText().matches(regex2) || jTextFieldDuracion.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Duracion'.");
+                return;
+            } else if (!jTextFieldCosto.getText().matches(regex2) || jTextFieldCosto.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Costo'.");
+                return;
+            }
+
+            List<String> productos = new ArrayList<>();
+            productos.add(jTextFieldProductos.getText());
+            tratamientoData.agregarTratamiento(new Tratamiento(jTextFieldNombre.getText(), jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText())));
+            limpiarCampos();
+            deshabilitarCampos();
+            habilitarBotones();
+            aux = false;
+        }
     }//GEN-LAST:event_jButtonCargarTratamientoActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        limpiarCampos();
+        deshabilitarCampos();
+        habilitarBotones();
+        jButtonCancelar.setEnabled(false);
+        if (aux == true) {
+            aux = false;
+        }
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);

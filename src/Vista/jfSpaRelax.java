@@ -5,6 +5,7 @@
 package Vista;
 
 import Modelo.Cliente;
+import Persistencia.TratamientoData;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -17,15 +18,15 @@ import javax.swing.JDesktopPane;
  */
 public class jfSpaRelax extends javax.swing.JFrame {
     public static ArrayList<Cliente> listaClientes = new ArrayList<>();
-
+    public static TratamientoData tratamientoData;
     /**
      * Creates new form SpaRelax
      */
     public jfSpaRelax() {
         initComponents();
-        
         jdpEscritorio = new DesktopConFondo("/img/spa.jpeg");
         setContentPane(jdpEscritorio);
+        tratamientoData = new TratamientoData();
     }
 
     /**
