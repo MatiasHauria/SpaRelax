@@ -57,9 +57,7 @@ public class ConsultorioData {
                 Consultorio a = new Consultorio(
                         rs.getInt("id_consultorio"),
                         rs.getString("usos"),
-                        rs.getString("equipamento"),
-                        rs.getBoolean("apto")
-                );
+                        rs.getString("equipamento"));
                 a.setNroConsultorio(rs.getInt("id_consultorio"));
                 System.out.println("ID: " + a.getNroConsultorio()+
                         " | Equipamento: " + a.getEquipamiento()+
@@ -83,9 +81,7 @@ public class ConsultorioData {
                 a = new Consultorio(
                         rs.getInt("id_consultorio"),
                         rs.getString("usos"),
-                        rs.getString("equipamento"),
-                        rs.getBoolean("apto")
-                );
+                        rs.getString("equipamento"));
                 a.setNroConsultorio(rs.getInt("id_consultorio"));
                 System.out.println("Encontrado: " + a.getNroConsultorio());
             } else {
@@ -98,7 +94,7 @@ public class ConsultorioData {
         return a;
     }
     
-     public void actualizarConsultorio(int idNuevo, String usoNuevo, String equipoNuevo, boolean aptoNuevo) {
+     public void actualizarConsultorio(int idNuevo, int parseInt, String usoNuevo, String equipoNuevo, boolean aptoNuevo) {
         String sql = "UPDATE Consultorio SET id_consultorio=?,usos=?,equipamento=?,apto=? WHERE id_consultorio=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -180,7 +176,7 @@ public class ConsultorioData {
            String equipo=rs.getString("equipamento");
            boolean apto =rs.getBoolean("apto");
            
-           Consultorio consultorio = new Consultorio( idCons, usos, equipo, apto);
+           Consultorio consultorio = new Consultorio( idCons, usos, equipo);
            consultorio.setNroConsultorio(idCons);
            consultorio.setUsos(usos);
            consultorio.setEquipamiento(equipo);
