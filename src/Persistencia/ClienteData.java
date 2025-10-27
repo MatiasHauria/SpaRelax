@@ -18,7 +18,7 @@ public class ClienteData {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, e.getDni());
             ps.setString(2, e.getNombreCompleto());
-            ps.setInt(3, e.getTelefono());
+            ps.setLong(3, e.getTelefono());
             ps.setInt(4, e.getEdad());
             ps.setString(5, e.getAfecciones());
             ps.setBoolean(6, e.isEstado());
@@ -47,7 +47,7 @@ public class ClienteData {
                 Cliente a = new Cliente(
                         rs.getInt("dni"),
                         rs.getString("nombre_completo"),
-                        rs.getInt("telefono"),
+                        rs.getLong("telefono"),
                         rs.getInt("edad"),
                         rs.getString("afecciones")
                 );
@@ -75,7 +75,7 @@ public class ClienteData {
                 a = new Cliente(
                         rs.getInt("dni"),
                         rs.getString("nombre_completo"),
-                        rs.getInt("telefono"),
+                        rs.getLong("telefono"),
                         rs.getInt("edad"),
                         rs.getString("afecciones")
                 );
@@ -91,13 +91,13 @@ public class ClienteData {
         return a;
     }
 
-    public void actualizarCliente(int id, int dniNuevo, String nuevoNombre, int telefonoNuevo, int edadNueva, String afeccionesNuevo) {
+    public void actualizarCliente(int id, int dniNuevo, String nuevoNombre, long telefonoNuevo, int edadNueva, String afeccionesNuevo) {
         String sql = "UPDATE Cliente SET dni=?, nombre_completo=?,telefono=?,edad=?,afecciones=? WHERE id_cliente=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dniNuevo);
             ps.setString(2, nuevoNombre);
-            ps.setInt(3, telefonoNuevo);
+            ps.setLong(3, telefonoNuevo);
             ps.setInt(4, edadNueva);
             ps.setString(5, afeccionesNuevo);
             ps.setInt(6, id);
@@ -174,7 +174,7 @@ public class ClienteData {
                 int idCliente = rs.getInt("id_cliente");
                 int dni = rs.getInt("dni");
                 String nombreCompleto = rs.getString("nombre_completo");
-                int telefono = rs.getInt("telefono");
+                long telefono = rs.getLong("telefono");
                 int edad = rs.getInt("edad");
                 String afecciones = rs.getString("afecciones");
                 boolean estado = rs.getBoolean("estado");

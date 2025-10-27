@@ -518,7 +518,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             
             
             Cliente nuevoCliente = new Cliente(Integer.parseInt(jtfDNI.getText()), jtfNombreCompleto.getText(), 
-                    Integer.parseInt(jtfTelefono.getText()), Integer.parseInt(jtfEdad.getText()),
+                    Long.parseLong(jtfTelefono.getText()), Integer.parseInt(jtfEdad.getText()),
                     jtfAfecciones.getText());
             nuevoCliente.setEstado(Boolean.parseBoolean(jtfEstado.getText()));
             
@@ -534,7 +534,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             
             if (clienteActualizar != null) {                
                 cd.actualizarCliente(codClienteActualizar, Integer.parseInt(jtfDNI.getText()), 
-                        jtfNombreCompleto.getText(), Integer.parseInt(jtfTelefono.getText()), 
+                        jtfNombreCompleto.getText(), Long.parseLong(jtfTelefono.getText()), 
                         Integer.parseInt(jtfEdad.getText()), jtfAfecciones.getText());
                 
                 if (estadoLogicoCambiado) { 

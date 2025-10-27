@@ -5,12 +5,12 @@ public class Cliente {
     private int idCliente;
     private int dni;
     private String nombreCompleto;
-    private int telefono;
+    private long telefono;
     private int edad;
     private String afecciones;
     private boolean estado;
 
-    public Cliente(int dni, String nombreCompleto, int telefono, int edad, String afecciones) {
+    public Cliente(int dni, String nombreCompleto, long telefono, int edad, String afecciones) {
         this.idCliente = -1;
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
@@ -44,11 +44,11 @@ public class Cliente {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
