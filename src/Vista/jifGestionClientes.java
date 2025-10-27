@@ -461,6 +461,8 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
                     jtfEstado.setText("");
                     jbBorrar.setEnabled(false);
                     jbNuevo.setEnabled(true);
+                    jbAlta.setEnabled(false);
+                    jbBaja.setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontro el Cliente.", "Error de Busqueda",
                             JOptionPane.ERROR_MESSAGE);
