@@ -432,7 +432,17 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+         
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if(filaSeleccionada != -1){
+           int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           instdat.bajaInstalacion(id);
+           JOptionPane.showMessageDialog(null,"Se ha dado la baja correctamente a la instalacion seleccionada.");
+           modelo.setRowCount(0);
+           jButton4.setEnabled(false);
+           jButton5.setEnabled(false);
+           jButton3.setEnabled(false);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
 
