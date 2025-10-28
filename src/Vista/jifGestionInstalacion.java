@@ -47,18 +47,18 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jTextNombre = new javax.swing.JTextField();
+        jTextDetalles = new javax.swing.JTextField();
+        jTextPrecio = new javax.swing.JTextField();
+        jBotonNuevo = new javax.swing.JButton();
+        jBotonGuardar = new javax.swing.JButton();
+        jBotonActualizar = new javax.swing.JButton();
+        jBotonAlta = new javax.swing.JButton();
+        jBotonBaja = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        jTable = new javax.swing.JTable();
+        jBotonCerrar = new javax.swing.JButton();
+        jBotonActualizarTabla = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,53 +83,53 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
         jLabel4.setText("Precio/H:");
 
-        jTextField1.setEnabled(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextNombre.setEnabled(false);
+        jTextNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextNombreActionPerformed(evt);
             }
         });
 
-        jTextField2.setEnabled(false);
+        jTextDetalles.setEnabled(false);
 
-        jTextField3.setEnabled(false);
+        jTextPrecio.setEnabled(false);
 
-        jButton1.setText("Nueva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBotonNuevo.setText("Nueva");
+        jBotonNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBotonNuevoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Guardar");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBotonGuardar.setText("Guardar");
+        jBotonGuardar.setEnabled(false);
+        jBotonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBotonGuardarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Actualizar");
-        jButton3.setEnabled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBotonActualizar.setText("Actualizar");
+        jBotonActualizar.setEnabled(false);
+        jBotonActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBotonActualizarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Alta Logica");
-        jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jBotonAlta.setText("Alta Logica");
+        jBotonAlta.setEnabled(false);
+        jBotonAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jBotonAltaActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Baja Logica");
-        jButton5.setEnabled(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jBotonBaja.setText("Baja Logica");
+        jBotonBaja.setEnabled(false);
+        jBotonBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jBotonBajaActionPerformed(evt);
             }
         });
 
@@ -145,26 +145,26 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(89, 89, 89)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(99, 99, 99)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton1))
+                            .addComponent(jBotonGuardar)
+                            .addComponent(jBotonActualizar)
+                            .addComponent(jBotonNuevo))
                         .addGap(0, 10, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5))))
+                            .addComponent(jBotonAlta)
+                            .addComponent(jBotonBaja))))
                 .addGap(18, 18, 18))
         );
         jPanel2Layout.setVerticalGroup(
@@ -173,33 +173,33 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)
+                        .addComponent(jBotonNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(jBotonGuardar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(jBotonActualizar)
                         .addGap(17, 17, 17))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)))
-                .addComponent(jButton4)
+                .addComponent(jBotonAlta)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(jBotonBaja)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -210,27 +210,27 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
-        jButton6.setText("Cerrar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jBotonCerrar.setText("Cerrar");
+        jBotonCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jBotonCerrarActionPerformed(evt);
             }
         });
 
-        jButton7.setText("Actualizar Tabla");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jBotonActualizarTabla.setText("Actualizar Tabla");
+        jBotonActualizarTabla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jBotonActualizarTablaActionPerformed(evt);
             }
         });
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jBotonCerrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jBotonActualizarTabla, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -247,10 +247,10 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(196, 196, 196))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jButton7)
+                .addGap(144, 144, 144)
+                .addComponent(jBotonActualizarTabla)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBotonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -264,8 +264,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(jBotonCerrar)
+                    .addComponent(jBotonActualizarTabla))
                 .addContainerGap())
         );
 
@@ -292,46 +292,46 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextNombreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jTextField1.setEnabled(true);
-        jTextField2.setEnabled(true);
-        jTextField3.setEnabled(true);
-        jButton2.setEnabled(true);
-        jButton1.setEnabled(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBotonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonNuevoActionPerformed
+        jTextNombre.setEnabled(true);
+        jTextDetalles.setEnabled(true);
+        jTextPrecio.setEnabled(true);
+        jBotonGuardar.setEnabled(true);
+        jBotonNuevo.setEnabled(false);
+    }//GEN-LAST:event_jBotonNuevoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonGuardarActionPerformed
         String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
 
-        if (!jTextField1.getText().matches(regex) || jTextField1.getText().isEmpty() || jTextField1.getText().length() >= 20) {
+        if (!jTextNombre.getText().matches(regex) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.");
             return;
         }
-        String nombre = jTextField1.getText();
-        if (jTextField2.getText().length() > 50 || jTextField2.getText().isEmpty()) {
+        String nombre = jTextNombre.getText();
+        if (jTextDetalles.getText().length() > 50 || jTextDetalles.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.");
             return;
         }
-        String detalles = jTextField2.getText();
+        String detalles = jTextDetalles.getText();
         try {
-            double precioh = Double.parseDouble(jTextField3.getText());
+            double precioh = Double.parseDouble(jTextPrecio.getText());
             Instalacion instalacion = new Instalacion(nombre, detalles, precioh, false);
             instdat.insertarInstalacion(instalacion);
             JOptionPane.showMessageDialog(null, "Se ha Guardado Correctamente la Instalacion");
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jButton2.setEnabled(false);
-            jButton1.setEnabled(true);
+            jTextNombre.setText("");
+            jTextDetalles.setText("");
+            jTextPrecio.setText("");
+            jBotonGuardar.setEnabled(false);
+            jBotonNuevo.setEnabled(true);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Por Favor Ingrese un precio valido.");
         }
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBotonGuardarActionPerformed
 
     private void columnas() {
         modelo.addColumn("ID instalacion");
@@ -339,11 +339,11 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         modelo.addColumn("Detalles");
         modelo.addColumn("Precio por Hora");
         modelo.addColumn("Estado");
-        jTable1.setModel(modelo);
+        jTable.setModel(modelo);
     }
 
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jBotonActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonActualizarTablaActionPerformed
 
         modelo.setRowCount(0);
         ArrayList<Instalacion> lista = instdat.obtenerInstalaciones();
@@ -361,99 +361,99 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
             modelo.addRow(filas);
         }
         if(modelo.getRowCount() >0){
-            jButton3.setEnabled(true);
-            jButton4.setEnabled(true);
-            jButton5.setEnabled(true);
-            jButton2.setEnabled(false);
-            jButton1.setEnabled(false);
-            jTextField1.setEnabled(true);
-            jTextField2.setEnabled(true);
-            jTextField3.setEnabled(true);
+            jBotonActualizar.setEnabled(true);
+            jBotonAlta.setEnabled(true);
+            jBotonBaja.setEnabled(true);
+            jBotonGuardar.setEnabled(false);
+            jBotonNuevo.setEnabled(false);
+            jTextNombre.setEnabled(true);
+            jTextDetalles.setEnabled(true);
+            jTextPrecio.setEnabled(true);
         }
         
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jBotonActualizarTablaActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jBotonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonCerrarActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jBotonCerrarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jButton1.setEnabled(false);
-        jButton2.setEnabled(false);
+    private void jBotonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonActualizarActionPerformed
+        jBotonNuevo.setEnabled(false);
+        jBotonGuardar.setEnabled(false);
         String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
 
-        if (!jTextField1.getText().matches(regex) || jTextField1.getText().isEmpty() || jTextField1.getText().length() >= 20) {
+        if (!jTextNombre.getText().matches(regex) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.");
             return;
         }
-        String nombre = jTextField1.getText();
-        if (jTextField2.getText().length() > 50 || jTextField2.getText().isEmpty()) {
+        String nombre = jTextNombre.getText();
+        if (jTextDetalles.getText().length() > 50 || jTextDetalles.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.");
             return;
         }
        
-        String detalles = jTextField2.getText();
+        String detalles = jTextDetalles.getText();
         int id=0;
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = jTable.getSelectedRow();
         if(filaSeleccionada != -1){
-           id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           id = (int) jTable.getValueAt(filaSeleccionada, 0);
           
         }
         try {
-            double precioh = Double.parseDouble(jTextField3.getText());
+            double precioh = Double.parseDouble(jTextPrecio.getText());
             instdat.actualizarInstalacion(id, nombre, detalles, precioh);
             JOptionPane.showMessageDialog(null, "Se ha actualizado Correctamente la Instalacion");
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jButton2.setEnabled(false);
-            jButton1.setEnabled(true);
-            jButton3.setEnabled(false);
+            jTextNombre.setText("");
+            jTextDetalles.setText("");
+            jTextPrecio.setText("");
+            jBotonGuardar.setEnabled(false);
+            jBotonNuevo.setEnabled(true);
+            jBotonActualizar.setEnabled(false);
             modelo.setRowCount(0);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Por Favor Ingrese un precio valido.");
         }
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jBotonActualizarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jBotonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAltaActionPerformed
         
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = jTable.getSelectedRow();
         if(filaSeleccionada != -1){
-           int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           int id = (int) jTable.getValueAt(filaSeleccionada, 0);
            instdat.altaInstalacion(id);
            JOptionPane.showMessageDialog(null,"Se ha dado la alta correctamente a la instalacion seleccionada.");
            modelo.setRowCount(0);
-           jButton4.setEnabled(false);
-           jButton5.setEnabled(false);
-           jButton3.setEnabled(false);
+           jBotonAlta.setEnabled(false);
+           jBotonBaja.setEnabled(false);
+           jBotonActualizar.setEnabled(false);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jBotonAltaActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jBotonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBajaActionPerformed
          
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = jTable.getSelectedRow();
         if(filaSeleccionada != -1){
-           int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           int id = (int) jTable.getValueAt(filaSeleccionada, 0);
            instdat.bajaInstalacion(id);
            JOptionPane.showMessageDialog(null,"Se ha dado la baja correctamente a la instalacion seleccionada.");
            modelo.setRowCount(0);
-           jButton4.setEnabled(false);
-           jButton5.setEnabled(false);
-           jButton3.setEnabled(false);
+           jBotonAlta.setEnabled(false);
+           jBotonBaja.setEnabled(false);
+           jBotonActualizar.setEnabled(false);
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jBotonBajaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jBotonActualizar;
+    private javax.swing.JButton jBotonActualizarTabla;
+    private javax.swing.JButton jBotonAlta;
+    private javax.swing.JButton jBotonBaja;
+    private javax.swing.JButton jBotonCerrar;
+    private javax.swing.JButton jBotonGuardar;
+    private javax.swing.JButton jBotonNuevo;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -462,9 +462,9 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable jTable;
+    private javax.swing.JTextField jTextDetalles;
+    private javax.swing.JTextField jTextNombre;
+    private javax.swing.JTextField jTextPrecio;
     // End of variables declaration//GEN-END:variables
 }
