@@ -17,8 +17,7 @@ public class TratamientoData {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, tratamiento.getNombre());
             ps.setString(2, tratamiento.getDetalle());
-            String listaProductos = String.join(",", tratamiento.getProductos());
-            ps.setString(3, listaProductos);
+            ps.setString(3, tratamiento.getProductos().toString());
             ps.setInt(4, tratamiento.getDuracion());
             ps.setDouble(5, tratamiento.getCosto());
             ps.setBoolean(6, tratamiento.isActivo());
@@ -47,7 +46,7 @@ public class TratamientoData {
             conexion = Conexion.establecerConexion();
             String query = "SELECT * FROM tratamiento";
             PreparedStatement ps = conexion.prepareStatement(query);
-            ResultSet rs = ps.getResultSet();
+            ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
                 String productos = rs.getString("productos");
@@ -64,9 +63,9 @@ public class TratamientoData {
                 tratamiento.setActivo(rs.getBoolean("activo"));
                 listaTratamientos.add(tratamiento);
             }
-        } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Error: No se pudo procesar la consulta.");
-            s.printStackTrace();
+        } catch (SQLException | NullPointerException e) {
+            System.out.println("Error: No se pudo procesar la consulta. Verificar si hay una conexion a la base de datos establecida.");
+            e.getMessage();
         } finally {
             if (conexion != null) {
                 try {

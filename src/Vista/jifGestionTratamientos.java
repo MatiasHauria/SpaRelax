@@ -23,6 +23,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
      */
     public jifGestionTratamientos() {
         initComponents();
+        cargarId();
     }
 
     /**
@@ -170,6 +171,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonActualizarTratamiento.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonActualizarTratamiento.setText("Actualizar tratamiento");
+        jButtonActualizarTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarTratamientoActionPerformed(evt);
+            }
+        });
 
         jButtonBorrarTratamiento.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonBorrarTratamiento.setText("Borrar tratamiento");
@@ -346,6 +352,45 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButtonActualizarTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarTratamientoActionPerformed
+        if (aux == false) {
+            habilitarCampos();
+            deshabilitarBotones();
+            jButtonActualizarTratamiento.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            aux = true;
+            return;
+        }
+        
+        if (aux == true) {
+            if (!jTextFieldNombre.getText().matches(regex) || jTextFieldNombre.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Nombre'.");
+                return;
+            } else if (!jTextFieldDetalle.getText().matches(regex) || jTextFieldDetalle.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Detalle'.");
+                return;
+            } else if (!jTextFieldProductos.getText().matches(regex) || jTextFieldProductos.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Productos'.");
+                return;
+            } else if (!jTextFieldDuracion.getText().matches(regex2) || jTextFieldDuracion.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Duracion'.");
+                return;
+            } else if (!jTextFieldCosto.getText().matches(regex2) || jTextFieldCosto.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Costo'.");
+                return;
+            }
+            int seleccionId = (int) jComboBoxIds.getSelectedItem();
+            List<String> productos = new ArrayList<>();
+            productos.add(jTextFieldProductos.getText());
+            tratamientoData.actualizarTratamiento(seleccionId, jTextFieldNombre.getText(), jTextFieldDetalle.getText(), productos.toString(), Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText()));
+            limpiarCampos();
+            deshabilitarCampos();
+            habilitarBotones();
+            jButtonCancelar.setEnabled(false);
+            aux = false;
+        }
+    }//GEN-LAST:event_jButtonActualizarTratamientoActionPerformed
+
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);
         jTextFieldNombre.setEnabled(false);
@@ -390,6 +435,12 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jButtonTratamientoOff.setEnabled(false);
     }
     
+    private void cargarId() {
+        for (Tratamiento tratamiento : tratamientoData.mostrarTratamientos()) {
+            jComboBoxIds.addItem(tratamiento.getIdTratamiento());
+        }
+    }
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
