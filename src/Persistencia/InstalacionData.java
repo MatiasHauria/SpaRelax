@@ -19,14 +19,14 @@ public class InstalacionData {
         this.con = (Connection) con2.establecerConexion();
     }
     public void insertarInstalacion(Instalacion e) {
-        String query = "INSERT INTO instalacion(nombre,detalle_de_uso,precio_hr,estado) VALUES(?,?,?,?)";
+        String query = "INSERT INTO instalacion(nombre,detalle_de_uso,precio_hr,estado) VALUES(?,?,?,?) ";
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, e.getNombre());
             ps.setString(2, e.getDetalleUso());
             ps.setDouble(3, e.getPrecioPorHora());
             ps.setBoolean(4, e.isEstado());
-
+            ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 e.setIdInstalacion(rs.getInt(1));
@@ -88,7 +88,7 @@ public class InstalacionData {
         }
     }
 
-    public void bajaCliente(int id) {
+    public void bajaInstalacion(int id) {
         String sql = "UPDATE instalacion SET estado=false WHERE id_instalacion=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -105,7 +105,7 @@ public class InstalacionData {
         }
     }
 
-    public void altaCliente(int id) {
+    public void altaInstalacion(int id) {
         String sql = "UPDATE instalacion SET estado=true WHERE id_instalacion=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -122,7 +122,7 @@ public class InstalacionData {
         }
     }
 
-    public void borrarCliente(int id) {
+    public void borrarInstalacion(int id) {
         String sql = "DELETE FROM instalacion WHERE id_instalacion=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -139,8 +139,8 @@ public class InstalacionData {
         }
     }
 
-    public ArrayList<Instalacion> obtenerClientes() {
-        ArrayList<Instalacion> listaDeClientes = new ArrayList<>();
+    public ArrayList<Instalacion> obtenerInstalaciones() {
+        ArrayList<Instalacion> listaDeInstalacion = new ArrayList<>();
         String sql = "Select * FROM instalacion";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -148,21 +148,20 @@ public class InstalacionData {
             while (rs.next()) {
                 int idInstalacion = rs.getInt("id_instalacion");
                 String nombrea = rs.getString("nombre");
-                String detallesuso = rs.getString("detalles_de_uso");
+                String detallesuso = rs.getString("detalle_de_uso");
                 double precioa = rs.getDouble("precio_hr");
-                int edad = rs.getInt("edad");
                 boolean estado = rs.getBoolean("estado");
 
                 Instalacion instalacion = new Instalacion(nombrea, detallesuso, precioa, estado);
                 instalacion.setIdInstalacion(idInstalacion);
-                listaDeClientes.add(instalacion);
+                listaDeInstalacion.add(instalacion);
             }
 
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return listaDeClientes;
+        return listaDeInstalacion;
 
     }
     

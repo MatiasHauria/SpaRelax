@@ -47,11 +47,9 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -85,9 +83,6 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
         jLabel4.setText("Precio/H:");
 
-        jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 12)); // NOI18N
-        jLabel5.setText("Estado:");
-
         jTextField1.setEnabled(false);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,8 +93,6 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jTextField2.setEnabled(false);
 
         jTextField3.setEnabled(false);
-
-        jTextField4.setEnabled(false);
 
         jButton1.setText("Nueva");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,12 +111,27 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
 
         jButton3.setText("Actualizar");
         jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Alta Logica");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Baja Logica");
         jButton5.setEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,10 +142,6 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,10 +195,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                         .addGap(5, 5, 5)))
                 .addComponent(jButton4)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                .addComponent(jButton5)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -212,6 +213,11 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton6.setText("Cerrar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Actualizar Tabla");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -328,6 +334,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void columnas() {
+        modelo.addColumn("ID instalacion");
         modelo.addColumn("Nombre Instalacion");
         modelo.addColumn("Detalles");
         modelo.addColumn("Precio por Hora");
@@ -337,13 +344,15 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
 
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+
         modelo.setRowCount(0);
-        ArrayList<Instalacion> lista = instdat.obtenerClientes();
+        ArrayList<Instalacion> lista = instdat.obtenerInstalaciones();
         if(lista.isEmpty()){
             return;
         }
         for(Instalacion aux: lista){
             Object[] filas = {
+                aux.getIdInstalacion(),
                 aux.getNombre(),
                 aux.getDetalleUso(),
                 aux.getPrecioPorHora(),
@@ -351,9 +360,80 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
             };
             modelo.addRow(filas);
         }
+        if(modelo.getRowCount() >0){
+            jButton3.setEnabled(true);
+            jButton4.setEnabled(true);
+            jButton5.setEnabled(true);
+            jButton2.setEnabled(false);
+            jButton1.setEnabled(false);
+            jTextField1.setEnabled(true);
+            jTextField2.setEnabled(true);
+            jTextField3.setEnabled(true);
+        }
         
-
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+
+        if (!jTextField1.getText().matches(regex) || jTextField1.getText().isEmpty() || jTextField1.getText().length() >= 20) {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.");
+            return;
+        }
+        String nombre = jTextField1.getText();
+        if (jTextField2.getText().length() > 50 || jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.");
+            return;
+        }
+       
+        String detalles = jTextField2.getText();
+        int id=0;
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if(filaSeleccionada != -1){
+           id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+          
+        }
+        try {
+            double precioh = Double.parseDouble(jTextField3.getText());
+            instdat.actualizarInstalacion(id, nombre, detalles, precioh);
+            JOptionPane.showMessageDialog(null, "Se ha actualizado Correctamente la Instalacion");
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jButton2.setEnabled(false);
+            jButton1.setEnabled(true);
+            jButton3.setEnabled(false);
+            modelo.setRowCount(0);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por Favor Ingrese un precio valido.");
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if(filaSeleccionada != -1){
+           int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           instdat.altaInstalacion(id);
+           JOptionPane.showMessageDialog(null,"Se ha dado la alta correctamente a la instalacion seleccionada.");
+           modelo.setRowCount(0);
+           jButton4.setEnabled(false);
+           jButton5.setEnabled(false);
+           jButton3.setEnabled(false);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -369,7 +449,6 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -377,6 +456,5 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

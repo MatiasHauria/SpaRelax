@@ -2,14 +2,13 @@ package Modelo;
 
 public class Instalacion {
 
-    private int idInstalacion;
+    private int idInstalacion = -1;
     private String nombre;
     private String detalleUso;
     private double precioPorHora;
-    private boolean estado;
+    private boolean estado = false;
 
     public Instalacion(String nombre, String detalleUso, double precioPorHora, boolean estado) {
-        this.idInstalacion = -1;
         this.nombre = nombre;
         this.detalleUso = detalleUso;
         this.precioPorHora = precioPorHora;
