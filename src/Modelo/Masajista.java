@@ -8,12 +8,12 @@ public class Masajista {
     private String especialidad;
     private boolean estado;
 
-    public Masajista(int matricula, String nombrecompleto, int telefono, String especialidad, boolean estado) {
+    public Masajista(int matricula, String nombrecompleto, int telefono, String especialidad) {
         this.matricula = matricula;
         this.nombrecompleto = nombrecompleto;
         this.telefono = telefono;
         this.especialidad = especialidad;
-        this.estado = estado; // Sujeto a cambios. Debería inicializarse en false (?
+        this.estado = false; // Sujeto a cambios. Debería inicializarse en false (?
     }
 
     public int getMatricula() {

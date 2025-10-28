@@ -1,20 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Vista;
 
-/**
- *
- * @author matute
- */
-public class jifGestionMasajista extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form jifGestionMasajista
-     */
+import Modelo.Masajista;
+import Persistencia.MasajistaData;
+import Persistencia.Conexion;
+import static Vista.jfSpaRelax.listaMasajista;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+public class jifGestionMasajista extends javax.swing.JInternalFrame {
+Conexion conexion = new Conexion();
+MasajistaData cd = new MasajistaData(conexion);
+private boolean tablaoculta = false;
+private String estadoOperacion = "ninguno";
+private int matriculaMasajistaSeleccionada=0;
+private boolean estadoLogicoCambiado = false;
+
+private final DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+
+    };
+    
+
+    
     public jifGestionMasajista() {
         initComponents();
+        habilitarCampos(false);
+        
     }
 
     /**
@@ -26,21 +42,578 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jMatricula = new javax.swing.JTextField();
+        jNombrecompleto = new javax.swing.JTextField();
+        jTelefono = new javax.swing.JTextField();
+        jEspecialidad = new javax.swing.JTextField();
+        jEstado = new javax.swing.JTextField();
+        jNuevo = new javax.swing.JButton();
+        jActualizar = new javax.swing.JButton();
+        jBorrar = new javax.swing.JButton();
+        jAlta = new javax.swing.JButton();
+        jBaja = new javax.swing.JButton();
+        jGuardar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        javax.swing.JTable jTabla = new javax.swing.JTable();
+        jmostrar = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setText("Gestion Masajista");
+
+        jLabel2.setText("Matricula");
+
+        jLabel3.setText("Nombre Completo");
+
+        jLabel4.setText("Telefono");
+
+        jLabel5.setText("Especialidad");
+
+        jLabel6.setText("Estado");
+
+        jNuevo.setText("Nuevo");
+        jNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNuevoActionPerformed(evt);
+            }
+        });
+
+        jActualizar.setText("Actualizar");
+        jActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jActualizarActionPerformed(evt);
+            }
+        });
+
+        jBorrar.setText("Borrar");
+        jBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBorrarActionPerformed(evt);
+            }
+        });
+
+        jAlta.setText("Alta");
+        jAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAltaActionPerformed(evt);
+            }
+        });
+
+        jBaja.setText("Baja");
+        jBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBajaActionPerformed(evt);
+            }
+        });
+
+        jGuardar.setText("Guardar");
+        jGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGuardarActionPerformed(evt);
+            }
+        });
+
+        jTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTabla);
+
+        jmostrar.setText("Mostrar Masajista");
+        jmostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmostrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel6)))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(jNombrecompleto)
+                    .addComponent(jTelefono)
+                    .addComponent(jEspecialidad)
+                    .addComponent(jEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jGuardar)
+                    .addComponent(jNuevo)
+                    .addComponent(jActualizar)
+                    .addComponent(jBorrar)
+                    .addComponent(jAlta)
+                    .addComponent(jBaja))
+                .addGap(73, 73, 73))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(223, 223, 223)
+                        .addComponent(jmostrar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNuevo))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jNombrecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jActualizar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBorrar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAlta))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBaja))
+                .addGap(18, 18, 18)
+                .addComponent(jGuardar)
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jmostrar))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoActionPerformed
+ habilitarCampos(true);   
+ jMatricula.setText("");
+ jNombrecompleto.setText("");
+ jTelefono.setText("");
+ jEspecialidad.setText("");
+ jEstado.setText("");
+        
+    }//GEN-LAST:event_jNuevoActionPerformed
+
+    private void jmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmostrarActionPerformed
+        mostrartabla();
+    }//GEN-LAST:event_jmostrarActionPerformed
+
+    private void jTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaMouseClicked
+       int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            jNuevo.setEnabled(false);
+            jActualizar.setEnabled(true);
+            jBorrar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTablaMouseClicked
+
+    private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
+        borrar();
+        
+    }//GEN-LAST:event_jBorrarActionPerformed
+
+    private void jActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarActionPerformed
+        actualizar();
+    }//GEN-LAST:event_jActualizarActionPerformed
+
+    private void jAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAltaActionPerformed
+         if ("false".equals(jEstado.getText())) {
+            jEstado.setText("true");
+            estadoLogicoCambiado = true;
+        } else{
+            JOptionPane.showMessageDialog(this, "El Estado ya es true, para cambiarlo a false usar el boton 'Baja'"
+                    , "Error de Logica", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jAltaActionPerformed
+
+    private void jBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBajaActionPerformed
+        if ("true".equals(jEstado.getText())) {
+            jEstado.setText("false");
+            estadoLogicoCambiado = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "El Estado ya es false, para cambiarlo a true usar el boton 'Alta'"
+            , "Error de Logica", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBajaActionPerformed
+
+    private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
+        guardar();
+    }//GEN-LAST:event_jGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jActualizar;
+    private javax.swing.JButton jAlta;
+    private javax.swing.JButton jBaja;
+    private javax.swing.JButton jBorrar;
+    private javax.swing.JTextField jEspecialidad;
+    private javax.swing.JTextField jEstado;
+    private javax.swing.JButton jGuardar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField jMatricula;
+    private javax.swing.JTextField jNombrecompleto;
+    private javax.swing.JButton jNuevo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTelefono;
+    private javax.swing.JButton jmostrar;
     // End of variables declaration//GEN-END:variables
+
+public void armarCabecera(){
+        modelo.addColumn("matricula");
+        modelo.addColumn("Nombre Completo");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("especialidad");
+        modelo.addColumn("Estado");
+
+        jTable1.setModel(modelo);
+    }
+private void armarFilas(){
+    
+    try{
+    modelo.setRowCount(0);
+    listaMasajista=cd.obtenerMasajista();  
+      if(!listaMasajista.isEmpty() || listaMasajista !=null){
+        for (Masajista aux : listaMasajista) {
+                   Object[] fila={
+        
+                aux.getMatricula(),
+                aux.getNombreCompleto(),
+                aux.getEspecialidad(),
+                aux.getTelefono()
+               
+            }; 
+            modelo.addRow(fila);
+        }
+
+    }else{
+          JOptionPane.showMessageDialog(this, "no hay masajistas o no se encontraron masajistas");
+      }  
+    }catch(Exception e){
+        JOptionPane.showMessageDialog(this,"Error al cargar los masajistas"+ e.getMessage(),
+        "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    
+    
+} 
+
+private void borrarFilaTabla(){
+modelo.setRowCount(0);
+  }
+
+
+private Masajista buscarMasajista(int matricula){
+   listaMasajista=cd.obtenerMasajista();
+   
+    for (Masajista aux : listaMasajista) {
+        if(aux.getMatricula()==matricula){
+            return aux;
+        }
+    }
+    return null;
+    
 }
+
+private void habilitarCampos(boolean habilitar){
+ jMatricula.setEnabled(habilitar);
+ jNombrecompleto.setEnabled(habilitar);
+ jTelefono.setEnabled(habilitar);
+ jEspecialidad.setEnabled(habilitar);
+ jEstado.setEnabled(habilitar);
+ 
+ 
+ // botones
+ 
+ jBorrar.setEnabled(!habilitar);
+ jActualizar.setEnabled(habilitar);
+ jAlta.setEnabled(habilitar);
+ jGuardar.setEnabled(habilitar);
+ jBaja.setEnabled(habilitar);
+}
+
+
+private void mostrartabla(){
+  if(tablaoculta==false){
+      armarCabecera();
+      armarFilas();
+      tablaoculta=true;
+      jmostrar.setText("Ocultar Masajista");
+  }else{
+      modelo.setRowCount(0);
+      tablaoculta=false;
+      jmostrar.setText("Mostrar Masajista");
+  }
+      
+              
+    
+}
+
+private void actualizar() {
+
+    try {
+        estadoOperacion = "Actualizar";
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+
+            Object valorId = jTable1.getValueAt(filaSeleccionada, 0);
+            int matricula = Integer.parseInt(valorId.toString());
+            this.matriculaMasajistaSeleccionada = matricula;
+
+            Masajista masajistaSeleccionado = buscarMasajista(matricula);
+
+            if (masajistaSeleccionado != null) {
+
+                jMatricula.setText(String.valueOf(masajistaSeleccionado.getMatricula()));
+                jNombrecompleto.setText(masajistaSeleccionado.getNombreCompleto());
+                jTelefono.setText(String.valueOf(masajistaSeleccionado.getTelefono()));
+                jEspecialidad.setText(masajistaSeleccionado.getEspecialidad());
+                jEstado.setText(String.valueOf(masajistaSeleccionado.isEstado()));
+
+                // Habilitar campos
+                jMatricula.setEnabled(true);
+                jNombrecompleto.setEnabled(true);
+                jTelefono.setEnabled(true);
+                jEspecialidad.setEnabled(true);
+                jEstado.setEnabled(true);
+
+                // Botones
+                jNuevo.setEnabled(false);
+                jBorrar.setEnabled(false);
+                jActualizar.setEnabled(false);
+                jAlta.setEnabled(true);
+                jGuardar.setEnabled(true);
+                jBaja.setEnabled(true);
+
+                JOptionPane.showMessageDialog(this, "Masajista cargado para actualizar.");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró el masajista para actualizar.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un masajista de la tabla.");
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Ingrese valores válidos (matrícula y teléfono deben ser números)");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
+private void borrar(){
+        jNuevo.setEnabled(true);
+        jActualizar.setEnabled(false);
+        
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada != -1) {            
+            int opcion = JOptionPane.showConfirmDialog(this, "Estas seguro de que queres borrar los datos del Masajista?",
+                    "Confirmar Borrado", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                Object valorId = jTable1.getValueAt(filaSeleccionada, 0);
+                int matricula = Integer.parseInt(valorId.toString());
+                Masajista masajistaSeleccionado = buscarMasajista(matricula);
+                
+                if (masajistaSeleccionado != null) {
+                    cd.borrarMasajista(masajistaSeleccionado.getMatricula());
+                    JOptionPane.showMessageDialog(this, "Masajista borrado con exito.");
+
+                    armarFilas();
+                    jMatricula.setText("");
+                    jNombrecompleto.setText("");
+                    jTelefono.setText("");
+                    jEspecialidad.setText("");
+                    jEstado.setText("");
+                    jBorrar.setEnabled(false);
+                    jNuevo.setEnabled(true);
+                } else{
+                    JOptionPane.showMessageDialog(this, "No se encontro el Masajista.", "Error de Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else{
+            JOptionPane.showMessageDialog(this, "No se Encontro la Fila Seleccionada.", "Error de Busqueda",
+                    JOptionPane.ERROR_MESSAGE);
+        }  
+}
+
+private void guardar(){
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        boolean masajistaExiste = false;
+        
+        if (jMatricula.getText().isEmpty()||jNombrecompleto.getText().isEmpty() || jTelefono.getText().isEmpty() ||
+            jEspecialidad.getText().isEmpty() || jEstado.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos.", "Error, Campos Vacíos",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try {
+            
+            if (!jNombrecompleto.getText().matches(regex) && !jNombrecompleto.getText().isEmpty() || 
+                    !jEspecialidad.getText().matches(regex) && !jEspecialidad.getText().isEmpty() || 
+                    !jEstado.getText().matches(regex) && !jEstado.getText().isEmpty() ||  
+                    jTelefono.getText().matches(regex) && !jTelefono.getText().isEmpty() ||
+                    jEspecialidad.getText().matches(regex) && !jEspecialidad.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Uno o Muchos campos contienen caracteres incorrectos", 
+                            "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "En Matricula y Telefono solo debe ingresar numeros.", 
+                    "Error de Formato Numerico", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        listaMasajista = cd.obtenerMasajista();
+        int matriculaIngresada = Integer.parseInt(jMatricula.getText());
+        
+        if (estadoOperacion.equalsIgnoreCase("Nuevo")) {
+            
+            for (Masajista aux : listaMasajista) {
+                if (aux.getMatricula()== matriculaIngresada) {
+                    masajistaExiste = true;
+                    break;
+                } 
+            }
+        
+            if (masajistaExiste) {
+                JOptionPane.showMessageDialog(this, "Ya existe un Masajista con la matricula ingresada.",
+                        "Error. Masajista Existente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            
+            Masajista nuevoMasajista = new Masajista(Integer.parseInt(jMatricula.getText()), jNombrecompleto.getText(), 
+                    Integer.parseInt(jTelefono.getText()), jEspecialidad.getText());
+            nuevoMasajista.setEstado(Boolean.parseBoolean(jEstado.getText()));
+            
+            cd.insertarMasajista(nuevoMasajista);
+            JOptionPane.showMessageDialog(this, "¡Masajista agregado con exito!");
+            
+            estadoOperacion = "Ninguno";
+            
+        } else if (estadoOperacion.equalsIgnoreCase("Actualizar")) {
+            int matriculaMasajistaActualizar = this.matriculaMasajistaSeleccionada;
+            boolean estadoFinal = "true".equals(jEstado.getText());
+            Masajista masajistaActualizar = buscarMasajista(matriculaMasajistaActualizar);
+            
+            if (masajistaActualizar != null) {                
+                cd.actualizarMasajista(matriculaMasajistaActualizar, Integer.parseInt(jMatricula.getText()), 
+                        jNombrecompleto.getText(), Integer.parseInt(jTelefono.getText()), 
+                        jEspecialidad.getText(),Boolean.parseBoolean(jEstado.getText()));
+                
+                if (estadoLogicoCambiado) { 
+                    if (estadoFinal) {
+                        cd.altaMasajista(matriculaMasajistaActualizar);
+                    } else {
+                        cd.bajaMasajista(matriculaMasajistaActualizar);
+                    }
+                    estadoLogicoCambiado = false; 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Masajista actualizado con Exito!");
+                }
+                this.matriculaMasajistaSeleccionada = -1;
+            } else{
+                JOptionPane.showMessageDialog(this, "No se encontro el Masajista.", "Error de Busqueda", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            estadoOperacion = "Ninguno";
+        }
+        
+        if (jmostrar.getText().equalsIgnoreCase("Mostrar Clientes")) {
+                armarFilas();
+                jmostrar.setText("Ocultar Clientes");
+            } else if (jmostrar.getText().equalsIgnoreCase("Ocultar Clientes")) {
+                armarFilas();
+            }
+        
+        
+         jMatricula.setText("");
+         jNombrecompleto.setText("");
+         jTelefono.setText("");
+         jEspecialidad.setText("");
+         jEstado.setText("");
+        
+        jGuardar.setEnabled(false);
+        jNuevo.setEnabled(true);
+        
+        
+        jMatricula.setEnabled(false);
+        jNombrecompleto.setEnabled(false);
+        jTelefono.setEnabled(false);
+        jEspecialidad.setEnabled(false);
+        jEstado.setEnabled(false);
+          
+}
+
+
+
+  }
+ 
