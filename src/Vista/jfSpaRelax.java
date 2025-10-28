@@ -6,6 +6,7 @@ package Vista;
 
 import Modelo.Cliente;
 import Modelo.Consultorio;
+import Modelo.Masajista;
 import Persistencia.TratamientoData;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,6 +21,7 @@ import javax.swing.JDesktopPane;
 public class jfSpaRelax extends javax.swing.JFrame {
     public static ArrayList<Cliente> listaClientes = new ArrayList<>();
     public static ArrayList<Consultorio> listaConsultorios = new ArrayList<>();
+    public static ArrayList<Masajista> listaMasajista=new ArrayList<>();
     public static TratamientoData tratamientoData;
     /**
      * Creates new form SpaRelax

@@ -57,8 +57,7 @@ public class MasajistaData {
                         rs.getInt("matricula"),
                         rs.getString("nombre_completo"),
                         rs.getInt("telefono"),
-                        rs.getString("especialidad"),
-                        rs.getBoolean("estado")
+                        rs.getString("especialidad")
                 );
                 a.setMatricula(rs.getInt("matricula"));
                 System.out.println("Encontrado: " + a.getNombreCompleto());
@@ -72,15 +71,16 @@ public class MasajistaData {
         return a;
     }
 
-    public void actualizarMasajista(int matricula, String nombrecompletonuevo, int telefononuevo, String especialidadnuevo, boolean estadonuevo) {
+    public void actualizarMasajista(int matricula,int parseInt, String nombrecompletonuevo, int telefononuevo, String especialidadnuevo, boolean estadonuevo) {
         String sql = "UPDATE masajista SET  nombre_completo=?,telefono=?,especialidad=?,estado=? WHERE matricula=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombrecompletonuevo);
             ps.setInt(2, telefononuevo);
             ps.setString(3, especialidadnuevo);
-            ps.setBoolean(4,estadonuevo);
+            ps.setBoolean(4, estadonuevo);
             ps.setInt(5, matricula);
+            
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Masajista actualizado correctamente");
@@ -144,9 +144,9 @@ public class MasajistaData {
         }
     }
 
-    public ArrayList<Masajista> obtenerMasajista() {
+    public  ArrayList<Masajista> obtenerMasajista() {
         ArrayList<Masajista> listaDeMasajistas = new ArrayList<>();
-        String sql = "Select * FROM masajistas";
+        String sql = "Select * FROM masajista";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -157,7 +157,7 @@ public class MasajistaData {
                 String especialidad=rs.getString("especialidad");
                 boolean estado = rs.getBoolean("estado");
 
-                Masajista masajista = new Masajista( matricula,  nombrecompleto,  telefono,  especialidad, estado);
+                Masajista masajista = new Masajista( matricula,  nombrecompleto,  telefono,  especialidad);
                 masajista.setMatricula(matricula);
                 masajista.setEstado(estado);
                 listaDeMasajistas.add(masajista);
