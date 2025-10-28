@@ -15,11 +15,11 @@ import java.sql.*;
 public class InstalacionData {
     private Connection con = null;
 
-    public InstalacionData(Conexion con) {
-        this.con = (Connection) con.establecerConexion();
+    public InstalacionData(Conexion con2) {
+        this.con = (Connection) con2.establecerConexion();
     }
     public void insertarInstalacion(Instalacion e) {
-        String query = "INSERT INTO instalacion(nombre,detalle_de_uso,precio_hr,estado) VALUES(?,?,?,?) ";
+        String query = "INSERT INTO instalacion(nombre,detalle_de_uso,precio_hr,estado) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, e.getNombre());
