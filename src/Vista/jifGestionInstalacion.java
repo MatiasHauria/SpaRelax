@@ -7,7 +7,9 @@ package Vista;
 import Modelo.Instalacion;
 import Persistencia.Conexion;
 import Persistencia.InstalacionData;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,9 +19,16 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
 
     Conexion con = new Conexion();
     InstalacionData instdat = new InstalacionData(con);
+    private final DefaultTableModel modelo = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     public jifGestionInstalacion() {
         initComponents();
+        columnas();
     }
 
     /**
@@ -205,6 +214,11 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jButton6.setText("Cerrar");
 
         jButton7.setText("Actualizar Tabla");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -312,6 +326,34 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void columnas() {
+        modelo.addColumn("Nombre Instalacion");
+        modelo.addColumn("Detalles");
+        modelo.addColumn("Precio por Hora");
+        modelo.addColumn("Estado");
+        jTable1.setModel(modelo);
+    }
+
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        modelo.setRowCount(0);
+        ArrayList<Instalacion> lista = instdat.obtenerClientes();
+        if(lista.isEmpty()){
+            return;
+        }
+        for(Instalacion aux: lista){
+            Object[] filas = {
+                aux.getNombre(),
+                aux.getDetalleUso(),
+                aux.getPrecioPorHora(),
+                aux.isEstado()
+            };
+            modelo.addRow(filas);
+        }
+        
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
