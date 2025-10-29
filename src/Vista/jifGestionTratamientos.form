@@ -152,15 +152,18 @@
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jComboBoxIds" min="-2" pref="122" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldDetalle" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldNombre" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jTextFieldProductos" min="-2" pref="129" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxProductos" min="-2" pref="122" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jComboBoxIds" min="-2" pref="122" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldDetalle" pref="258" max="32767" attributes="0"/>
+                                          <Component id="jTextFieldNombre" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldProductos" min="-2" pref="258" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -172,8 +175,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextFieldDuracion" min="-2" pref="260" max="-2" attributes="0"/>
                               <Component id="jTextFieldCosto" min="-2" pref="258" max="-2" attributes="0"/>
+                              <Component id="jTextFieldDuracion" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -201,7 +204,6 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBoxProductos" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldProductos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -305,23 +307,6 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxProductos">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Ubuntu" size="14" style="0"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldProductos">
           <Properties>

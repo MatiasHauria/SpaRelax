@@ -17,10 +17,10 @@ import java.sql.*;
  * @author dannita
  */
 public class jifGestionTratamientos extends javax.swing.JInternalFrame {
-    private boolean aux = false;
-    Connection conexion = null;
-    private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.\\s]+$";
-    private String regex2 = "^[\\d.]+$";
+    private boolean aux = false; // Me ayuda a manejar el flujo de mi codigo en los eventos de los botones.
+    private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
+    private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
+    Connection conexion = Conexion.establecerConexion(); // Guardo el resultado. Si null, ejecuto flujo de linea 35, no permitiendole al usuario continuar hasta que establezca la conexion a la bd.
     private DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -32,8 +32,8 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
      */
     public jifGestionTratamientos() {
         initComponents();
-        this.conexion = Conexion.establecerConexion();
         if (this.conexion == null) {
+            JOptionPane.showMessageDialog(null, "No existe una conexion a una base de datos.\nEstablezcala antes de continuar.");
             limpiarCampos();
             deshabilitarBotones();
             deshabilitarCampos();
@@ -41,9 +41,9 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             jTextFieldBusquedaId.setEnabled(false);
             jButtonActualizarLista.setEnabled(false);
         }
-        cargarId();
-        columns();
-        rows();
+        cargarId(); // Carga el Combo Box de los ID de los tratamientos.
+        columns(); // Setea columnas de la tabla.
+        rows(); // Setea filas de la tabla. Excepciones controladas en 'TratamientoData'.
     }
 
     /**
@@ -66,7 +66,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jTextFieldDetalle = new javax.swing.JTextField();
         jTextFieldDuracion = new javax.swing.JTextField();
         jTextFieldCosto = new javax.swing.JTextField();
-        jComboBoxProductos = new javax.swing.JComboBox<>();
         jTextFieldProductos = new javax.swing.JTextField();
         jButtonActualizarTratamiento = new javax.swing.JButton();
         jButtonBorrarTratamiento = new javax.swing.JButton();
@@ -118,10 +117,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jTextFieldCosto.setEnabled(false);
 
-        jComboBoxProductos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jComboBoxProductos.setBorder(null);
-        jComboBoxProductos.setEnabled(false);
-
         jTextFieldProductos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -139,23 +134,24 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel7)
                                 .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBoxIds, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldDetalle)
-                                .addComponent(jTextFieldNombre)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jTextFieldProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(7, 7, 7)
-                                    .addComponent(jComboBoxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jComboBoxIds, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldNombre)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTextFieldProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextFieldCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,7 +171,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jTextFieldProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
@@ -353,11 +348,13 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             habilitarCampos();
             deshabilitarBotones();
             jComboBoxIds.setEnabled(false);
-            jComboBoxProductos.setEnabled(false);
             jButtonCargarTratamiento.setEnabled(true);
             jButtonCancelar.setEnabled(true);
-            aux = true;
+            aux = true; 
             return;
+            /* Devuelvo true y return para el siguiente flujo de codigo. Permitiendome que los JOption no
+            salten al primer instante
+            */
         }
 
         if (aux == true) {
@@ -438,7 +435,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonActualizarTratamientoActionPerformed
 
     private void jTextFieldBusquedaIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaIdKeyReleased
-        rows();
+        rows(); // Listener para buscar tratamientos por id en tabla. Permite buscar mientras se tipea, sin necesidad de un boton que lo ejecute.
     }//GEN-LAST:event_jTextFieldBusquedaIdKeyReleased
 
     private void jButtonActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarListaActionPerformed
@@ -506,7 +503,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jTextFieldNombre.setEnabled(false);
         jTextFieldDetalle.setEnabled(false);
         jTextFieldProductos.setEnabled(false);
-        jComboBoxProductos.setEnabled(false);
         jTextFieldDuracion.setEnabled(false);
         jTextFieldCosto.setEnabled(false);
     }
@@ -516,7 +512,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jTextFieldNombre.setEnabled(true);
         jTextFieldDetalle.setEnabled(true);
         jTextFieldProductos.setEnabled(true);
-        jComboBoxProductos.setEnabled(true);
         jTextFieldDuracion.setEnabled(true);
         jTextFieldCosto.setEnabled(true);
     }
@@ -564,16 +559,16 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     
     private void rows() {
         String id = jTextFieldBusquedaId.getText();
-        if (!id.matches(regex2) && !id.isBlank()) {
+        if (!id.matches(regex2) && !id.isBlank()) { // Si no esta vacio (si hay texto para ejecutar el listener) y si ese mismo no matchea digitos.
             JOptionPane.showMessageDialog(this, "No ingrese letras en el ID, solo digitos.");
             jTextFieldBusquedaId.setText(null);
-            return;
+            return; // Corto flujo.
         }
         modeloTabla.setRowCount(0);
         List<Tratamiento> listaTratamientos = new ArrayList<>(tratamientoData.mostrarTratamientos());
         for (Tratamiento trats : listaTratamientos) {
             String aux = String.valueOf(trats.getIdTratamiento());
-            if (aux.contains(id) || id.isBlank()) {
+            if (aux.contains(id) || id.isBlank()) { // Cualquiera de las dos formas, la tabla se encontrara cargada.
                 Object[] filas = {
                     trats.getIdTratamiento(), trats.getNombre(), trats.getDetalle(), trats.getProductos(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
                 };
@@ -593,7 +588,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonTratamientoOff;
     private javax.swing.JButton jButtonTratamientoOn;
     private javax.swing.JComboBox<Integer> jComboBoxIds;
-    private javax.swing.JComboBox<Integer> jComboBoxProductos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
