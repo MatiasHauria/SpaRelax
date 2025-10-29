@@ -29,6 +29,7 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     
     public jifGestionMasajista() {
         initComponents();
+        armarCabecera();
         habilitarCampos(false);
         
     }
@@ -42,8 +43,6 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -61,22 +60,9 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
         jAlta = new javax.swing.JButton();
         jBaja = new javax.swing.JButton();
         jGuardar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        javax.swing.JTable jTabla = new javax.swing.JTable();
         jmostrar = new javax.swing.JButton();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Gestion Masajista");
@@ -133,7 +119,14 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
             }
         });
 
-        jTabla.setModel(new javax.swing.table.DefaultTableModel(
+        jmostrar.setText("Mostrar Masajista");
+        jmostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmostrarActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,64 +137,55 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTabla.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTablaMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTabla);
-
-        jmostrar.setText("Mostrar Masajista");
-        jmostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmostrarActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel6)))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-                    .addComponent(jNombrecompleto)
-                    .addComponent(jTelefono)
-                    .addComponent(jEspecialidad)
-                    .addComponent(jEstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jGuardar)
-                    .addComponent(jNuevo)
-                    .addComponent(jActualizar)
-                    .addComponent(jBorrar)
-                    .addComponent(jAlta)
-                    .addComponent(jBaja))
-                .addGap(73, 73, 73))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(jLabel6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jNombrecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBorrar)
+                                    .addComponent(jActualizar)
+                                    .addComponent(jAlta)
+                                    .addComponent(jBaja)
+                                    .addComponent(jGuardar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(jNuevo))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(192, 192, 192)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
                         .addComponent(jmostrar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,10 +218,11 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
                     .addComponent(jBaja))
                 .addGap(18, 18, 18)
                 .addComponent(jGuardar)
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jmostrar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jmostrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -256,15 +241,6 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     private void jmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmostrarActionPerformed
         mostrartabla();
     }//GEN-LAST:event_jmostrarActionPerformed
-
-    private void jTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaMouseClicked
-       int filaSeleccionada = jTable1.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            jNuevo.setEnabled(false);
-            jActualizar.setEnabled(true);
-            jBorrar.setEnabled(true);
-        }
-    }//GEN-LAST:event_jTablaMouseClicked
 
     private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
         borrar();
@@ -318,7 +294,6 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     private javax.swing.JTextField jNombrecompleto;
     private javax.swing.JButton jNuevo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTelefono;
     private javax.swing.JButton jmostrar;
@@ -327,8 +302,8 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
 public void armarCabecera(){
         modelo.addColumn("matricula");
         modelo.addColumn("Nombre Completo");
+         modelo.addColumn("especialidad");
         modelo.addColumn("Telefono");
-        modelo.addColumn("especialidad");
         modelo.addColumn("Estado");
 
         jTable1.setModel(modelo);
@@ -390,7 +365,7 @@ private void habilitarCampos(boolean habilitar){
  
  // botones
  
- jBorrar.setEnabled(!habilitar);
+ jBorrar.setEnabled(habilitar);
  jActualizar.setEnabled(habilitar);
  jAlta.setEnabled(habilitar);
  jGuardar.setEnabled(habilitar);
@@ -400,7 +375,6 @@ private void habilitarCampos(boolean habilitar){
 
 private void mostrartabla(){
   if(tablaoculta==false){
-      armarCabecera();
       armarFilas();
       tablaoculta=true;
       jmostrar.setText("Ocultar Masajista");
@@ -450,7 +424,7 @@ private void actualizar() {
                 jAlta.setEnabled(true);
                 jGuardar.setEnabled(true);
                 jBaja.setEnabled(true);
-
+                
                 JOptionPane.showMessageDialog(this, "Masajista cargado para actualizar.");
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró el masajista para actualizar.");
@@ -465,7 +439,6 @@ private void actualizar() {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage(),
                 "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
     }
 }
 
@@ -508,92 +481,35 @@ private void borrar(){
 
 private void guardar(){
         String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-        boolean masajistaExiste = false;
+        int matricula=0;
+        long telefono=0;
         
-        if (jMatricula.getText().isEmpty()||jNombrecompleto.getText().isEmpty() || jTelefono.getText().isEmpty() ||
-            jEspecialidad.getText().isEmpty() || jEstado.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos.", "Error, Campos Vacíos",
-                    JOptionPane.ERROR_MESSAGE);
+        try{
+            
+            
+        matricula=Integer.parseInt(jMatricula.getText());
+        telefono=Long.parseLong(jTelefono.getText());
+        if(!jNombrecompleto.getText().matches(regex)|| jNombrecompleto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Error en el nombre o campo vacio");
+           return; 
         }
+        String nombre=jNombrecompleto.getText(); 
         
-        try {
-            
-            if (!jNombrecompleto.getText().matches(regex) && !jNombrecompleto.getText().isEmpty() || 
-                    !jEspecialidad.getText().matches(regex) && !jEspecialidad.getText().isEmpty() || 
-                    !jEstado.getText().matches(regex) && !jEstado.getText().isEmpty() ||  
-                    jTelefono.getText().matches(regex) && !jTelefono.getText().isEmpty() ||
-                    jEspecialidad.getText().matches(regex) && !jEspecialidad.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Uno o Muchos campos contienen caracteres incorrectos", 
-                            "Error de Formato", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "En Matricula y Telefono solo debe ingresar numeros.", 
-                    "Error de Formato Numerico", JOptionPane.ERROR_MESSAGE);
+        
+        if(!jEspecialidad.getText().matches(regex)|| jEspecialidad.getText().isEmpty()){
+          JOptionPane.showMessageDialog(this, "Error en el Especialidad o campo vacio");
+          return;
         }
+        String especialidad=jEspecialidad.getText();
         
-        listaMasajista = cd.obtenerMasajista();
-        int matriculaIngresada = Integer.parseInt(jMatricula.getText());
         
-        if (estadoOperacion.equalsIgnoreCase("Nuevo")) {
-            
-            for (Masajista aux : listaMasajista) {
-                if (aux.getMatricula()== matriculaIngresada) {
-                    masajistaExiste = true;
-                    break;
-                } 
-            }
-        
-            if (masajistaExiste) {
-                JOptionPane.showMessageDialog(this, "Ya existe un Masajista con la matricula ingresada.",
-                        "Error. Masajista Existente", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            
-            Masajista nuevoMasajista = new Masajista(Integer.parseInt(jMatricula.getText()), jNombrecompleto.getText(), 
-                    Integer.parseInt(jTelefono.getText()), jEspecialidad.getText());
-            nuevoMasajista.setEstado(Boolean.parseBoolean(jEstado.getText()));
-            
-            cd.insertarMasajista(nuevoMasajista);
-            JOptionPane.showMessageDialog(this, "¡Masajista agregado con exito!");
-            
-            estadoOperacion = "Ninguno";
-            
-        } else if (estadoOperacion.equalsIgnoreCase("Actualizar")) {
-            int matriculaMasajistaActualizar = this.matriculaMasajistaSeleccionada;
-            boolean estadoFinal = "true".equals(jEstado.getText());
-            Masajista masajistaActualizar = buscarMasajista(matriculaMasajistaActualizar);
-            
-            if (masajistaActualizar != null) {                
-                cd.actualizarMasajista(matriculaMasajistaActualizar, Integer.parseInt(jMatricula.getText()), 
-                        jNombrecompleto.getText(), Integer.parseInt(jTelefono.getText()), 
-                        jEspecialidad.getText(),Boolean.parseBoolean(jEstado.getText()));
-                
-                if (estadoLogicoCambiado) { 
-                    if (estadoFinal) {
-                        cd.altaMasajista(matriculaMasajistaActualizar);
-                    } else {
-                        cd.bajaMasajista(matriculaMasajistaActualizar);
-                    }
-                    estadoLogicoCambiado = false; 
-                } else {
-                    JOptionPane.showMessageDialog(this, "Masajista actualizado con Exito!");
-                }
-                this.matriculaMasajistaSeleccionada = -1;
-            } else{
-                JOptionPane.showMessageDialog(this, "No se encontro el Masajista.", "Error de Busqueda", 
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            estadoOperacion = "Ninguno";
+        Masajista masajista=new Masajista(matricula,nombre,telefono,especialidad);
+        cd.insertarMasajista(masajista);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "debe ingresar un numero en el campo Matricula o Telefono");
+        }catch(NullPointerException x){
+            JOptionPane.showMessageDialog(this, "no debe estar vacio, ingrese algun dato");
         }
-        
-        if (jmostrar.getText().equalsIgnoreCase("Mostrar Clientes")) {
-                armarFilas();
-                jmostrar.setText("Ocultar Clientes");
-            } else if (jmostrar.getText().equalsIgnoreCase("Ocultar Clientes")) {
-                armarFilas();
-            }
-        
         
          jMatricula.setText("");
          jNombrecompleto.setText("");

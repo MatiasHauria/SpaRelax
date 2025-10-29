@@ -24,20 +24,17 @@ public class MasajistaData {
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, e.getMatricula());
             ps.setString(2, e.getNombreCompleto());
-            ps.setInt(3, e.getTelefono());
+            ps.setLong(3, e.getTelefono());
             ps.setString(4, e.getEspecialidad());
             ps.setBoolean(5, e.isEstado());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                e.setMatricula(rs.getInt(1));
-            } else {
-                System.out.println("No se pudo obtener la matricula ");
-            }
-
-            ps.close();
+            
+            
+            
             System.out.println("Masajista guardado correctamente");
+            ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

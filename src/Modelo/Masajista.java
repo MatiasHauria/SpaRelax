@@ -4,11 +4,11 @@ public class Masajista {
 
     private int matricula;
     private String nombrecompleto;
-    private int telefono;
+    private long telefono;
     private String especialidad;
     private boolean estado;
 
-    public Masajista(int matricula, String nombrecompleto, int telefono, String especialidad) {
+    public Masajista(int matricula, String nombrecompleto, long telefono, String especialidad) {
         this.matricula = matricula;
         this.nombrecompleto = nombrecompleto;
         this.telefono = telefono;
@@ -32,7 +32,7 @@ public class Masajista {
         this.nombrecompleto = nombrecompleto;
     }
     
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
