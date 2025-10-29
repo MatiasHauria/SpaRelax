@@ -302,6 +302,10 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jTextPrecio.setEnabled(true);
         jBotonGuardar.setEnabled(true);
         jBotonNuevo.setEnabled(false);
+        jBotonAlta.setEnabled(false);
+        jBotonBaja.setEnabled(false);
+        jBotonActualizar.setEnabled(false);
+        modelo.setRowCount(0);
     }//GEN-LAST:event_jBotonNuevoActionPerformed
 
     private void jBotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonGuardarActionPerformed
@@ -344,7 +348,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
 
 
     private void jBotonActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonActualizarTablaActionPerformed
-
+        
         modelo.setRowCount(0);
         ArrayList<Instalacion> lista = instdat.obtenerInstalaciones();
         if(lista.isEmpty()){
@@ -365,10 +369,11 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
             jBotonAlta.setEnabled(true);
             jBotonBaja.setEnabled(true);
             jBotonGuardar.setEnabled(false);
-            jBotonNuevo.setEnabled(false);
+            jBotonNuevo.setEnabled(true);
             jTextNombre.setEnabled(true);
             jTextDetalles.setEnabled(true);
             jTextPrecio.setEnabled(true);
+            
         }
         
     }//GEN-LAST:event_jBotonActualizarTablaActionPerformed
@@ -382,7 +387,15 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jBotonNuevo.setEnabled(false);
         jBotonGuardar.setEnabled(false);
         String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-
+        int id=0;
+        int filaSeleccionada = jTable.getSelectedRow();
+        if(filaSeleccionada != -1){
+           id = (int) jTable.getValueAt(filaSeleccionada, 0);
+        }else if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+            return;
+        }
+ 
         if (!jTextNombre.getText().matches(regex) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.");
             return;
@@ -392,14 +405,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.");
             return;
         }
-       
         String detalles = jTextDetalles.getText();
-        int id=0;
-        int filaSeleccionada = jTable.getSelectedRow();
-        if(filaSeleccionada != -1){
-           id = (int) jTable.getValueAt(filaSeleccionada, 0);
-          
-        }
         try {
             double precioh = Double.parseDouble(jTextPrecio.getText());
             instdat.actualizarInstalacion(id, nombre, detalles, precioh);
@@ -428,7 +434,10 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
            jBotonAlta.setEnabled(false);
            jBotonBaja.setEnabled(false);
            jBotonActualizar.setEnabled(false);
+        }else if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
         }
+        
     }//GEN-LAST:event_jBotonAltaActionPerformed
 
     private void jBotonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBajaActionPerformed
@@ -442,6 +451,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
            jBotonAlta.setEnabled(false);
            jBotonBaja.setEnabled(false);
            jBotonActualizar.setEnabled(false);
+        }else if(filaSeleccionada == -1){
+        JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
         }
     }//GEN-LAST:event_jBotonBajaActionPerformed
 
