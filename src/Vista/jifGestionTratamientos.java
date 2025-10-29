@@ -218,6 +218,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonTratamientoOff.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonTratamientoOff.setText("Deshabilitar tratamiento");
+        jButtonTratamientoOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTratamientoOffActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -452,6 +457,24 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
         rows();
     }//GEN-LAST:event_jButtonTratamientoOnActionPerformed
+
+    private void jButtonTratamientoOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTratamientoOffActionPerformed
+        if (jTablaTratamientos.getSelectedRow() != -1) {
+            int id = 0;
+            Integer idTratamiento = (Integer) modeloTabla.getValueAt(jTablaTratamientos.getSelectedRow(), id);
+            for (Tratamiento t : tratamientoData.mostrarTratamientos()) {
+                if (idTratamiento == t.getIdTratamiento() && t.isActivo() == false) {
+                    JOptionPane.showMessageDialog(this, "El tratamiento se encuentra inactivo.");
+                    return;
+                } else if (idTratamiento == t.getIdTratamiento() && t.isActivo() == true) {
+                    tratamientoData.bajaLogica(idTratamiento);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        rows();
+    }//GEN-LAST:event_jButtonTratamientoOffActionPerformed
 
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);
