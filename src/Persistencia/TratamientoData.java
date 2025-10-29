@@ -164,7 +164,7 @@ public class TratamientoData {
         }
     }
     
-    public void borrarTRatamiento(int id) {
+    public void borrarTratamiento(int id) {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();

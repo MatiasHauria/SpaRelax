@@ -199,6 +199,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonBorrarTratamiento.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonBorrarTratamiento.setText("Borrar tratamiento");
+        jButtonBorrarTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarTratamientoActionPerformed(evt);
+            }
+        });
 
         jButtonCargarTratamiento.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonCargarTratamiento.setText("Cargar tratamiento");
@@ -475,6 +480,26 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
         rows();
     }//GEN-LAST:event_jButtonTratamientoOffActionPerformed
+
+    private void jButtonBorrarTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarTratamientoActionPerformed
+        if (jTablaTratamientos.getSelectedRow() != -1) {
+            int id = 0;
+            Integer idTratamiento = (Integer) modeloTabla.getValueAt(jTablaTratamientos.getSelectedRow(), id);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que desea borrar el tratamiento \nde la base de datos?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            switch (confirm) {
+                case JOptionPane.NO_OPTION:
+                    return;
+                case JOptionPane.YES_OPTION:
+                    tratamientoData.borrarTratamiento(idTratamiento);
+                    break;
+                default:
+                    return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        rows();
+    }//GEN-LAST:event_jButtonBorrarTratamientoActionPerformed
 
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);
