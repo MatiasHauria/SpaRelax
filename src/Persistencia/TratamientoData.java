@@ -114,7 +114,7 @@ public class TratamientoData {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();
-            String query = "UPDATE tratamiento SET estado=0 WHERE id_tratamiento=?";
+            String query = "UPDATE tratamiento SET activo=0 WHERE id_tratamiento=?";
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
@@ -141,7 +141,7 @@ public class TratamientoData {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();
-            String query = "UPDATE tratamiento SET estado=1 WHERE id_tratamiento=?";
+            String query = "UPDATE tratamiento SET activo=1 WHERE id_tratamiento=?";
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();

@@ -4,26 +4,46 @@
  */
 package Vista;
 
+import Persistencia.Conexion;
 import Modelo.Tratamiento;
 import static Vista.jfSpaRelax.tratamientoData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 /**
  *
  * @author dannita
  */
 public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private boolean aux = false;
+    Connection conexion = null;
     private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.\\s]+$";
     private String regex2 = "^[\\d.]+$";
+    private DefaultTableModel modeloTabla = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
     /**
      * Creates new form jifGestionTratamientos
      */
     public jifGestionTratamientos() {
         initComponents();
+        this.conexion = Conexion.establecerConexion();
+        if (this.conexion == null) {
+            limpiarCampos();
+            deshabilitarBotones();
+            deshabilitarCampos();
+            jTablaTratamientos.setEnabled(false);
+            jTextFieldBusquedaId.setEnabled(false);
+            jButtonActualizarLista.setEnabled(false);
+        }
         cargarId();
+        columns();
+        rows();
     }
 
     /**
@@ -190,6 +210,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonTratamientoOn.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonTratamientoOn.setText("Habilitar tratamiento");
+        jButtonTratamientoOn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTratamientoOnActionPerformed(evt);
+            }
+        });
 
         jButtonTratamientoOff.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonTratamientoOff.setText("Deshabilitar tratamiento");
@@ -205,8 +230,19 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Buscar tratamiento por ID:");
 
+        jTextFieldBusquedaId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaIdKeyReleased(evt);
+            }
+        });
+
         jButtonActualizarLista.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonActualizarLista.setText("Actualizar lista");
+        jButtonActualizarLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarListaActionPerformed(evt);
+            }
+        });
 
         jTablaTratamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,20 +272,12 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonTratamientoOn)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonTratamientoOff)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonCancelar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonCargarTratamiento)
-                                    .addComponent(jButtonActualizarTratamiento)
-                                    .addComponent(jButtonBorrarTratamiento)))))
+                            .addComponent(jButtonCargarTratamiento)
+                            .addComponent(jButtonActualizarTratamiento)
+                            .addComponent(jButtonCancelar)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +287,14 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
+                        .addGap(87, 87, 87)
+                        .addComponent(jButtonTratamientoOn)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonTratamientoOff)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBorrarTratamiento))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
                         .addComponent(jLabel9)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -278,25 +313,26 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonActualizarTratamiento)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonBorrarTratamiento)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonTratamientoOff)
-                    .addComponent(jButtonTratamientoOn))
-                .addGap(31, 31, 31)
+                        .addComponent(jButtonCancelar)))
+                .addGap(12, 12, 12)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonTratamientoOff)
+                            .addComponent(jButtonTratamientoOn)
+                            .addComponent(jButtonBorrarTratamiento))
+                        .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonActualizarLista))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(jButtonActualizarLista)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -391,6 +427,32 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonActualizarTratamientoActionPerformed
 
+    private void jTextFieldBusquedaIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaIdKeyReleased
+        rows();
+    }//GEN-LAST:event_jTextFieldBusquedaIdKeyReleased
+
+    private void jButtonActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarListaActionPerformed
+        rows();
+    }//GEN-LAST:event_jButtonActualizarListaActionPerformed
+
+    private void jButtonTratamientoOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTratamientoOnActionPerformed
+        if (jTablaTratamientos.getSelectedRow() != -1) {
+            int id = 0;
+            Integer idTratamiento = (Integer) modeloTabla.getValueAt(jTablaTratamientos.getSelectedRow(), id);
+            for (Tratamiento t : tratamientoData.mostrarTratamientos()) {
+                if (idTratamiento == t.getIdTratamiento() && t.isActivo() == true) {
+                    JOptionPane.showMessageDialog(this, "El tratamiento se encuentra activo.");
+                    return;
+                } else if (idTratamiento == t.getIdTratamiento() && t.isActivo() == false) {
+                    tratamientoData.altaLogica(idTratamiento);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        rows();
+    }//GEN-LAST:event_jButtonTratamientoOnActionPerformed
+
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);
         jTextFieldNombre.setEnabled(false);
@@ -438,6 +500,37 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private void cargarId() {
         for (Tratamiento tratamiento : tratamientoData.mostrarTratamientos()) {
             jComboBoxIds.addItem(tratamiento.getIdTratamiento());
+        }
+    }
+    
+    private void columns() {
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Detalle");
+        modeloTabla.addColumn("Productos");
+        modeloTabla.addColumn("Duracion");
+        modeloTabla.addColumn("Costo");
+        modeloTabla.addColumn("Activo");
+        jTablaTratamientos.setModel(modeloTabla);
+    }
+    
+    private void rows() {
+        String id = jTextFieldBusquedaId.getText();
+        if (!id.matches(regex2) && !id.isBlank()) {
+            JOptionPane.showMessageDialog(this, "No ingrese letras en el ID, solo digitos.");
+            jTextFieldBusquedaId.setText(null);
+            return;
+        }
+        modeloTabla.setRowCount(0);
+        List<Tratamiento> listaTratamientos = new ArrayList<>(tratamientoData.mostrarTratamientos());
+        for (Tratamiento trats : listaTratamientos) {
+            String aux = String.valueOf(trats.getIdTratamiento());
+            if (aux.contains(id) || id.isBlank()) {
+                Object[] filas = {
+                    trats.getIdTratamiento(), trats.getNombre(), trats.getDetalle(), trats.getProductos(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
+                };
+                modeloTabla.addRow(filas);
+            }
         }
     }
 
