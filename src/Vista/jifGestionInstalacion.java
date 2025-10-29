@@ -55,6 +55,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jBotonActualizar = new javax.swing.JButton();
         jBotonAlta = new javax.swing.JButton();
         jBotonBaja = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jBotonCerrar = new javax.swing.JButton();
@@ -133,6 +134,14 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setForeground(new java.awt.Color(204, 0, 0));
+        jButton1.setText("Borrar Instalacion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -162,6 +171,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                         .addGap(0, 10, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(154, 154, 154)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBotonAlta)
                             .addComponent(jBotonBaja))))
@@ -195,8 +206,13 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                         .addGap(5, 5, 5)))
                 .addComponent(jBotonAlta)
                 .addGap(18, 18, 18)
-                .addComponent(jBotonBaja)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jBotonBaja)
+                        .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(15, 15, 15))))
         );
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -456,6 +472,21 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBotonBajaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int filaSeleccionada = jTable.getSelectedRow();
+        if(filaSeleccionada != -1){
+           int id = (int) jTable.getValueAt(filaSeleccionada, 0);
+           instdat.borrarInstalacion(id);
+           JOptionPane.showMessageDialog(null,"Se ha borrado correctamente a la instalacion seleccionada.");
+           modelo.setRowCount(0);
+           jBotonAlta.setEnabled(false);
+           jBotonBaja.setEnabled(false);
+           jBotonActualizar.setEnabled(false);
+        }else if(filaSeleccionada == -1){
+        JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBotonActualizar;
@@ -465,6 +496,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBotonCerrar;
     private javax.swing.JButton jBotonGuardar;
     private javax.swing.JButton jBotonNuevo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
