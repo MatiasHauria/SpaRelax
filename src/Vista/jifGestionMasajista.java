@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 public class jifGestionMasajista extends javax.swing.JInternalFrame {
 Conexion conexion = new Conexion();
 MasajistaData cd = new MasajistaData(conexion);
-private boolean tablaoculta = false;
 private String estadoOperacion = "ninguno";
 private int matriculaSeleccionada=0;
 
@@ -64,6 +63,7 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Gestion Masajista");
@@ -120,7 +120,7 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
             }
         });
 
-        jmostrar.setText("Mostrar Masajista");
+        jmostrar.setText("Mostrar Masajistas");
         jmostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmostrarActionPerformed(evt);
@@ -147,54 +147,62 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
             }
         });
 
+        jButton1.setText("Ocultar Masajistas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jmostrar)
-                        .addGap(154, 154, 154)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(15, 15, 15)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(65, 65, 65)
-                                    .addComponent(jLabel6)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jNombrecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(59, 59, 59)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jBorrar)
-                                        .addComponent(jActualizar)
-                                        .addComponent(jAlta)
-                                        .addComponent(jBaja)
-                                        .addComponent(jGuardar)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(59, 59, 59)
-                                    .addComponent(jNuevo))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(192, 192, 192)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(jLabel6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jNombrecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBorrar)
+                                    .addComponent(jActualizar)
+                                    .addComponent(jAlta)
+                                    .addComponent(jBaja)
+                                    .addComponent(jGuardar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(jNuevo))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jmostrar)
+                                .addGap(65, 65, 65)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -234,7 +242,8 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jmostrar)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -254,12 +263,11 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     }//GEN-LAST:event_jNuevoActionPerformed
 
     private void jmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmostrarActionPerformed
-        mostrartabla();
+        armarFilas();
     }//GEN-LAST:event_jmostrarActionPerformed
 
     private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
-        borrar();
-        
+        borrar(); 
     }//GEN-LAST:event_jBorrarActionPerformed
 
     private void jActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarActionPerformed
@@ -310,12 +318,17 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        modelo.setRowCount(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jActualizar;
     private javax.swing.JButton jAlta;
     private javax.swing.JButton jBaja;
     private javax.swing.JButton jBorrar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JTextField jEspecialidad;
     private javax.swing.JTextField jEstado;
@@ -374,23 +387,6 @@ private void armarFilas(){
     
 } 
 
-private void borrarFilaTabla(){
-modelo.setRowCount(0);
-  }
-
-
-private Masajista buscarMasajista(int matricula){
-   listaMasajista=cd.obtenerMasajista();
-   
-    for (Masajista aux : listaMasajista) {
-        if(aux.getMatricula()==matricula){
-            return aux;
-        }
-    }
-    return null;
-    
-}
-
 private void habilitarCampos(boolean habilitar){
  jMatricula.setEnabled(habilitar);
  jNombrecompleto.setEnabled(habilitar);
@@ -408,20 +404,6 @@ private void habilitarCampos(boolean habilitar){
  jBaja.setEnabled(habilitar);
 }
 
-
-private void mostrartabla(){
- if (tablaoculta == false) {
-            armarFilas();
-            tablaoculta = true;
-            jmostrar.setText("Ocultar Clientes");
-        } else {
-            modelo.setRowCount(0);
-            jmostrar.setText("Mostrar Clientes");
-            tablaoculta = false;
-        } 
-}
-
-
 private void actualizar() {
 
     try {
@@ -434,7 +416,7 @@ private void actualizar() {
             int matricula = Integer.parseInt(valorId.toString());
             this.matriculaSeleccionada = matricula;
 
-            Masajista masajistaSeleccionado = buscarMasajista(matricula);
+            Masajista masajistaSeleccionado = cd.buscarMasajista(matricula);
 
             if (masajistaSeleccionado != null) {
 
@@ -488,7 +470,7 @@ private void borrar(){
             if (opcion == JOptionPane.YES_OPTION) {
                 Object valorId = jTable1.getValueAt(filaSeleccionada, 0);
                 int matricula = Integer.parseInt(valorId.toString());
-                Masajista masajistaSeleccionado = buscarMasajista(matricula);
+                Masajista masajistaSeleccionado = cd.buscarMasajista(matricula);
                 
                 if (masajistaSeleccionado != null) {
                     cd.borrarMasajista(masajistaSeleccionado.getMatricula());
