@@ -229,12 +229,14 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoActionPerformed
- habilitarCampos(true);   
+
+ habilitarCampos(true);
+ jEstado.setEnabled(false);
  jMatricula.setText("");
  jNombrecompleto.setText("");
  jTelefono.setText("");
  jEspecialidad.setText("");
- jEstado.setText("");
+ jEstado.setText("false");
         
     }//GEN-LAST:event_jNuevoActionPerformed
 

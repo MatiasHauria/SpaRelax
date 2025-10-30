@@ -109,6 +109,11 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
         jtfAfecciones.setEnabled(false);
 
         jtfEstado.setEnabled(false);
+        jtfEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -582,6 +587,10 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
         jtfEdad.setEnabled(false);
         jtfAfecciones.setEnabled(false);
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jtfEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfEstadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
