@@ -14,8 +14,8 @@ Conexion conexion = new Conexion();
 MasajistaData cd = new MasajistaData(conexion);
 private boolean tablaoculta = false;
 private String estadoOperacion = "ninguno";
-private int matriculaMasajistaSeleccionada=0;
-private boolean estadoLogicoCambiado = false;
+private int matriculaSeleccionada=0;
+
 
 private final DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -254,9 +254,18 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     }//GEN-LAST:event_jActualizarActionPerformed
 
     private void jAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAltaActionPerformed
-         if ("false".equals(jEstado.getText())) {
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if(filaSeleccionada != -1){
+           int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           cd.altaMasajista(id);
+           JOptionPane.showMessageDialog(null,"Se ha dado la alta correctamente a la instalacion seleccionada.");
+           modelo.setRowCount(0);
+           jActualizar.setEnabled(false);
+        }else if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+        } 
+        if ("false".equals(jEstado.getText())) {
             jEstado.setText("true");
-            estadoLogicoCambiado = true;
         } else{
             JOptionPane.showMessageDialog(this, "El Estado ya es true, para cambiarlo a false usar el boton 'Baja'"
                     , "Error de Logica", JOptionPane.ERROR_MESSAGE);
@@ -264,9 +273,18 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     }//GEN-LAST:event_jAltaActionPerformed
 
     private void jBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBajaActionPerformed
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if(filaSeleccionada != -1){
+           int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+           cd.bajaMasajista(id);
+           JOptionPane.showMessageDialog(null,"Se ha dado la baja correctamente a la instalacion seleccionada.");
+           modelo.setRowCount(0);
+           jActualizar.setEnabled(false);
+        }else if(filaSeleccionada == -1){
+        JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+        }
         if ("true".equals(jEstado.getText())) {
             jEstado.setText("false");
-            estadoLogicoCambiado = true;
         } else {
             JOptionPane.showMessageDialog(this, "El Estado ya es false, para cambiarlo a true usar el boton 'Alta'"
             , "Error de Logica", JOptionPane.ERROR_MESSAGE);
@@ -400,7 +418,7 @@ private void actualizar() {
 
             Object valorId = jTable1.getValueAt(filaSeleccionada, 0);
             int matricula = Integer.parseInt(valorId.toString());
-            this.matriculaMasajistaSeleccionada = matricula;
+            this.matriculaSeleccionada = matricula;
 
             Masajista masajistaSeleccionado = buscarMasajista(matricula);
 
