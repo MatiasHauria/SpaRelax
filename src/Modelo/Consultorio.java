@@ -15,7 +15,7 @@ public class Consultorio {
         this.idConsultorio = idConsultorio;
         this.usos = usos;
         this.equipamiento = equipamiento;
-        this.apto = apto;
+        this.apto = false;
     }
 
     public int getNroConsultorio() {
