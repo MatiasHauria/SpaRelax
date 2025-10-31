@@ -17,7 +17,8 @@ public class TratamientoData {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, tratamiento.getNombre());
             ps.setString(2, tratamiento.getDetalle());
-            ps.setString(3, tratamiento.getProductos().toString());
+            String listaProductos = String.join(",", tratamiento.getProductos());
+            ps.setString(3, listaProductos);
             ps.setInt(4, tratamiento.getDuracion());
             ps.setDouble(5, tratamiento.getCosto());
             ps.setBoolean(6, tratamiento.isActivo());
