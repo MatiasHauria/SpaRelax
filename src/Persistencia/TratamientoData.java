@@ -8,6 +8,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class TratamientoData {
+ 
+    
+    
     
     public void agregarTratamiento(Tratamiento tratamiento) {
         Connection conexion = null;
