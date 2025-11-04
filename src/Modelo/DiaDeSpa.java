@@ -21,10 +21,9 @@ public class DiaDeSpa {
     private double monto;
     private boolean estado;
 
-    public DiaDeSpa(Cliente cliente, ArrayList<Sesion> sesiones, LocalDate fechayHora, String preferencias, double monto, boolean estado) {
+    public DiaDeSpa(Cliente cliente,  LocalDate fechayHora, String preferencias, double monto, boolean estado) {
         this.cliente = cliente;
         this.idCliente = cliente.getIdCliente();
-        this.sesiones = sesiones;
         this.fechayHora = fechayHora;
         this.preferencias = preferencias;
         this.monto = monto;

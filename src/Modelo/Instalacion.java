@@ -15,6 +15,14 @@ public class Instalacion {
         this.estado = estado; // Sujeto a cambios. Debería inicializar en false (?
     }
 
+    public Instalacion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
+
+
+
     public int getIdInstalacion() {
         return idInstalacion;
     }
