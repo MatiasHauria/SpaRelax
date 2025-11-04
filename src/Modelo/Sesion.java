@@ -5,6 +5,7 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -20,13 +21,14 @@ public class Sesion {
     private DiaDeSpa diadespa;
     private int codPack;
     private ArrayList<Instalacion> instalacion;
+    private ArrayList<String> nombresInstalacion;
     private Masajista masajista;
     private int matricula;
-    private LocalDate fechaHoraInicio;
-    private LocalDate fechaHoraFin;
+    private LocalDateTime fechaHoraInicio;
+    private LocalDateTime fechaHoraFin;
     private boolean estado;
 
-    public Sesion(Consultorio consultorio, Tratamiento tratamiento, DiaDeSpa diadespa, ArrayList<Instalacion> instalacion, Masajista masajista, LocalDate fechaHoraInicio, LocalDate fechaHoraFin, boolean estado) {
+    public Sesion(Consultorio consultorio, Tratamiento tratamiento, DiaDeSpa diadespa, ArrayList<Instalacion> instalacion, Masajista masajista, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, boolean estado) {
         this.consultorio = consultorio;
         this.codConsultorio = consultorio.getNroConsultorio();
         this.tratamiento = tratamiento;
@@ -34,13 +36,26 @@ public class Sesion {
         this.diadespa = diadespa;
         this.codPack = diadespa.getCodPack();
         this.instalacion = instalacion;
+        for (Instalacion instalacion1 : instalacion) {
+            nombresInstalacion.add(instalacion1.getNombre());
+        }
         this.masajista = masajista;
         this.matricula = masajista.getMatricula();
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.estado = estado;
+        
+        
     }
 
+    public ArrayList<String> getNombresInstalacion() {
+        return nombresInstalacion;
+    }
+
+    public void setNombresInstalacion(ArrayList<String> nombresInstalacion) {
+        this.nombresInstalacion = nombresInstalacion;
+    }
+    
     public int getCodSesion() {
         return codSesion;
     }
@@ -121,19 +136,19 @@ public class Sesion {
         this.matricula = matricula;
     }
 
-    public LocalDate getFechaHoraInicio() {
+    public LocalDateTime getFechaHoraInicio() {
         return fechaHoraInicio;
     }
 
-    public void setFechaHoraInicio(LocalDate fechaHoraInicio) {
+    public void setFechaHoraInicio(LocalDateTime fechaHoraInicio) {
         this.fechaHoraInicio = fechaHoraInicio;
     }
 
-    public LocalDate getFechaHoraFin() {
+    public LocalDateTime getFechaHoraFin() {
         return fechaHoraFin;
     }
 
-    public void setFechaHoraFin(LocalDate fechaHoraFin) {
+    public void setFechaHoraFin(LocalDateTime fechaHoraFin) {
         this.fechaHoraFin = fechaHoraFin;
     }
 
