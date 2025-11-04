@@ -46,14 +46,16 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jmbBarraMenu = new javax.swing.JMenuBar();
         jmClientes = new javax.swing.JMenu();
         jmiGestionClientes = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmInstalaciones = new javax.swing.JMenu();
+        jmiGestionInstalaciones = new javax.swing.JMenuItem();
+        jmConsultorios = new javax.swing.JMenu();
+        jmGestionConsultorios = new javax.swing.JMenuItem();
+        jmMasajistas = new javax.swing.JMenu();
+        jmiGestionMasajistas = new javax.swing.JMenuItem();
+        jmTratamientos = new javax.swing.JMenu();
+        jmiGestionTratamientos = new javax.swing.JMenuItem();
+        jmSesiones = new javax.swing.JMenu();
+        jmiSesiones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,53 +82,60 @@ public class jfSpaRelax extends javax.swing.JFrame {
 
         jmbBarraMenu.add(jmClientes);
 
-        jMenu1.setText("Instalaciones");
+        jmInstalaciones.setText("Instalaciones");
 
-        jMenuItem1.setText("Gestion de Instalaciones");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiGestionInstalaciones.setText("Gestion de Instalaciones");
+        jmiGestionInstalaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiGestionInstalacionesActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jmInstalaciones.add(jmiGestionInstalaciones);
 
-        jmbBarraMenu.add(jMenu1);
+        jmbBarraMenu.add(jmInstalaciones);
 
-        jMenu2.setText("Consultorios");
+        jmConsultorios.setText("Consultorios");
 
-        jMenuItem2.setText("Gestion de Consultorios");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmGestionConsultorios.setText("Gestion de Consultorios");
+        jmGestionConsultorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmGestionConsultoriosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jmConsultorios.add(jmGestionConsultorios);
 
-        jmbBarraMenu.add(jMenu2);
+        jmbBarraMenu.add(jmConsultorios);
 
-        jMenu3.setText("Masajistas");
+        jmMasajistas.setText("Masajistas");
 
-        jMenuItem3.setText("Gestion de Masajistas");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiGestionMasajistas.setText("Gestion de Masajistas");
+        jmiGestionMasajistas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiGestionMasajistasActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jmMasajistas.add(jmiGestionMasajistas);
 
-        jmbBarraMenu.add(jMenu3);
+        jmbBarraMenu.add(jmMasajistas);
 
-        jMenu4.setText("Tratamientos");
+        jmTratamientos.setText("Tratamientos");
 
-        jMenuItem4.setText("Gestion de Tratamientos");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmiGestionTratamientos.setText("Gestion de Tratamientos");
+        jmiGestionTratamientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiGestionTratamientosActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem4);
+        jmTratamientos.add(jmiGestionTratamientos);
 
-        jmbBarraMenu.add(jMenu4);
+        jmbBarraMenu.add(jmTratamientos);
+
+        jmSesiones.setText("Sesiones");
+
+        jmiSesiones.setText("Gestion de Sesiones");
+        jmSesiones.add(jmiSesiones);
+
+        jmbBarraMenu.add(jmSesiones);
 
         setJMenuBar(jmbBarraMenu);
 
@@ -158,41 +167,41 @@ public class jfSpaRelax extends javax.swing.JFrame {
         g.toFront();
     }//GEN-LAST:event_jmiGestionClientesActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiGestionInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionInstalacionesActionPerformed
         jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         jifGestionInstalacion g = new jifGestionInstalacion();
         g.setVisible(true);
         jdpEscritorio.add(g);
         g.toFront();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiGestionInstalacionesActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmGestionConsultoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmGestionConsultoriosActionPerformed
         jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         jifGestionConsultorios g = new jifGestionConsultorios();
         g.setVisible(true);
         jdpEscritorio.add(g);
         g.toFront();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmGestionConsultoriosActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiGestionMasajistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionMasajistasActionPerformed
         jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         jifGestionMasajista g = new jifGestionMasajista();
         g.setVisible(true);
         jdpEscritorio.add(g);
         g.toFront();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmiGestionMasajistasActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiGestionTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiGestionTratamientosActionPerformed
         jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         jifGestionTratamientos gT = new jifGestionTratamientos();
         jdpEscritorio.add(gT);
         gT.setVisible(true);
         gT.moveToFront();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jmiGestionTratamientosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,18 +240,20 @@ public class jfSpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JDesktopPane jdpEscritorio;
     private javax.swing.JMenu jmClientes;
+    private javax.swing.JMenu jmConsultorios;
+    private javax.swing.JMenuItem jmGestionConsultorios;
+    private javax.swing.JMenu jmInstalaciones;
+    private javax.swing.JMenu jmMasajistas;
+    private javax.swing.JMenu jmSesiones;
+    private javax.swing.JMenu jmTratamientos;
     private javax.swing.JMenuBar jmbBarraMenu;
     private javax.swing.JMenuItem jmiGestionClientes;
+    private javax.swing.JMenuItem jmiGestionInstalaciones;
+    private javax.swing.JMenuItem jmiGestionMasajistas;
+    private javax.swing.JMenuItem jmiGestionTratamientos;
+    private javax.swing.JMenuItem jmiSesiones;
     // End of variables declaration//GEN-END:variables
 class DesktopConFondo extends JDesktopPane {
         private Image imagen;
