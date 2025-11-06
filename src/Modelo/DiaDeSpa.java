@@ -1,33 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author Juan
- */
 public class DiaDeSpa {
     private int codPack = -1;
     private Cliente cliente;
     private int idCliente;
-    private ArrayList<Sesion> sesiones;
-    private LocalDate fechayHora;
+    private List<String> sesiones;
+    private LocalDateTime fechayHora;
     private String preferencias;
     private double monto;
     private boolean estado;
 
-    public DiaDeSpa(Cliente cliente,  LocalDate fechayHora, String preferencias, double monto, boolean estado) {
+    public DiaDeSpa(Cliente cliente, List<String> sesiones, LocalDateTime fechayHora, String preferencias, double monto) {
         this.cliente = cliente;
-        this.idCliente = cliente.getIdCliente();
+        this.sesiones = new ArrayList<>(sesiones);
         this.fechayHora = fechayHora;
         this.preferencias = preferencias;
         this.monto = monto;
-        this.estado = estado;
+        this.idCliente = cliente.getIdCliente();
+        this.estado = false;
     }
 
     public int getCodPack() {
@@ -54,19 +48,19 @@ public class DiaDeSpa {
         this.idCliente = idCliente;
     }
 
-    public ArrayList<Sesion> getSesiones() {
+    public List<String> getSesiones() {
         return sesiones;
     }
 
-    public void setSesiones(ArrayList<Sesion> sesiones) {
+    public void setSesiones(List<String> sesiones) {
         this.sesiones = sesiones;
     }
 
-    public LocalDate getFechayHora() {
+    public LocalDateTime getFechayHora() {
         return fechayHora;
     }
 
-    public void setFechayHora(LocalDate fechayHora) {
+    public void setFechayHora(LocalDateTime fechayHora) {
         this.fechayHora = fechayHora;
     }
 
