@@ -2,6 +2,10 @@ package Persistencia;
 
 import Modelo.DiaDeSpa;
 import java.sql.*;
+import Modelo.Cliente;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class DiadespaData {
@@ -74,5 +78,41 @@ public class DiadespaData {
                 }
             }
         }
+    }
+    
+    public DiaDeSpa buscarDiaDeSpa(int cod) {
+        DiaDeSpa dia = null;       
+        String query = "SELECT * FROM dia_de_spa WHERE id_pack=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setInt(1, cod);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String sesiones = rs.getString("sesiones");
+                String[] arraySesiones = sesiones.split(",");
+                List<String> listaSesiones = Arrays.asList(arraySesiones);
+                Cliente cliente = this.cliente.buscarCliente(rs.getInt("id_cliente"));
+                dia = new DiaDeSpa(
+                        cliente,
+                        listaSesiones,
+                        rs.getTimestamp("fecha_hora").toLocalDateTime(),
+                        rs.getString("preferencias"),
+                        rs.getDouble("monto")
+                );
+                dia.setCodPack(rs.getInt("id_pack"));
+                dia.setEstado(rs.getBoolean("estado"));
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
+        }
+        return dia;
     }
 }
