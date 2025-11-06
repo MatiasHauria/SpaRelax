@@ -154,8 +154,87 @@ public class SesionData {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return listaDeInstalacion;
+        return listaDeSesiones;
 
     }
-    
+  
+  
+  public void bajaSesion(int id) {
+        String sql = "UPDATE sesion SET estado=false WHERE id_sesion=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Sesion dada de baja");
+            } else {
+                System.out.println("No se encuentra la Sesion con ID " + id);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+  
+   public void altaSesion(int id) {
+        String sql = "UPDATE sesion SET estado=true WHERE id_sesion=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                System.out.println("Sesion dada de alta");
+            } else {
+                System.out.println("No se encuentra la SEsion con ID " + id);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public Sesion buscarSesion(int idSesion) {
+        Sesion a = null;
+        String sql = "SELECT * FROM sesion WHERE id_sesion=?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idSesion);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
+
+                String instalaciones = rs.getString("instalaciones");
+                String[] partes = instalaciones.split(","); 
+                for(String nombre : partes){
+                    Instalacion b=new Instalacion();
+                    b.setNombre(nombre.trim());
+                    listaInstalaciones.add(b);
+                 }
+                Consultorio consul=consultorio.buscarConsultorio(rs.getInt("id_consultorio"));
+                DiaDeSpa diaspa=diadespa.buscarSpa(rs.getInt("id_pack"));
+                Tratamiento trata=tratamiento.buscarTratamiento(rs.getInt("id_tratamiento"));
+                Masajista masa=masajista.buscarMasajista(rs.getInt("matricula"));
+                LocalDateTime fechaInicio=rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
+                LocalDateTime fechaFinal=rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
+                a = new Sesion(
+                        consul,
+                        trata,
+                        diaspa,
+                        listaInstalaciones,
+                        masa,
+                        fechaInicio,
+                        fechaFinal,
+                        rs.getBoolean("estado")
+                );
+                a.setCodSesion(rs.getInt("id_sesion"));
+                System.out.println("Encontrado: " + a.getCodSesion());
+            } else {
+                System.out.println("No se encontró el Id de la Sesion " + a.getCodSesion());
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return a;
+    }
 }
