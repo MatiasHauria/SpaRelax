@@ -3,7 +3,6 @@ package Persistencia;
 import Modelo.DiaDeSpa;
 import java.sql.*;
 import Modelo.Cliente;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -114,5 +113,76 @@ public class DiadespaData {
             }
         }
         return dia;
+    }
+    
+    public void borrarDiaDeSpa (int cod) {
+        String query = "DELETE FROM dia_de_spa WHERE id_pack=?";
+        try {
+         PreparedStatement ps = conexion.prepareStatement(query);
+         ps.setInt(1, cod);
+         int filas = ps.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "Se ha eliminado el dia de spa exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se ha encontrado un dia de spa con ese ID.");
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public void bajaLogicaDiaDeSpa (int cod) {
+        String query = "UPDATE dia_de_spa SET estado=0 WHERE id_pack=?";
+        try {
+         PreparedStatement ps = conexion.prepareStatement(query);
+         ps.setInt(1, cod);
+         int filas = ps.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "Se ha dado de baja el dia de spa exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se ha encontrado un dia de spa con ese ID.");
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
+        }
+    }
+    public void altaLogicaDiaDeSpa (int cod) {
+        String query = "UPDATE dia_de_spa SET estado=1 WHERE id_pack=?";
+        try {
+         PreparedStatement ps = conexion.prepareStatement(query);
+         ps.setInt(1, cod);
+         int filas = ps.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "Se ha dado de alta el dia de spa exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se ha encontrado un dia de spa con ese ID.");
+            }
+        } catch (SQLException s) {
+            s.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
+        }
     }
 }
