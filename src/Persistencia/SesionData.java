@@ -185,7 +185,7 @@ public class SesionData {
             if (filas > 0) {
                 System.out.println("Sesion dada de alta");
             } else {
-                System.out.println("No se encuentra la SEsion con ID " + id);
+                System.out.println("No se encuentra la Sesion con ID " + id);
             }
             ps.close();
         } catch (SQLException ex) {
@@ -202,7 +202,6 @@ public class SesionData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
-
                 String instalaciones = rs.getString("instalaciones");
                 String[] partes = instalaciones.split(","); 
                 for(String nombre : partes){
@@ -211,7 +210,7 @@ public class SesionData {
                     listaInstalaciones.add(b);
                  }
                 Consultorio consul=consultorio.buscarConsultorio(rs.getInt("id_consultorio"));
-                DiaDeSpa diaspa=diadespa.buscarSpa(rs.getInt("id_pack"));
+                DiaDeSpa diaspa=diadespa.buscarDiaDeSpa(rs.getInt("id_pack"));
                 Tratamiento trata=tratamiento.buscarTratamiento(rs.getInt("id_tratamiento"));
                 Masajista masa=masajista.buscarMasajista(rs.getInt("matricula"));
                 LocalDateTime fechaInicio=rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
