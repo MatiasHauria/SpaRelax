@@ -211,7 +211,7 @@ public class SesionData {
                     listaInstalaciones.add(b);
                  }
                 Consultorio consul=consultorio.buscarConsultorio(rs.getInt("id_consultorio"));
-                DiaDeSpa diaspa=diadespa.buscarSpa(rs.getInt("id_pack"));
+                DiaDeSpa diaspa=diadespa.buscarDiaDeSpa(rs.getInt("id_pack"));
                 Tratamiento trata=tratamiento.buscarTratamiento(rs.getInt("id_tratamiento"));
                 Masajista masa=masajista.buscarMasajista(rs.getInt("matricula"));
                 LocalDateTime fechaInicio=rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
