@@ -22,9 +22,9 @@ public class DiadespaData {
     }
 
     public void generarDiaDeSpa(DiaDeSpa dia) {
-        String query = "INSERT INTO dia_de_spa (id_cliente, fecha_hora, preferencias, monto, estado, sesiones) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO dia_de_spa (id_cliente, fecha_hora, preferencias, monto, estado, sesiones) VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement ps = conexion.prepareStatement(query);
+            PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dia.getIdCliente());
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
@@ -33,6 +33,12 @@ public class DiadespaData {
             String listaSesiones = String.join(",", dia.getSesionesCodigos());
             ps.setString(6, listaSesiones);
             int filas = ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                dia.setCodPack(rs.getInt(1));
+            } else {
+                System.out.println("No se logro obtener el ID del día de spa.");
+            }
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Dia de spa generado exitosamente.");
             } else {

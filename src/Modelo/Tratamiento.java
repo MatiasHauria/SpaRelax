@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Tratamiento {
 
-    private int idTratamiento;
+    private int idTratamiento = -1;
     private String nombre;
     private String detalle;
     private List<String> productos;
@@ -14,7 +14,6 @@ public class Tratamiento {
     private boolean activo;
 
     public Tratamiento(String nombre, String detalle, List<String> productos, int duracion, double costo) {
-        this.idTratamiento = -1;
         this.nombre = nombre;
         this.detalle = detalle;
         this.productos = new ArrayList<>(productos);

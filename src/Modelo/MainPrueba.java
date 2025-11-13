@@ -11,11 +11,13 @@ import Persistencia.TratamientoData;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.sql.*;
 import java.util.List;
 
 public class MainPrueba {
 
     public static void main(String[] args) {
+        try {
         Conexion conexion = new Conexion();
         SesionData sesData = new SesionData(conexion);
         DiadespaData diaData = new DiadespaData(conexion);
@@ -63,7 +65,13 @@ public class MainPrueba {
 
         diaData.generarDiaDeSpa(dia);
         
-        
+//        } catch (SQLIntegrityConstraintViolationException e) {
+//            System.err.println("error de integridad sql: " + e.getMessage());
+//            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("error: " + e.getMessage());
+            e.printStackTrace();
+        }
         
     }
     

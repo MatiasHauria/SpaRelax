@@ -17,7 +17,7 @@ public class TratamientoData {
         try {
             conexion = Conexion.establecerConexion();
             String query = "INSERT INTO tratamiento (nombre, detalle, productos, duracion, costo, activo) VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = conexion.prepareStatement(query);
+            PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tratamiento.getNombre());
             ps.setString(2, tratamiento.getDetalle());
             String listaProductos = String.join(",", tratamiento.getProductos());
@@ -26,8 +26,16 @@ public class TratamientoData {
             ps.setDouble(5, tratamiento.getCosto());
             ps.setBoolean(6, tratamiento.isActivo());
             int filas = ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                tratamiento.setIdTratamiento(rs.getInt(1));
+            } else {
+                System.out.println("No se logro obtener el ID del tratamiento.");
+            }
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Tratamiento agregado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Se produjo un error con agregar el tratamiento.");
             }
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "Error: No se pudo procesar la consulta.");
