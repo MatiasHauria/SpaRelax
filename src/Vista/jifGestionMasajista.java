@@ -441,7 +441,6 @@ private void armarFilas(){
     
     try{
     modelo.setRowCount(0);
-      
       if(!listaMasajista.isEmpty() || listaMasajista !=null){
         for (Masajista aux : listaMasajista) {
                    Object[] fila={

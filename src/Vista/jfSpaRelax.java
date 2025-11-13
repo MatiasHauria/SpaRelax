@@ -249,7 +249,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
-        jifTurnosMasajistas ds = new jifTurnosMasajistas();
+        jifMasajistasLibres ds = new jifMasajistasLibres();
         jdpEscritorio.add(ds);
         ds.setVisible(true);
         ds.moveToFront();

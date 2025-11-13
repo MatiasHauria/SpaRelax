@@ -235,4 +235,59 @@ public class SesionData {
         }
         return a;
     }
+    
+    
+    public ArrayList<Integer> obtenerMasajistasOcupados(LocalDateTime inicio, LocalDateTime fin) {
+    ArrayList<Integer> ocupados = new ArrayList<>();
+
+    String sql = "SELECT matricula FROM sesion "
+            + "WHERE fecha_hora_inicio < ? AND fecha_hora_fin > ? AND estado = true";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setTimestamp(1, Timestamp.valueOf(fin));
+        ps.setTimestamp(2, Timestamp.valueOf(inicio));
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            ocupados.add(rs.getInt("matricula"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return ocupados;
 }
+    public ArrayList<Masajista> obtenerMasajistasLibres(LocalDateTime inicio, LocalDateTime fin){
+
+       SesionData sd = new SesionData(new Conexion());
+       ArrayList<Integer> ocupados = sd.obtenerMasajistasOcupados(inicio, fin);
+
+       ArrayList<Masajista> libres = new ArrayList<>();
+       String sql = "SELECT * FROM masajista WHERE estado = true";
+
+       try (PreparedStatement ps = con.prepareStatement(sql)) {
+           ResultSet rs = ps.executeQuery();
+
+           while (rs.next()) {
+               int mat = rs.getInt("matricula");
+
+               if (!ocupados.contains(mat)) {
+                   Masajista m = new Masajista(
+                           mat,
+                           rs.getString("nombre_completo"),
+                           rs.getInt("telefono"),
+                           rs.getString("especialidad")
+                   );
+                   libres.add(m);
+               }
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+
+       return libres;
+}   
+    
+    
+}
+
