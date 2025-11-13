@@ -86,7 +86,6 @@ public class DiadespaData {
     
     public DiaDeSpa buscarDiaDeSpa(int cod) {
         DiaDeSpa dia = null;
-        Sesion sesion = null;
         String query = "SELECT * FROM dia_de_spa WHERE id_pack=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
@@ -99,16 +98,10 @@ public class DiadespaData {
                 List<Sesion> listaSesiones = new ArrayList<>();
                 for (int i = 0; i < arraySesiones.length; i++) {
                     codigosSesiones[i] = Integer.parseInt(arraySesiones[i]);
-                    sesion = this.sesion.buscarSesion(codigosSesiones[i]);
+                    Sesion sesion = this.sesion.buscarSesion(codigosSesiones[i]);
+                    listaSesiones.add(sesion);
                 }
-                listaSesiones.add(sesion);
                 Cliente cliente = this.cliente.buscarCliente(rs.getInt("id_cliente"));
-//                for (String aux: arraySesiones) {
-//                    //Aca tendriamos que conseguir cada codigo sin la coma
-//                    //Aca lo parseamos a Entero 
-                    
-                    
-//                }
                 dia = new DiaDeSpa(
                         cliente,
                         listaSesiones,
