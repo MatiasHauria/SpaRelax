@@ -339,7 +339,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         String detalles = jTextDetalles.getText();
         try {
             double precioh = Double.parseDouble(jTextPrecio.getText());
-            Instalacion instalacion = new Instalacion(nombre, detalles, precioh, false);
+            Instalacion instalacion = new Instalacion(nombre, detalles, precioh);
             instdat.insertarInstalacion(instalacion);
             JOptionPane.showMessageDialog(null, "Se ha Guardado Correctamente la Instalacion");
             jTextNombre.setText("");

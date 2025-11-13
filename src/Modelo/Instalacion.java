@@ -8,15 +8,13 @@ public class Instalacion {
     private double precioPorHora;
     private boolean estado = false;
 
-    public Instalacion(String nombre, String detalleUso, double precioPorHora, boolean estado) {
+    public Instalacion(String nombre, String detalleUso, double precioPorHora) {
         this.nombre = nombre;
         this.detalleUso = detalleUso;
         this.precioPorHora = precioPorHora;
-        this.estado = estado; // Sujeto a cambios. Debería inicializar en false (?
     }
 
     public Instalacion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
   

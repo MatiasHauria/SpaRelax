@@ -52,10 +52,10 @@ public class InstalacionData {
                 a = new Instalacion(
                         rs.getString("nombre"),
                         rs.getString("detalle_de_uso"),
-                        rs.getInt("precio_hr"),
-                        rs.getBoolean("estado")
+                        rs.getInt("precio_hr")
                 );
                 a.setIdInstalacion(rs.getInt("id_instalacion"));
+                a.setEstado(rs.getBoolean("estado"));
                 System.out.println("Encontrado: " + a.getNombre());
             } else {
                 System.out.println("No se encontró la instalacion con ID " + id);
@@ -152,7 +152,8 @@ public class InstalacionData {
                 double precioa = rs.getDouble("precio_hr");
                 boolean estado = rs.getBoolean("estado");
 
-                Instalacion instalacion = new Instalacion(nombrea, detallesuso, precioa, estado);
+                Instalacion instalacion = new Instalacion(nombrea, detallesuso, precioa);
+                instalacion.setEstado(estado);
                 instalacion.setIdInstalacion(idInstalacion);
                 listaDeInstalacion.add(instalacion);
             }

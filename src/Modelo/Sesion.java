@@ -34,6 +34,7 @@ public class Sesion {
         this.tratamiento = tratamiento;
         this.codTratamiento = tratamiento.getIdTratamiento();
         this.instalacion = instalacion;
+        this.nombresInstalacion = new ArrayList<>();
         for (Instalacion instalacion1 : instalacion) {
             nombresInstalacion.add(instalacion1.getNombre());
         }

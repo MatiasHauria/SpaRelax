@@ -18,6 +18,7 @@ public class DiaDeSpa {
     public DiaDeSpa(Cliente cliente, List<Sesion> sesiones, LocalDateTime fechayHora, String preferencias, double monto) {
         this.cliente = cliente;
         this.sesiones = new ArrayList<>(sesiones);
+        this.sesionesCodigos = new ArrayList<>();
         for (Sesion sesion : sesiones) {
             String sesionesCod = String.valueOf(sesion.getCodSesion());
             sesionesCodigos.add(sesionesCod);
