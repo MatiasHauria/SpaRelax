@@ -8,20 +8,41 @@ public class DiaDeSpa {
     private int codPack = -1;
     private Cliente cliente;
     private int idCliente;
-    private List<String> sesiones;
+    private List<Sesion> sesiones;
+    private List<String> sesionesCodigos;
     private LocalDateTime fechayHora;
     private String preferencias;
     private double monto;
     private boolean estado;
 
-    public DiaDeSpa(Cliente cliente, List<String> sesiones, LocalDateTime fechayHora, String preferencias, double monto) {
+    public DiaDeSpa(Cliente cliente, List<Sesion> sesiones, LocalDateTime fechayHora, String preferencias, double monto) {
         this.cliente = cliente;
         this.sesiones = new ArrayList<>(sesiones);
+        for (Sesion sesion : sesiones) {
+            String sesionesCod = String.valueOf(sesion.getCodSesion());
+            sesionesCodigos.add(sesionesCod);
+        }
         this.fechayHora = fechayHora;
         this.preferencias = preferencias;
         this.monto = monto;
         this.idCliente = cliente.getIdCliente();
         this.estado = false;
+    }
+
+    public List<Sesion> getSesiones() {
+        return sesiones;
+    }
+
+    public void setSesiones(List<Sesion> sesiones) {
+        this.sesiones = sesiones;
+    }
+
+    public List<String> getSesionesCodigos() {
+        return sesionesCodigos;
+    }
+
+    public void setSesionesCodigos(List<String> sesionesCodigos) {
+        this.sesionesCodigos = sesionesCodigos;
     }
 
     public int getCodPack() {
@@ -46,14 +67,6 @@ public class DiaDeSpa {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
-    }
-
-    public List<String> getSesiones() {
-        return sesiones;
-    }
-
-    public void setSesiones(List<String> sesiones) {
-        this.sesiones = sesiones;
     }
 
     public LocalDateTime getFechayHora() {

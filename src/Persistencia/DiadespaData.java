@@ -3,7 +3,8 @@ package Persistencia;
 import Modelo.DiaDeSpa;
 import java.sql.*;
 import Modelo.Cliente;
-import java.util.Arrays;
+import Modelo.Sesion;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -11,22 +12,25 @@ public class DiadespaData {
 
     private Connection conexion = null;
     private ClienteData cliente;
+    private SesionData sesion;
 
     public DiadespaData(Conexion conexion) {
         this.conexion = (Connection) conexion.establecerConexion();
         this.cliente = new ClienteData(conexion);
+        this.sesion = new SesionData(conexion);
     }
 
     public void generarDiaDeSpa(DiaDeSpa dia) {
-        String query = "INSERT INTO dia_de_spa (id_cliente, fecha_hora, preferencias, monto, sesiones) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO dia_de_spa (id_cliente, fecha_hora, preferencias, monto, estado, sesiones) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, dia.getIdCliente());
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
             ps.setDouble(4, dia.getMonto());
-            String listaSesiones = String.join(",", dia.getSesiones());
-            ps.setString(5, listaSesiones);
+            ps.setBoolean(5, dia.isEstado());
+            String listaSesiones = String.join(",", dia.getSesionesCodigos());
+            ps.setString(6, listaSesiones);
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Dia de spa generado exitosamente.");
@@ -55,9 +59,9 @@ public class DiadespaData {
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
             ps.setDouble(4, dia.getMonto());
-            String listaSesiones = String.join(",", dia.getSesiones());
-            ps.setString(4, listaSesiones);
-            ps.setInt(5, cod);
+            String listaSesiones = String.join(",", dia.getSesionesCodigos());
+            ps.setString(5, listaSesiones);
+            ps.setInt(6, cod);
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Dia de spa actualizado exitosamente.");
@@ -80,7 +84,8 @@ public class DiadespaData {
     }
     
     public DiaDeSpa buscarDiaDeSpa(int cod) {
-        DiaDeSpa dia = null;       
+        DiaDeSpa dia = null;
+        Sesion sesion = null;
         String query = "SELECT * FROM dia_de_spa WHERE id_pack=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
@@ -88,9 +93,21 @@ public class DiadespaData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String sesiones = rs.getString("sesiones");
-                String[] arraySesiones = sesiones.split(",");
-                List<String> listaSesiones = Arrays.asList(arraySesiones);
+                String[] arraySesiones = sesiones.split("//s*,//s*");
+                int[] codigosSesiones = new int[arraySesiones.length];
+                List<Sesion> listaSesiones = new ArrayList<>();
+                for (int i = 0; i < arraySesiones.length; i++) {
+                    codigosSesiones[i] = Integer.parseInt(arraySesiones[i]);
+                    sesion = this.sesion.buscarSesion(codigosSesiones[i]);
+                }
+                listaSesiones.add(sesion);
                 Cliente cliente = this.cliente.buscarCliente(rs.getInt("id_cliente"));
+//                for (String aux: arraySesiones) {
+//                    //Aca tendriamos que conseguir cada codigo sin la coma
+//                    //Aca lo parseamos a Entero 
+                    
+                    
+//                }
                 dia = new DiaDeSpa(
                         cliente,
                         listaSesiones,

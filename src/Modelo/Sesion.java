@@ -28,13 +28,11 @@ public class Sesion {
     private LocalDateTime fechaHoraFin;
     private boolean estado;
 
-    public Sesion(Consultorio consultorio, Tratamiento tratamiento, DiaDeSpa diadespa, ArrayList<Instalacion> instalacion, Masajista masajista, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, boolean estado) {
+    public Sesion(Consultorio consultorio, Tratamiento tratamiento, ArrayList<Instalacion> instalacion, Masajista masajista, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, boolean estado) {
         this.consultorio = consultorio;
         this.codConsultorio = consultorio.getNroConsultorio();
         this.tratamiento = tratamiento;
         this.codTratamiento = tratamiento.getIdTratamiento();
-        this.diadespa = diadespa;
-        this.codPack = diadespa.getCodPack();
         this.instalacion = instalacion;
         for (Instalacion instalacion1 : instalacion) {
             nombresInstalacion.add(instalacion1.getNombre());
@@ -102,8 +100,9 @@ public class Sesion {
 
     public void setDiadespa(DiaDeSpa diadespa) {
         this.diadespa = diadespa;
+        this.codPack = diadespa.getCodPack();
     }
-
+    
     public int getCodPack() {
         return codPack;
     }

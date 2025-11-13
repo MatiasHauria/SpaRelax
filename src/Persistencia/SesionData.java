@@ -9,10 +9,8 @@ import Modelo.Consultorio;
 import Modelo.Masajista;
 import Modelo.Tratamiento;
 import Modelo.DiaDeSpa;
-import Persistencia.InstalacionData;
 import org.mariadb.jdbc.Connection;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -145,8 +143,9 @@ public class SesionData {
                 LocalDateTime fechaFinal=rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
                 boolean estado = rs.getBoolean("estado");
 
-                Sesion sesion = new Sesion(c,t,i,listaInstalaciones,m,fechaInicio,fechaFinal,estado);
+                Sesion sesion = new Sesion(c,t,listaInstalaciones,m,fechaInicio,fechaFinal,estado);
                 sesion.setCodConsultorio(codSesion);
+                sesion.setDiadespa(i);
                 listaDeSesiones.add(sesion);
             }
 
@@ -218,7 +217,6 @@ public class SesionData {
                 a = new Sesion(
                         consul,
                         trata,
-                        diaspa,
                         listaInstalaciones,
                         masa,
                         fechaInicio,
@@ -226,6 +224,7 @@ public class SesionData {
                         rs.getBoolean("estado")
                 );
                 a.setCodSesion(rs.getInt("id_sesion"));
+                a.setDiadespa(diaspa);
                 System.out.println("Encontrado: " + a.getCodSesion());
             } else {
                 System.out.println("No se encontró el Id de la Sesion " + a.getCodSesion());
