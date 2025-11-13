@@ -54,6 +54,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jmGestionConsultorios = new javax.swing.JMenuItem();
         jmMasajistas = new javax.swing.JMenu();
         jmiGestionMasajistas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jmTratamientos = new javax.swing.JMenu();
         jmiGestionTratamientos = new javax.swing.JMenuItem();
         jmSesiones = new javax.swing.JMenu();
@@ -119,6 +120,14 @@ public class jfSpaRelax extends javax.swing.JFrame {
             }
         });
         jmMasajistas.add(jmiGestionMasajistas);
+
+        jMenuItem1.setText("Turnos de los Masajistas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmMasajistas.add(jMenuItem1);
 
         jmbBarraMenu.add(jmMasajistas);
 
@@ -229,13 +238,22 @@ public class jfSpaRelax extends javax.swing.JFrame {
     }//GEN-LAST:event_jmDiaSpaActionPerformed
 
     private void jmiDiaSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDiaSpaActionPerformed
-         jdpEscritorio.removeAll();
+        jdpEscritorio.removeAll();
         jdpEscritorio.repaint();
         jifGestionDiaDeSpa ds = new jifGestionDiaDeSpa();
         jdpEscritorio.add(ds);
         ds.setVisible(true);
         ds.moveToFront();
     }//GEN-LAST:event_jmiDiaSpaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        jifTurnosMasajistas ds = new jifTurnosMasajistas();
+        jdpEscritorio.add(ds);
+        ds.setVisible(true);
+        ds.moveToFront();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,6 +292,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JDesktopPane jdpEscritorio;
     private javax.swing.JMenu jmClientes;
     private javax.swing.JMenu jmConsultorios;
