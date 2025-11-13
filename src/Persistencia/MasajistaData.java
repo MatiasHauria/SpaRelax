@@ -168,4 +168,29 @@ public class MasajistaData {
 
     }   
  
+public ArrayList<Masajista> obtenerMasajistasPorEspecialidad(String especialidad) {
+    ArrayList<Masajista> lista = new ArrayList<>();
+    String sql = "SELECT * FROM masajista WHERE especialidad = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, especialidad);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Masajista m = new Masajista(
+                rs.getInt("matricula"),
+                rs.getString("nombre_completo"),
+                rs.getInt("telefono"),
+                rs.getString("especialidad")
+            );
+            m.setEstado(rs.getBoolean("estado"));
+            lista.add(m);
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return lista;
+} 
 }

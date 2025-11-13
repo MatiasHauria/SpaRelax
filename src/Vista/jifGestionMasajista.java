@@ -6,6 +6,8 @@ import Modelo.Masajista;
 import Persistencia.MasajistaData;
 import Persistencia.Conexion;
 import static Vista.jfSpaRelax.listaMasajista;
+import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +32,14 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
         initComponents();
         armarCabecera();
         habilitarCampos(false);
+        ButtonGroup grupo = new ButtonGroup();
+
+        // Agregar los radio buttons al grupo
+        grupo.add(jFacial);
+        grupo.add(jCorporal);
+        grupo.add(jEstetico);
+        grupo.add(jRelajacion);
+        grupo.add(jTodas);
         
     }
 
@@ -64,6 +74,12 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jFacial = new javax.swing.JRadioButton();
+        jRelajacion = new javax.swing.JRadioButton();
+        jCorporal = new javax.swing.JRadioButton();
+        jEstetico = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTodas = new javax.swing.JRadioButton();
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setText("Gestion Masajista");
@@ -154,6 +170,19 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
             }
         });
 
+        jFacial.setText("Facial");
+
+        jRelajacion.setText("Relajacion");
+
+        jCorporal.setText("Corporal");
+
+        jEstetico.setText("Estetico");
+
+        jLabel7.setText("Tipo de especialidad");
+
+        jTodas.setSelected(true);
+        jTodas.setText("Todas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,50 +190,64 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addComponent(jLabel6)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jNombrecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(59, 59, 59)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jBorrar)
-                                    .addComponent(jActualizar)
-                                    .addComponent(jAlta)
-                                    .addComponent(jBaja)
-                                    .addComponent(jGuardar)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(jNuevo))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(192, 192, 192)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jmostrar)
-                                .addGap(65, 65, 65)
+                                .addGap(63, 63, 63)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jButton2)))))
                 .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jFacial)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(jNuevo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRelajacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCorporal)
+                        .addGap(46, 46, 46)
+                        .addComponent(jEstetico, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTodas)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jNombrecompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBorrar)
+                            .addComponent(jActualizar)
+                            .addComponent(jAlta)
+                            .addComponent(jBaja)
+                            .addComponent(jGuardar)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,14 +280,23 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
                     .addComponent(jBaja))
                 .addGap(18, 18, 18)
                 .addComponent(jGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jLabel7)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRelajacion)
+                    .addComponent(jFacial)
+                    .addComponent(jCorporal)
+                    .addComponent(jEstetico)
+                    .addComponent(jTodas))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jmostrar)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         pack();
@@ -263,7 +315,29 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     }//GEN-LAST:event_jNuevoActionPerformed
 
     private void jmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmostrarActionPerformed
-        armarFilas();
+String filtro = "";
+if (jFacial.isSelected()) {
+    filtro = "Facial";
+    listaMasajista = cd.obtenerMasajistasPorEspecialidad(filtro);
+    armarFilas();
+} else if (jCorporal.isSelected()) {
+    filtro = "Corporal";
+    listaMasajista = cd.obtenerMasajistasPorEspecialidad(filtro);
+    armarFilas();
+} else if (jEstetico.isSelected()) {
+    filtro = "Estético";
+    listaMasajista = cd.obtenerMasajistasPorEspecialidad(filtro);
+    armarFilas();
+}else if(jRelajacion.isSelected()){
+    filtro="Relajacion";
+    listaMasajista = cd.obtenerMasajistasPorEspecialidad(filtro);
+    armarFilas();
+}else if(jTodas.isSelected()){
+    listaMasajista=cd.obtenerMasajista();
+    armarFilas();
+}
+
+        
     }//GEN-LAST:event_jmostrarActionPerformed
 
     private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
@@ -330,8 +404,11 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     private javax.swing.JButton jBorrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JRadioButton jCorporal;
     private javax.swing.JTextField jEspecialidad;
     private javax.swing.JTextField jEstado;
+    private javax.swing.JRadioButton jEstetico;
+    private javax.swing.JRadioButton jFacial;
     private javax.swing.JButton jGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -339,12 +416,15 @@ private final DefaultTableModel modelo = new DefaultTableModel() {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField jMatricula;
     private javax.swing.JTextField jNombrecompleto;
     private javax.swing.JButton jNuevo;
+    private javax.swing.JRadioButton jRelajacion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTelefono;
+    private javax.swing.JRadioButton jTodas;
     private javax.swing.JButton jmostrar;
     // End of variables declaration//GEN-END:variables
 
@@ -361,7 +441,7 @@ private void armarFilas(){
     
     try{
     modelo.setRowCount(0);
-    listaMasajista=cd.obtenerMasajista();  
+      
       if(!listaMasajista.isEmpty() || listaMasajista !=null){
         for (Masajista aux : listaMasajista) {
                    Object[] fila={
@@ -369,7 +449,8 @@ private void armarFilas(){
                 aux.getMatricula(),
                 aux.getNombreCompleto(),
                 aux.getEspecialidad(),
-                aux.getTelefono()
+                aux.getTelefono(),
+                aux.isEstado()
                
             }; 
             modelo.addRow(fila);
