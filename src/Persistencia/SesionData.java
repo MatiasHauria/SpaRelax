@@ -43,7 +43,7 @@ public class SesionData {
       
         ps.setInt(1,s.getCodConsultorio());
         ps.setInt(2, s.getCodTratamiento());
-        ps.setInt(3,s.getCodPack());
+        ps.setNull(3, java.sql.Types.INTEGER);
         String listaInstalacion=String.join(",",s.getNombresInstalacion());
         ps.setString(4, listaInstalacion);
         ps.setInt(5, s.getMatricula());

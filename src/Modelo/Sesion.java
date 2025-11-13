@@ -43,8 +43,6 @@ public class Sesion {
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.estado = estado;
-        
-        
     }
 
     public ArrayList<String> getNombresInstalacion() {
