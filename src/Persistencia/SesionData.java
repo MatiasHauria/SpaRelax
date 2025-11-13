@@ -17,21 +17,19 @@ import java.util.ArrayList;
 
 public class SesionData {
   private Connection con = null;
+  private Conexion gestorConexion;
   private TratamientoData tratamiento;
   private ConsultorioData consultorio;
   private MasajistaData masajista;
   private DiadespaData diadespa;
   private InstalacionData instalacionData;
-
     public SesionData(Conexion con) {
-        
+        this.gestorConexion = con;
         this.con = (Connection) con.establecerConexion();
         this.tratamiento=new TratamientoData();
         this.consultorio=new ConsultorioData(con);
         this.masajista=new MasajistaData(con);
         this.instalacionData=new InstalacionData(con);
-        //this.diadespa=new DiadespaData(con);
-        
     }
     
     public void insertarSesion(Sesion s) {
@@ -113,9 +111,6 @@ public class SesionData {
   
   public ArrayList<Sesion> obtenerSesiones() {
         ArrayList<Sesion> listaDeSesiones = new ArrayList<>();
-        
-        
-        
         String sql = "Select * FROM sesion";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -127,7 +122,8 @@ public class SesionData {
                 int idTratamiento=rs.getInt("id_tratamiento");
                 Tratamiento t=tratamiento.buscarTratamiento(idTratamiento);
                 int idSpa=rs.getInt("id_pack");
-                DiaDeSpa i=diadespa.buscarDiaDeSpa(idSpa);
+                DiadespaData dd = new DiadespaData(this.gestorConexion);
+                DiaDeSpa i=dd.buscarDiaDeSpa(idSpa);
                 ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
 
                 String instalaciones = rs.getString("instalaciones");
@@ -209,7 +205,8 @@ public class SesionData {
                     listaInstalaciones.add(b);
                  }
                 Consultorio consul=consultorio.buscarConsultorio(rs.getInt("id_consultorio"));
-                DiaDeSpa diaspa=diadespa.buscarDiaDeSpa(rs.getInt("id_pack"));
+                DiadespaData dd = new DiadespaData(this.gestorConexion);
+                DiaDeSpa diaspa=dd.buscarDiaDeSpa(rs.getInt("id_pack"));
                 Tratamiento trata=tratamiento.buscarTratamiento(rs.getInt("id_tratamiento"));
                 Masajista masa=masajista.buscarMasajista(rs.getInt("matricula"));
                 LocalDateTime fechaInicio=rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();

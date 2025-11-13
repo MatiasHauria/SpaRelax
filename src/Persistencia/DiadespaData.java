@@ -17,8 +17,8 @@ public class DiadespaData {
 
     public DiadespaData(Conexion conexion) {
         this.conexion = (Connection) conexion.establecerConexion();
-        this.cliente = new ClienteData(conexion);
-        this.sesion = new SesionData(conexion);
+        //this.cliente = new ClienteData(conexion);
+        //this.sesion = new SesionData(conexion);
     }
 
     public void generarDiaDeSpa(DiaDeSpa dia) {
@@ -99,7 +99,7 @@ public class DiadespaData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String sesiones = rs.getString("sesiones");
-                String[] arraySesiones = sesiones.split("//s*,//s*");
+                String[] arraySesiones = sesiones.split(",");
                 int[] codigosSesiones = new int[arraySesiones.length];
                 List<Sesion> listaSesiones = new ArrayList<>();
                 for (int i = 0; i < arraySesiones.length; i++) {
@@ -262,4 +262,10 @@ public class DiadespaData {
     
     return dias;
 }
+    
+    
+    
+    public void setSesionData(SesionData sesion) {
+        this.sesion = sesion;
+    }
 }

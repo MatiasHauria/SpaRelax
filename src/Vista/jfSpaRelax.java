@@ -50,6 +50,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jmiGestionClientes = new javax.swing.JMenuItem();
         jmInstalaciones = new javax.swing.JMenu();
         jmiGestionInstalaciones = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jmConsultorios = new javax.swing.JMenu();
         jmGestionConsultorios = new javax.swing.JMenuItem();
         jmMasajistas = new javax.swing.JMenu();
@@ -96,6 +97,14 @@ public class jfSpaRelax extends javax.swing.JFrame {
             }
         });
         jmInstalaciones.add(jmiGestionInstalaciones);
+
+        jMenuItem2.setText("Instalaciones Libres");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmInstalaciones.add(jMenuItem2);
 
         jmbBarraMenu.add(jmInstalaciones);
 
@@ -255,6 +264,15 @@ public class jfSpaRelax extends javax.swing.JFrame {
         ds.moveToFront();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        jifInstalacionesHorarios ds = new jifInstalacionesHorarios();
+        jdpEscritorio.add(ds);
+        ds.setVisible(true);
+        ds.moveToFront();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -293,6 +311,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JDesktopPane jdpEscritorio;
     private javax.swing.JMenu jmClientes;
     private javax.swing.JMenu jmConsultorios;
