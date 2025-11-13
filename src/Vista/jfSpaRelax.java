@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 
+//Dios los bendiga a todos, les traiga paz y amor a sus corazones y nunca los abandone, Amén.
+
 /**
  *
  * @author matute
@@ -56,6 +58,8 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jmiGestionTratamientos = new javax.swing.JMenuItem();
         jmSesiones = new javax.swing.JMenu();
         jmiSesiones = new javax.swing.JMenuItem();
+        jmDiaSpa = new javax.swing.JMenu();
+        jmiDiaSpa = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,6 +141,23 @@ public class jfSpaRelax extends javax.swing.JFrame {
 
         jmbBarraMenu.add(jmSesiones);
 
+        jmDiaSpa.setText("Dia de Spa");
+        jmDiaSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmDiaSpaActionPerformed(evt);
+            }
+        });
+
+        jmiDiaSpa.setText("Gestion de Dias de Spa");
+        jmiDiaSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDiaSpaActionPerformed(evt);
+            }
+        });
+        jmDiaSpa.add(jmiDiaSpa);
+
+        jmbBarraMenu.add(jmDiaSpa);
+
         setJMenuBar(jmbBarraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,6 +224,19 @@ public class jfSpaRelax extends javax.swing.JFrame {
         gT.moveToFront();
     }//GEN-LAST:event_jmiGestionTratamientosActionPerformed
 
+    private void jmDiaSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDiaSpaActionPerformed
+       
+    }//GEN-LAST:event_jmDiaSpaActionPerformed
+
+    private void jmiDiaSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDiaSpaActionPerformed
+         jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        jifGestionDiaDeSpa ds = new jifGestionDiaDeSpa();
+        jdpEscritorio.add(ds);
+        ds.setVisible(true);
+        ds.moveToFront();
+    }//GEN-LAST:event_jmiDiaSpaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -243,12 +277,14 @@ public class jfSpaRelax extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jdpEscritorio;
     private javax.swing.JMenu jmClientes;
     private javax.swing.JMenu jmConsultorios;
+    private javax.swing.JMenu jmDiaSpa;
     private javax.swing.JMenuItem jmGestionConsultorios;
     private javax.swing.JMenu jmInstalaciones;
     private javax.swing.JMenu jmMasajistas;
     private javax.swing.JMenu jmSesiones;
     private javax.swing.JMenu jmTratamientos;
     private javax.swing.JMenuBar jmbBarraMenu;
+    private javax.swing.JMenuItem jmiDiaSpa;
     private javax.swing.JMenuItem jmiGestionClientes;
     private javax.swing.JMenuItem jmiGestionInstalaciones;
     private javax.swing.JMenuItem jmiGestionMasajistas;

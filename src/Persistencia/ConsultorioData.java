@@ -49,14 +49,13 @@ public class ConsultorioData {
     }
     
     public void mostrarTodos(){
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT * FROM consultorio";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Consultorio a = new Consultorio(
-                        rs.getInt("id_consultorio"),
-                        rs.getString("usos"),
+                                                rs.getString("usos"),
                         rs.getString("equipamento"));
                 a.setNroConsultorio(rs.getInt("id_consultorio"));
                 System.out.println("ID: " + a.getNroConsultorio()+
@@ -79,8 +78,7 @@ public class ConsultorioData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 a = new Consultorio(
-                        rs.getInt("id_consultorio"),
-                        rs.getString("usos"),
+                                                rs.getString("usos"),
                         rs.getString("equipamento"));
                 a.setNroConsultorio(rs.getInt("id_consultorio"));
                 System.out.println("Encontrado: " + a.getNroConsultorio());
@@ -94,7 +92,7 @@ public class ConsultorioData {
         return a;
     }
     
-     public void actualizarConsultorio(int idNuevo, int parseInt, String usoNuevo, String equipoNuevo, boolean aptoNuevo) {
+     public void actualizarConsultorio(int idNuevo, String usoNuevo, String equipoNuevo, boolean aptoNuevo) {
         String sql = "UPDATE Consultorio SET id_consultorio=?,usos=?,equipamento=?,apto=? WHERE id_consultorio=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -176,7 +174,7 @@ public class ConsultorioData {
            String equipo=rs.getString("equipamento");
            boolean apto =rs.getBoolean("apto");
            
-           Consultorio consultorio = new Consultorio( idCons, usos, equipo);
+           Consultorio consultorio = new Consultorio( usos, equipo);
            consultorio.setNroConsultorio(idCons);
            consultorio.setUsos(usos);
            consultorio.setEquipamiento(equipo);

@@ -34,7 +34,6 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         jTable1.setModel(modelo);
         cargarTabla();
 
-        jtfIdCons.setEnabled(false);
         jtfUsos.setEnabled(false);
         jtfEquipo.setEnabled(false);
         jtfApto.setEnabled(false);
@@ -89,11 +88,9 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jtfIdCons = new javax.swing.JTextField();
         jtfUsos = new javax.swing.JTextField();
         jtfEquipo = new javax.swing.JTextField();
         jtfApto = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -117,8 +114,6 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("ID:");
-
         jLabel3.setText("Usos:");
 
         jLabel4.setText("Equipamento:");
@@ -133,25 +128,19 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
                 .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfApto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfUsos, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfIdCons, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(116, 116, 116))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfIdCons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfUsos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -321,12 +310,9 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         aptoOperacion = "Nuevo";
-        jtfIdCons.setText("");
         jtfUsos.setText("");
         jtfEquipo.setText("");
         jtfApto.setText("false");
-
-        jtfIdCons.setEnabled(true);
         jtfUsos.setEnabled(true);
         jtfEquipo.setEnabled(true);
         jtfApto.setEnabled(true);
@@ -363,12 +349,10 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
             Consultorio consultorioSeleccionado = buscarConsultorioPorCodigo(codigoCons);
 
             if (consultorioSeleccionado != null) {
-                jtfIdCons.setText(String.valueOf(consultorioSeleccionado.getNroConsultorio()));
                 jtfUsos.setText(consultorioSeleccionado.getUsos());
                 jtfEquipo.setText(consultorioSeleccionado.getEquipamiento());
                 jtfApto.setText(String.valueOf(consultorioSeleccionado.isApto()));
 
-                jtfIdCons.setEnabled(true);
                 jtfUsos.setEnabled(true);
                 jtfEquipo.setEnabled(true);
 
@@ -438,7 +422,6 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "Consultorio borrado con exito.");
 
                         cargarTabla();
-                        jtfIdCons.setText("");
                         jtfUsos.setText("");
                         jtfEquipo.setText("");
                         jtfApto.setText("");
@@ -461,102 +444,86 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-        boolean consultorioExiste = false;
+        String regexLetras = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+    String regexNumeros = "\\d+";
+    boolean consultorioExiste = false;
 
-        if (jtfIdCons.getText().isEmpty() || jtfUsos.getText().isEmpty() || jtfEquipo.getText().isEmpty()
-                || jtfApto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos.", "Error, Campos Vacíos",
-                    JOptionPane.ERROR_MESSAGE);
+    if (  jtfEquipo.getText().isEmpty() || jtfApto.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, 
+            "Todos los campos deben estar completos.", 
+            "Error, Campos Vacíos", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (!jtfUsos.getText().matches(regexLetras) || !jtfEquipo.getText().matches(regexLetras)) {
+        JOptionPane.showMessageDialog(this, 
+            "Los campos 'Usos' y 'Equipamiento' solo deben contener letras y espacios.", 
+            "Error de Formato", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (!jtfApto.getText().equalsIgnoreCase("true") && !jtfApto.getText().equalsIgnoreCase("false")) {
+        JOptionPane.showMessageDialog(this, 
+            "El campo 'Apto' solo debe ser 'true' o 'false'.", 
+            "Error de Formato", 
+            JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    listaConsultorios = cd.obtenerConsultorio();
+    boolean aptoValor = Boolean.parseBoolean(jtfApto.getText());
+
+    if (aptoOperacion.equalsIgnoreCase("Nuevo")) {
+        for (Consultorio consultorio : listaConsultorios) {
+            if (consultorio.getNroConsultorio() == consultorio.getNroConsultorio()) {
+                consultorioExiste = true;
+                break;
+            }
         }
 
-        try {
-
-            if (!jtfIdCons.getText().matches(regex) && !jtfIdCons.getText().isEmpty()
-                    || !jtfUsos.getText().matches(regex) && !jtfUsos.getText().isEmpty()
-                    || !jtfEquipo.getText().matches(regex) && !jtfEquipo.getText().isEmpty()
-                    || jtfApto.getText().matches(regex) && !jtfApto.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Uno o mas campos contienen caracteres incorrectos",
-                        "Error de Formato", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "El campo ID solo permite numeros.",
-                    "Error de Formato Numerico", JOptionPane.ERROR_MESSAGE);
+        if (consultorioExiste) {
+            JOptionPane.showMessageDialog(this, 
+                "Ya existe un consultorio con el ID ingresado", 
+                "Error. Consultorio existente", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
-        listaConsultorios = cd.obtenerConsultorio();
-        int idIngresado = Integer.parseInt(jtfIdCons.getText());
+        Consultorio nuevoConsultorio = new Consultorio (jtfUsos.getText(), jtfEquipo.getText());
+        nuevoConsultorio.setApto(aptoValor);
 
-        if (aptoOperacion.equalsIgnoreCase("Nuevo")) {
+        cd.insertarConsultorio(nuevoConsultorio);
+        JOptionPane.showMessageDialog(this, "Consultorio agregado exitosamente.");
 
-            for (Consultorio consultorio : listaConsultorios) {
-                if (consultorio.getNroConsultorio() == idIngresado) {
-                    consultorioExiste = true;
-                    break;
-                }
-            }
+        aptoOperacion = "Ninguno";
 
-            if (consultorioExiste) {
-                JOptionPane.showMessageDialog(this, "Ya existe un consultorio con el ID ingresado",
-                        "Error. Consultorio existente", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+    } else if (aptoOperacion.equalsIgnoreCase("Actualizar")) {
+        int codConsultorioActualizar = this.idConsultorioSeleccionado;
+        Consultorio consultorioActualizar = buscarConsultorioPorCodigo(codConsultorioActualizar);
 
-            Consultorio nuevoConsultorio = new Consultorio(Integer.parseInt(jtfIdCons.getText()), jtfUsos.getText(),
-                    jtfEquipo.getText());
-            nuevoConsultorio.setApto(Boolean.parseBoolean(jtfApto.getText()));
-
-            cd.insertarConsultorio(nuevoConsultorio);
-            JOptionPane.showMessageDialog(this, "Consultorio agregado con exitosamente");
-
-            aptoOperacion = "Ninguno";
-
-        } else if (aptoOperacion.equalsIgnoreCase("Actualizar")) {
-            int codConsultorioActualizar = this.idConsultorioSeleccionado;
-            boolean estadoFinal = "true".equals(jtfApto.getText());
-            Consultorio consultorioActualizar = buscarConsultorioPorCodigo(codConsultorioActualizar);
-
-            if (consultorioActualizar != null) {
-                cd.actualizarConsultorio(codConsultorioActualizar, Integer.parseInt(jtfIdCons.getText()),
-                        jtfUsos.getText(), jtfEquipo.getText(), Boolean.parseBoolean(jtfApto.getText()));
-
-                if (aptoLogicoCambiado) {
-                    if (estadoFinal) {
-                        cd.altaConsultorio(codConsultorioActualizar);
-                    } else {
-                        cd.bajaConsultorio(codConsultorioActualizar);
-                    }
-                    aptoLogicoCambiado = false;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Consultorio actualizado con exitosamente");
-                }
-                this.idConsultorioSeleccionado = -1;
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontro el consultorio.", "Error de Busqueda",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            aptoOperacion = "Ninguno";
+        if (consultorioActualizar != null) {
+            cd.actualizarConsultorio(codConsultorioActualizar, jtfUsos.getText(), jtfEquipo.getText(), aptoValor);
+            JOptionPane.showMessageDialog(this, "Consultorio actualizado exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró el consultorio.", 
+                "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
         }
+        aptoOperacion = "Ninguno";
+    }
 
-        if (btnMostrar.getText().equalsIgnoreCase("Mostrar Consultorios")) {
-            cargarTabla();
-            btnMostrar.setText("Ocultar Clientes");
-        } else if (btnMostrar.getText().equalsIgnoreCase("Ocultar Clientes")) {
-            cargarTabla();
-        }
+    cargarTabla();
+    jtfUsos.setText("");
+    jtfEquipo.setText("");
+    jtfApto.setText("");
 
-        jtfIdCons.setText("");
-        jtfUsos.setText("");
-        jtfEquipo.setText("");
-        jtfApto.setText("");
+    btnGuardar.setEnabled(false);
+    btnNuevo.setEnabled(true);
 
-        btnGuardar.setEnabled(false);
-        btnNuevo.setEnabled(true);
-
-        jtfIdCons.setEnabled(false);
-        jtfUsos.setEnabled(false);
-        jtfEquipo.setEnabled(false);
-        jtfApto.setEnabled(false);
+    jtfUsos.setEnabled(false);
+    jtfEquipo.setEnabled(false);
+    jtfApto.setEnabled(false);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void armarCabecera() {
@@ -576,7 +543,6 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -586,7 +552,6 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jtfApto;
     private javax.swing.JTextField jtfEquipo;
-    private javax.swing.JTextField jtfIdCons;
     private javax.swing.JTextField jtfUsos;
     // End of variables declaration//GEN-END:variables
 }

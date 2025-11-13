@@ -11,7 +11,7 @@ public class Consultorio {
     private String equipamiento;
     private boolean apto;
 
-    public Consultorio(int idConsultorio, String equipamiento, String usos) {
+    public Consultorio(String equipamiento, String usos) {
         this.idConsultorio = idConsultorio;
         this.usos = usos;
         this.equipamiento = equipamiento;

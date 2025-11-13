@@ -4,6 +4,7 @@ import Modelo.DiaDeSpa;
 import java.sql.*;
 import Modelo.Cliente;
 import Modelo.Sesion;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -202,4 +203,64 @@ public class DiadespaData {
             }
         }
     }
+    
+    public List<DiaDeSpa> obtenerTodosLosDiasDeSpa() {
+    List<DiaDeSpa> dias = new ArrayList<>();
+    String query = "SELECT * FROM dia_de_spa";
+    
+    try {
+        PreparedStatement ps = conexion.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            // Obtener datos básicos
+            int idPack = rs.getInt("id_pack");
+            int idCliente = rs.getInt("id_cliente");
+            LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
+            String preferencias = rs.getString("preferencias");
+            double monto = rs.getDouble("monto");
+            boolean estado = rs.getBoolean("estado");
+            String sesionesStr = rs.getString("sesiones");
+            
+            // Obtener el cliente
+            Cliente cliente = this.cliente.buscarCliente(idCliente);
+            
+            // Procesar las sesiones
+            List<Sesion> sesiones = new ArrayList<>();
+            List<String> sesionesCodigos = new ArrayList<>();
+            
+            if (sesionesStr != null && !sesionesStr.trim().isEmpty()) {
+                String[] codigos = sesionesStr.split("\\s*,\\s*");
+                for (String codigoStr : codigos) {
+                    try {
+                        int codigo = Integer.parseInt(codigoStr.trim());
+                        Sesion sesion = this.sesion.buscarSesion(codigo);
+                        if (sesion != null) {
+                            sesiones.add(sesion);
+                            sesionesCodigos.add(codigoStr.trim());
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Código de sesión inválido: " + codigoStr);
+                    }
+                }
+            }
+            
+            // Crear el objeto DiaDeSpa
+            DiaDeSpa dia = new DiaDeSpa(cliente, sesiones, fechaHora, preferencias, monto);
+            dia.setCodPack(idPack);
+            dia.setEstado(estado);
+            dia.setSesionesCodigos(sesionesCodigos);
+            
+            dias.add(dia);
+        }
+        
+        ps.close();
+        
+    } catch (SQLException e) {
+        System.out.println("Error al obtener días de spa: " + e.getMessage());
+        e.printStackTrace();
+    }
+    
+    return dias;
+}
 }
