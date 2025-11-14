@@ -1,7 +1,6 @@
 
 package Persistencia;
 
-//solo mia
 
 import Modelo.Sesion;
 import Modelo.Instalacion;

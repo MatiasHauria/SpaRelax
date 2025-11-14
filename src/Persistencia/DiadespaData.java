@@ -14,17 +14,21 @@ public class DiadespaData {
     private Connection conexion = null;
     private ClienteData cliente;
     private SesionData sesion;
+    private Conexion gestorConexion;
 
     public DiadespaData(Conexion conexion) {
-        this.conexion = (Connection) conexion.establecerConexion();
+        this.gestorConexion = conexion;
+        //this.conexion = (Connection) conexion.establecerConexion();
         //this.cliente = new ClienteData(conexion);
         //this.sesion = new SesionData(conexion);
     }
 
     public void generarDiaDeSpa(DiaDeSpa dia) {
         String query = "INSERT INTO dia_de_spa (id_cliente, fecha_hora, preferencias, monto, estado, sesiones) VALUES (?,?,?,?,?,?)";
+        Connection conexionLocal = null;
         try {
-            PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexionLocal.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dia.getIdCliente());
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
@@ -48,20 +52,22 @@ public class DiadespaData {
             System.out.println("Error: No se pudo realizar la consulta SQL.");
             e.printStackTrace();
         } finally {
-            if (conexion != null) {
+            if (conexionLocal != null) {
                 try {
-                    conexion.close();
+                    conexionLocal.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
             }
         }
     }
-    
+
     public void actualizarDiaDeSpa(int cod, DiaDeSpa dia) {
+        Connection conexionLocal = null;
         String query = "UPDATE dia_de_spa SET id_cliente=?, fecha_hora=?, preferencias=?, monto=?, sesiones=? WHERE id_pack=?";
         try {
-            PreparedStatement ps = conexion.prepareStatement(query);
+            conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexionLocal.prepareStatement(query);
             ps.setInt(1, dia.getIdCliente());
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
@@ -80,21 +86,23 @@ public class DiadespaData {
             System.out.println("Error: No se pudo realizar la consulta SQL.");
             e.printStackTrace();
         } finally {
-            if (conexion != null) {
+            if (conexionLocal != null) {
                 try {
-                    conexion.close();
+                    conexionLocal.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
             }
         }
     }
-    
+
     public DiaDeSpa buscarDiaDeSpa(int cod) {
         DiaDeSpa dia = null;
+        Connection conexionLocal = null;
         String query = "SELECT * FROM dia_de_spa WHERE id_pack=?";
         try {
-            PreparedStatement ps = conexion.prepareStatement(query);
+            conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexionLocal.prepareStatement(query);
             ps.setInt(1, cod);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -121,9 +129,9 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexion != null) {
+            if (conexionLocal != null) {
                 try {
-                    conexion.close();
+                    conexionLocal.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -131,13 +139,15 @@ public class DiadespaData {
         }
         return dia;
     }
-    
-    public void borrarDiaDeSpa (int cod) {
+
+    public void borrarDiaDeSpa(int cod) {
         String query = "DELETE FROM dia_de_spa WHERE id_pack=?";
+        Connection conexionLocal = null;
         try {
-         PreparedStatement ps = conexion.prepareStatement(query);
-         ps.setInt(1, cod);
-         int filas = ps.executeUpdate();
+            conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            ps.setInt(1, cod);
+            int filas = ps.executeUpdate();
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Se ha eliminado el dia de spa exitosamente.");
             } else {
@@ -146,22 +156,24 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexion != null) {
+            if (conexionLocal != null) {
                 try {
-                    conexion.close();
+                    conexionLocal.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
             }
         }
     }
-    
-    public void bajaLogicaDiaDeSpa (int cod) {
+
+    public void bajaLogicaDiaDeSpa(int cod) {
+        Connection conexionLocal = null;
         String query = "UPDATE dia_de_spa SET estado=0 WHERE id_pack=?";
         try {
-         PreparedStatement ps = conexion.prepareStatement(query);
-         ps.setInt(1, cod);
-         int filas = ps.executeUpdate();
+             conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            ps.setInt(1, cod);
+            int filas = ps.executeUpdate();
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Se ha dado de baja el dia de spa exitosamente.");
             } else {
@@ -170,21 +182,24 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexion != null) {
+            if (conexionLocal != null) {
                 try {
-                    conexion.close();
+                    conexionLocal.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
             }
         }
     }
-    public void altaLogicaDiaDeSpa (int cod) {
+
+    public void altaLogicaDiaDeSpa(int cod) {
+        Connection conexionLocal = null;
         String query = "UPDATE dia_de_spa SET estado=1 WHERE id_pack=?";
         try {
-         PreparedStatement ps = conexion.prepareStatement(query);
-         ps.setInt(1, cod);
-         int filas = ps.executeUpdate();
+            conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            ps.setInt(1, cod);
+            int filas = ps.executeUpdate();
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Se ha dado de alta el dia de spa exitosamente.");
             } else {
@@ -193,79 +208,77 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexion != null) {
+            if (conexionLocal != null) {
                 try {
-                    conexion.close();
+                    conexionLocal.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
             }
         }
     }
-    
+
     public List<DiaDeSpa> obtenerTodosLosDiasDeSpa() {
-    List<DiaDeSpa> dias = new ArrayList<>();
-    String query = "SELECT * FROM dia_de_spa";
-    
-    try {
-        PreparedStatement ps = conexion.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            // Obtener datos básicos
-            int idPack = rs.getInt("id_pack");
-            int idCliente = rs.getInt("id_cliente");
-            LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
-            String preferencias = rs.getString("preferencias");
-            double monto = rs.getDouble("monto");
-            boolean estado = rs.getBoolean("estado");
-            String sesionesStr = rs.getString("sesiones");
-            
-            // Obtener el cliente
-            Cliente cliente = this.cliente.buscarCliente(idCliente);
-            
-            // Procesar las sesiones
-            List<Sesion> sesiones = new ArrayList<>();
-            List<String> sesionesCodigos = new ArrayList<>();
-            
-            if (sesionesStr != null && !sesionesStr.trim().isEmpty()) {
-                String[] codigos = sesionesStr.split("\\s*,\\s*");
-                for (String codigoStr : codigos) {
-                    try {
-                        int codigo = Integer.parseInt(codigoStr.trim());
-                        Sesion sesion = this.sesion.buscarSesion(codigo);
-                        if (sesion != null) {
-                            sesiones.add(sesion);
-                            sesionesCodigos.add(codigoStr.trim());
+        List<DiaDeSpa> dias = new ArrayList<>();
+        Connection conexionLocal = null;
+        String query = "SELECT * FROM dia_de_spa";
+
+        try {
+            conexionLocal = (Connection) gestorConexion.establecerConexion();
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Obtener datos básicos
+                int idPack = rs.getInt("id_pack");
+                int idCliente = rs.getInt("id_cliente");
+                LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
+                String preferencias = rs.getString("preferencias");
+                double monto = rs.getDouble("monto");
+                boolean estado = rs.getBoolean("estado");
+                String sesionesStr = rs.getString("sesiones");
+
+                // Obtener el cliente
+                Cliente cliente = this.cliente.buscarCliente(idCliente);
+
+                // Procesar las sesiones
+                List<Sesion> sesiones = new ArrayList<>();
+                List<String> sesionesCodigos = new ArrayList<>();
+
+                if (sesionesStr != null && !sesionesStr.trim().isEmpty()) {
+                    String[] codigos = sesionesStr.split("\\s*,\\s*");
+                    for (String codigoStr : codigos) {
+                        try {
+                            int codigo = Integer.parseInt(codigoStr.trim());
+                            Sesion sesion = this.sesion.buscarSesion(codigo);
+                            if (sesion != null) {
+                                sesiones.add(sesion);
+                                sesionesCodigos.add(codigoStr.trim());
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Código de sesión inválido: " + codigoStr);
                         }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Código de sesión inválido: " + codigoStr);
                     }
                 }
+
+                // Crear el objeto DiaDeSpa
+                DiaDeSpa dia = new DiaDeSpa(cliente, sesiones, fechaHora, preferencias, monto);
+                dia.setCodPack(idPack);
+                dia.setEstado(estado);
+                dia.setSesionesCodigos(sesionesCodigos);
+
+                dias.add(dia);
             }
-            
-            // Crear el objeto DiaDeSpa
-            DiaDeSpa dia = new DiaDeSpa(cliente, sesiones, fechaHora, preferencias, monto);
-            dia.setCodPack(idPack);
-            dia.setEstado(estado);
-            dia.setSesionesCodigos(sesionesCodigos);
-            
-            dias.add(dia);
+
+            ps.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener días de spa: " + e.getMessage());
+            e.printStackTrace();
         }
-        
-        ps.close();
-        
-    } catch (SQLException e) {
-        System.out.println("Error al obtener días de spa: " + e.getMessage());
-        e.printStackTrace();
+
+        return dias;
     }
-    
-    return dias;
-}
-    
-    
-    
-    public void setSesionData(SesionData sesion) {
-        this.sesion = sesion;
-    }
+
+
 }
