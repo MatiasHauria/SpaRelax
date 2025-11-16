@@ -237,7 +237,7 @@ public class SesionData {
     ArrayList<Integer> ocupados = new ArrayList<>();
 
     String sql = "SELECT matricula FROM sesion "
-            + "WHERE fecha_hora_inicio < ? AND fecha_hora_fin > ? AND estado = true";
+               + "WHERE fecha_hora_inicio < ? AND fecha_hora_fin > ?";
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         ps.setTimestamp(1, Timestamp.valueOf(fin));
@@ -253,13 +253,14 @@ public class SesionData {
 
     return ocupados;
 }
+    
     public ArrayList<Masajista> obtenerMasajistasLibres(LocalDateTime inicio, LocalDateTime fin){
 
        SesionData sd = new SesionData(new Conexion());
        ArrayList<Integer> ocupados = sd.obtenerMasajistasOcupados(inicio, fin);
 
        ArrayList<Masajista> libres = new ArrayList<>();
-       String sql = "SELECT * FROM masajista WHERE estado = true";
+       String sql = "SELECT * FROM sesion";
 
        try (PreparedStatement ps = con.prepareStatement(sql)) {
            ResultSet rs = ps.executeQuery();
