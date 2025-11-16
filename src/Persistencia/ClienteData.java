@@ -92,7 +92,7 @@ public class ClienteData {
     }
 
     public void actualizarCliente(int id, int dniNuevo, String nuevoNombre, long telefonoNuevo, int edadNueva, String afeccionesNuevo) {
-        String sql = "UPDATE Cliente SET dni=?, nombre_completo=?,telefono=?,edad=?,afecciones=? WHERE id_cliente=?";
+        String sql = "UPDATE cliente SET dni=?, nombre_completo=?,telefono=?,edad=?,afecciones=? WHERE id_cliente=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dniNuevo);
@@ -114,7 +114,7 @@ public class ClienteData {
     }
 
     public void bajaCliente(int id) {
-        String sql = "UPDATE Cliente SET estado=false WHERE id_cliente=?";
+        String sql = "UPDATE cliente SET estado=false WHERE id_cliente=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
