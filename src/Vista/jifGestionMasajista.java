@@ -431,7 +431,7 @@ if (jFacial.isSelected()) {
 public void armarCabecera(){
         modelo.addColumn("matricula");
         modelo.addColumn("Nombre Completo");
-         modelo.addColumn("especialidad");
+        modelo.addColumn("especialidad");
         modelo.addColumn("Telefono");
         modelo.addColumn("Estado");
 

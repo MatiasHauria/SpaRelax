@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class jifMasajistasLibres extends javax.swing.JInternalFrame{
-Conexion conexion = new Conexion();
-SesionData sd=new SesionData(conexion);
+Conexion con = new Conexion();
+SesionData sd=new SesionData(con);
 private final DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -193,6 +193,7 @@ public void armarCabecera(){
         modelo.addColumn("Nombre Completo");
         modelo.addColumn("especialidad");
         modelo.addColumn("Telefono");
+        modelo.addColumn("estado");
 
         jTable1.setModel(modelo);
     }
@@ -207,7 +208,8 @@ private void armarFilas(){
                 aux.getMatricula(),
                 aux.getNombreCompleto(),
                 aux.getEspecialidad(),
-                aux.getTelefono()
+                aux.getTelefono(),
+                aux.isEstado()
                 
                
             }; 
