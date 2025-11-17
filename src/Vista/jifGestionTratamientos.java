@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
+import Persistencia.TratamientoData;
 import Persistencia.Conexion;
 import Modelo.Tratamiento;
-import static Vista.jfSpaRelax.tratamientoData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,6 +13,7 @@ import java.sql.*;
  * @author dannita
  */
 public class jifGestionTratamientos extends javax.swing.JInternalFrame {
+    private TratamientoData tratamientoData;
     private boolean aux = false; // Me ayuda a manejar el flujo de mi codigo en los eventos de los botones.
     private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
     private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
@@ -32,6 +29,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
      */
     public jifGestionTratamientos() {
         initComponents();
+        this.tratamientoData = new TratamientoData();
         if (this.conexion == null) {
             JOptionPane.showMessageDialog(null, "No existe una conexion a una base de datos.\nEstablezcala antes de continuar.");
             limpiarCampos();
@@ -53,6 +51,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,6 +78,10 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaTratamientos = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -91,7 +94,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jLabel2.setText("Id tratamiento:");
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jLabel3.setText("Nombre:");
+        jLabel3.setText("Tipo:");
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setText("Detalle:");
@@ -264,7 +267,24 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTablaTratamientos);
 
         jLabel9.setFont(new java.awt.Font("Nimbus Sans", 1, 24)); // NOI18N
-        jLabel9.setText("Lista de tratamientos");
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Tipos de tratamientos ");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButton1.setText("Facial");
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButton2.setText("Corporal");
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButton3.setText("Relajación");
+
+        buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButton4.setText("Estético");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -274,14 +294,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButtonActualizarLista)
-                                .addComponent(jLabel8)
-                                .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
                             .addGap(87, 87, 87)
                             .addComponent(jButtonTratamientoOn)
                             .addGap(18, 18, 18)
@@ -290,16 +302,30 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                             .addComponent(jButtonBorrarTratamiento))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(171, 171, 171)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(204, 204, 204)
                             .addComponent(jLabel9)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonCargarTratamiento)
-                            .addComponent(jButtonActualizarTratamiento)
-                            .addComponent(jButtonCancelar))))
+                            .addGap(34, 34, 34)
+                            .addComponent(jLabel8)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jRadioButton3)
+                                .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButton4, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButtonCargarTratamiento)
+                                .addComponent(jButtonActualizarTratamiento)
+                                .addComponent(jButtonCancelar)
+                                .addComponent(jButtonActualizarLista)
+                                .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -316,26 +342,37 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonActualizarTratamiento)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonCancelar)))
-                .addGap(22, 22, 22)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
+                        .addComponent(jButtonCancelar)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonActualizarLista)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonTratamientoOff)
-                            .addComponent(jButtonTratamientoOn)
-                            .addComponent(jButtonBorrarTratamiento))
-                        .addGap(0, 18, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel9))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonActualizarLista)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton4)))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonTratamientoOff)
+                    .addComponent(jButtonTratamientoOn)
+                    .addComponent(jButtonBorrarTratamiento))
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         pack();
@@ -395,35 +432,39 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
     private void jButtonActualizarTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarTratamientoActionPerformed
         if (aux == false) {
-            habilitarCampos();
             deshabilitarBotones();
             jButtonActualizarTratamiento.setEnabled(true);
             jButtonCancelar.setEnabled(true);
+            JOptionPane.showMessageDialog(this, "Seleccione un tratamiento de la lista y presione 'Actualizar'.");
             aux = true;
             return;
         }
-        
         if (aux == true) {
-            if (!jTextFieldNombre.getText().matches(regex) || jTextFieldNombre.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Nombre'.");
-                return;
-            } else if (!jTextFieldDetalle.getText().matches(regex) || jTextFieldDetalle.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Detalle'.");
-                return;
-            } else if (!jTextFieldProductos.getText().matches(regex) || jTextFieldProductos.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Productos'.");
-                return;
-            } else if (!jTextFieldDuracion.getText().matches(regex2) || jTextFieldDuracion.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Duracion'.");
-                return;
-            } else if (!jTextFieldCosto.getText().matches(regex2) || jTextFieldCosto.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Costo'.");
+            if (jTablaTratamientos.getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
                 return;
             }
+            if (jTextFieldNombre.getText().isEmpty()) {
+                habilitarCampos();
+                jComboBoxIds.setEnabled(false);
+                Integer idTratamiento = (Integer) modeloTabla.getValueAt(jTablaTratamientos.getSelectedRow(), 0);
+                for (Tratamiento tratamiento : tratamientoData.mostrarTratamientos()) {
+                    if (idTratamiento == tratamiento.getIdTratamiento()) {
+                        jComboBoxIds.setSelectedItem(tratamiento.getIdTratamiento());
+                        jTextFieldNombre.setText(tratamiento.getNombre());
+                        jTextFieldDetalle.setText(tratamiento.getDetalle());
+                        jTextFieldProductos.setText(tratamiento.getProductosT());
+                        jTextFieldDuracion.setText(String.valueOf(tratamiento.getDuracion()));
+                        jTextFieldCosto.setText(String.valueOf(tratamiento.getCosto()));
+                        return;
+                    }
+                }
+            }
+            
+            
             int seleccionId = (int) jComboBoxIds.getSelectedItem();
-            List<String> productos = new ArrayList<>();
-            productos.add(jTextFieldProductos.getText());
-            tratamientoData.actualizarTratamiento(seleccionId, jTextFieldNombre.getText(), jTextFieldDetalle.getText(), productos.toString(), Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText()));
+            String productos = jTextFieldProductos.getText();
+            tratamientoData.actualizarTratamiento(seleccionId, jTextFieldNombre.getText(), jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText()));
             limpiarCampos();
             deshabilitarCampos();
             habilitarBotones();
@@ -546,7 +587,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     
     private void columns() {
         modeloTabla.addColumn("ID");
-        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Tipo");
         modeloTabla.addColumn("Detalle");
         modeloTabla.addColumn("Productos");
         modeloTabla.addColumn("Duracion");
@@ -568,7 +609,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             String aux = String.valueOf(trats.getIdTratamiento());
             if (aux.contains(id) || id.isBlank()) { // Cualquiera de las dos formas, la tabla se encontrara cargada.
                 Object[] filas = {
-                    trats.getIdTratamiento(), trats.getNombre(), trats.getDetalle(), trats.getProductos(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
+                    trats.getIdTratamiento(), trats.getNombre(), trats.getDetalle(), trats.getProductosT(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
                 };
                 modeloTabla.addRow(filas);
             }
@@ -578,6 +619,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonActualizarLista;
     private javax.swing.JButton jButtonActualizarTratamiento;
     private javax.swing.JButton jButtonBorrarTratamiento;
@@ -596,6 +638,10 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaTratamientos;
     private javax.swing.JTextField jTextFieldBusquedaId;

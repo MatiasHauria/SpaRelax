@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class TratamientoData {
- 
+    
     public void agregarTratamiento(Tratamiento tratamiento) {
         Connection conexion = null;
         try {
@@ -17,7 +17,7 @@ public class TratamientoData {
             PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tratamiento.getNombre());
             ps.setString(2, tratamiento.getDetalle());
-            String listaProductos = String.join(",", tratamiento.getProductos());
+            String listaProductos = String.join(", ", tratamiento.getProductos());
             ps.setString(3, listaProductos);
             ps.setInt(4, tratamiento.getDuracion());
             ps.setDouble(5, tratamiento.getCosto());
@@ -59,7 +59,7 @@ public class TratamientoData {
             
             while (rs.next()) {
                 String productos = rs.getString("productos");
-                String[] arrayProductos = productos.split(",");
+                String[] arrayProductos = productos.split("\\s*,\\s*");
                 List<String> listaProductos = Arrays.asList(arrayProductos);
                 Tratamiento tratamiento = new Tratamiento(
                         rs.getString("nombre"),
@@ -211,7 +211,7 @@ public class TratamientoData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String productos = rs.getString("productos");
-                String[] arrayProductos = productos.split(",");
+                String[] arrayProductos = productos.split("\\s*,\\s*");
                 List<String> listaProductos = Arrays.asList(arrayProductos);
                 tratamiento = new Tratamiento(
                         rs.getString("nombre"),

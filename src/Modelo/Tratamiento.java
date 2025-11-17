@@ -49,6 +49,10 @@ public class Tratamiento {
     public List<String> getProductos() {
         return productos;
     }
+    
+    public String getProductosT() {
+        return String.join(", ", this.productos);
+    }
 
     public void setProductos(List<String> productos) {
         this.productos = productos;

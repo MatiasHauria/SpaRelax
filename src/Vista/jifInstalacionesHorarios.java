@@ -155,7 +155,7 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
                             .addComponent(jDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jDate2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addGap(13, 13, 13)
@@ -219,10 +219,10 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
                 }
                 Date fechaCalendarioFin = jDate2.getDate();
                 LocalDate fechaCalendarioFinFinal = LocalDate.now();
-                if (fechaCalendarioInicio != null) {
+                if (fechaCalendarioFin != null) {
                     fechaCalendarioFinFinal = fechaCalendarioFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 }
-                if (fechainicio.isEqual(fechaCalendarioInicioFinal) && fechafin.isEqual(fechaCalendarioFinFinal)) {
+                if ((fechainicio.isEqual(fechaCalendarioInicioFinal) || fechainicio.isAfter(fechaCalendarioInicioFinal)) && (fechafin.isEqual(fechaCalendarioFinFinal) || fechafin.isBefore(fechaCalendarioFinFinal))) {
                     ArrayList<Instalacion> aux = sesion.getInstalacion();
                     for (Instalacion instalacion : aux) {
                         if (!inst.contains(instalacion)) {
