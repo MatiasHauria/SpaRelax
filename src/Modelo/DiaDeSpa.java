@@ -1,8 +1,5 @@
 package Modelo;
 
-import Persistencia.Conexion;
-import Persistencia.DiadespaData;
-import Persistencia.SesionData;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +14,9 @@ public class DiaDeSpa {
     private String preferencias;
     private double monto;
     private boolean estado;
+    
+    public DiaDeSpa() {}
+    
     public DiaDeSpa(Cliente cliente, List<Sesion> sesiones, LocalDateTime fechayHora, String preferencias, double monto) {
         this.cliente = cliente;
         this.sesiones = new ArrayList<>(sesiones);

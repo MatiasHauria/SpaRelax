@@ -11,24 +11,24 @@ import javax.swing.JOptionPane;
 
 public class DiadespaData {
 
-    private Connection conexion = null;
     private ClienteData cliente;
     private SesionData sesion;
-    private Conexion gestorConexion;
 
-    public DiadespaData(Conexion conexion) {
-        this.gestorConexion = conexion;
-        //this.conexion = (Connection) conexion.establecerConexion();
-        //this.cliente = new ClienteData(conexion);
-        //this.sesion = new SesionData(conexion);
+    public DiadespaData() {
+        this.cliente = new ClienteData();
+        this.sesion = new SesionData();
+    }
+
+    public void setSesion(SesionData sesion) {
+        this.sesion = sesion;
     }
 
     public void generarDiaDeSpa(DiaDeSpa dia) {
         String query = "INSERT INTO dia_de_spa (id_cliente, fecha_hora, preferencias, monto, estado, sesiones) VALUES (?,?,?,?,?,?)";
-        Connection conexionLocal = null;
+        Connection con = null;
         try {
-            conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexionLocal.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dia.getIdCliente());
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
@@ -52,9 +52,9 @@ public class DiadespaData {
             System.out.println("Error: No se pudo realizar la consulta SQL.");
             e.printStackTrace();
         } finally {
-            if (conexionLocal != null) {
+            if (con != null) {
                 try {
-                    conexionLocal.close();
+                    con.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -63,11 +63,11 @@ public class DiadespaData {
     }
 
     public void actualizarDiaDeSpa(int cod, DiaDeSpa dia) {
-        Connection conexionLocal = null;
+        Connection con = null;
         String query = "UPDATE dia_de_spa SET id_cliente=?, fecha_hora=?, preferencias=?, monto=?, sesiones=? WHERE id_pack=?";
         try {
-            conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, dia.getIdCliente());
             ps.setObject(2, dia.getFechayHora());
             ps.setString(3, dia.getPreferencias());
@@ -86,9 +86,9 @@ public class DiadespaData {
             System.out.println("Error: No se pudo realizar la consulta SQL.");
             e.printStackTrace();
         } finally {
-            if (conexionLocal != null) {
+            if (con != null) {
                 try {
-                    conexionLocal.close();
+                    con.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -98,11 +98,11 @@ public class DiadespaData {
 
     public DiaDeSpa buscarDiaDeSpa(int cod) {
         DiaDeSpa dia = null;
-        Connection conexionLocal = null;
+        Connection con = null;
         String query = "SELECT * FROM dia_de_spa WHERE id_pack=?";
         try {
-            conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, cod);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -129,9 +129,9 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexionLocal != null) {
+            if (con != null) {
                 try {
-                    conexionLocal.close();
+                    con.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -142,10 +142,10 @@ public class DiadespaData {
 
     public void borrarDiaDeSpa(int cod) {
         String query = "DELETE FROM dia_de_spa WHERE id_pack=?";
-        Connection conexionLocal = null;
+        Connection con = null;
         try {
-            conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, cod);
             int filas = ps.executeUpdate();
             if (filas > 0) {
@@ -156,9 +156,9 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexionLocal != null) {
+            if (con != null) {
                 try {
-                    conexionLocal.close();
+                    con.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -167,11 +167,11 @@ public class DiadespaData {
     }
 
     public void bajaLogicaDiaDeSpa(int cod) {
-        Connection conexionLocal = null;
+        Connection con = null;
         String query = "UPDATE dia_de_spa SET estado=0 WHERE id_pack=?";
         try {
-             conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, cod);
             int filas = ps.executeUpdate();
             if (filas > 0) {
@@ -182,9 +182,9 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexionLocal != null) {
+            if (con != null) {
                 try {
-                    conexionLocal.close();
+                    con.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -193,11 +193,11 @@ public class DiadespaData {
     }
 
     public void altaLogicaDiaDeSpa(int cod) {
-        Connection conexionLocal = null;
+        Connection con = null;
         String query = "UPDATE dia_de_spa SET estado=1 WHERE id_pack=?";
         try {
-            conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexionLocal.prepareStatement(query);
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, cod);
             int filas = ps.executeUpdate();
             if (filas > 0) {
@@ -208,9 +208,9 @@ public class DiadespaData {
         } catch (SQLException s) {
             s.printStackTrace();
         } finally {
-            if (conexionLocal != null) {
+            if (con != null) {
                 try {
-                    conexionLocal.close();
+                    con.close();
                 } catch (SQLException s) {
                     s.printStackTrace();
                 }
@@ -220,12 +220,11 @@ public class DiadespaData {
 
     public List<DiaDeSpa> obtenerTodosLosDiasDeSpa() {
         List<DiaDeSpa> dias = new ArrayList<>();
-        Connection conexionLocal = null;
+        Connection con = null;
         String query = "SELECT * FROM dia_de_spa";
-
         try {
-            conexionLocal = (Connection) gestorConexion.establecerConexion();
-            PreparedStatement ps = conexion.prepareStatement(query);
+            con = (Connection) Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -269,16 +268,19 @@ public class DiadespaData {
 
                 dias.add(dia);
             }
-
             ps.close();
-
         } catch (SQLException e) {
             System.out.println("Error al obtener días de spa: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
-
         return dias;
     }
-
-
 }

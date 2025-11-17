@@ -6,15 +6,11 @@ import java.sql.*;
 
 public class ClienteData {
 
-    private Connection con = null;
-
-    public ClienteData(Conexion con) {
-        this.con = (Connection) con.establecerConexion();
-    }
-
     public void insertarCliente(Cliente e) {
         String query = "INSERT INTO cliente(dni,nombre_completo,telefono,edad,afecciones,estado) VALUES(?,?,?,?,?,?) ";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, e.getDni());
             ps.setString(2, e.getNombreCompleto());
@@ -30,17 +26,26 @@ public class ClienteData {
             } else {
                 System.out.println("No se pudo tener el ID ");
             }
-
             ps.close();
             System.out.println("Cliente guardado correctamente");
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
     }
 
     public void mostrarTodos() {
         String sql = "SELECT * FROM cliente";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -61,13 +66,23 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
     }
 
     public Cliente buscarCliente(int id) {
         Cliente a = null;
+        Connection con = null;
         String sql = "SELECT * FROM cliente WHERE id_cliente=?";
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -87,13 +102,23 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
         return a;
     }
 
     public void actualizarCliente(int id, int dniNuevo, String nuevoNombre, long telefonoNuevo, int edadNueva, String afeccionesNuevo) {
         String sql = "UPDATE cliente SET dni=?, nombre_completo=?,telefono=?,edad=?,afecciones=? WHERE id_cliente=?";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dniNuevo);
             ps.setString(2, nuevoNombre);
@@ -110,12 +135,22 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
     }
 
     public void bajaCliente(int id) {
         String sql = "UPDATE cliente SET estado=false WHERE id_cliente=?";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
@@ -127,12 +162,22 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
     }
 
     public void altaCliente(int id) {
         String sql = "UPDATE cliente SET estado=true WHERE id_cliente=?";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
@@ -144,12 +189,22 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
     }
 
     public void borrarCliente(int id) {
         String sql = "DELETE FROM cliente WHERE id_cliente=?";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
@@ -161,13 +216,23 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
     }
 
     public ArrayList<Cliente> obtenerClientes() {
         ArrayList<Cliente> listaDeClientes = new ArrayList<>();
         String sql = "Select * FROM cliente";
+        Connection con = null;
         try {
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -188,8 +253,15 @@ public class ClienteData {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
         }
         return listaDeClientes;
-
     }
 }
