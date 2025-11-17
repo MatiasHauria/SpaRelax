@@ -149,8 +149,7 @@ public class SesionData {
                 String instalaciones = rs.getString("instalaciones");
                 String[] partes = instalaciones.split(",");
                 for (String nombre : partes) {
-                    Instalacion a = new Instalacion();
-                    a.setNombre(nombre.trim());
+                    Instalacion a = instalacionData.buscarInstalacionNombre(nombre);
                     listaInstalaciones.add(a);
                 }
                 int matricula = rs.getInt("matricula");
@@ -250,8 +249,7 @@ public class SesionData {
                 String instalaciones = rs.getString("instalaciones");
                 String[] partes = instalaciones.split(",");
                 for (String nombre : partes) {
-                    Instalacion b = new Instalacion();
-                    b.setNombre(nombre.trim());
+                    Instalacion b = instalacionData.buscarInstalacionNombre(nombre);
                     listaInstalaciones.add(b);
                 }
                 Consultorio consul = consultorio.buscarConsultorio(rs.getInt("id_consultorio"));

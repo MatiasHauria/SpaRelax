@@ -14,13 +14,6 @@ public class Instalacion {
         this.precioPorHora = precioPorHora;
     }
 
-    public Instalacion() {
-    }
-
-  
-
-
-
     public int getIdInstalacion() {
         return idInstalacion;
     }

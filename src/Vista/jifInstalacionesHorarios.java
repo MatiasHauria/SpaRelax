@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -54,8 +55,8 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -74,7 +75,6 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable);
 
         jLabel1.setFont(new java.awt.Font("Nimbus Sans", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Instalaciones Libres");
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -82,9 +82,6 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setText("Hasta:");
-
-        jToggleButton1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jToggleButton1.setText("Mostrar las mas solicitadas");
 
         jButton1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButton1.setText("Actualizar");
@@ -94,59 +91,64 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jButton2.setText("Mostrar las mas solicitadas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jDate2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jDate1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGap(129, 129, 129))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(179, 179, 179)
-                .addComponent(jButton1)
-                .addGap(27, 27, 27)
-                .addComponent(jToggleButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel1))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(jButton2)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jLabel3)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,10 +157,10 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)))
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jToggleButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jButton2))
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 26, Short.MAX_VALUE))
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -199,30 +201,42 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         modelo.setRowCount(0);
         ArrayList<Sesion> lista = sd.obtenerSesiones();
         ArrayList<Instalacion> inst = new ArrayList<>();
         if (lista.isEmpty()) {
             return;
-        }
-        for (Sesion sesion : lista) {
-            LocalDate fechainicio = sesion.getFechaHoraInicio().toLocalDate();
-            LocalDate fechafin = sesion.getFechaHoraFin().toLocalDate();
-            Date fechaCalendarioInicio = jDate1.getDate();
-            LocalDate fechaCalendarioInicioFinal = LocalDate.now();
-            if (fechaCalendarioInicio != null) {
-                fechaCalendarioInicioFinal = fechaCalendarioInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } else if (!lista.isEmpty() && jDate1.getDate() != null && jDate2.getDate() != null) {
+
+            for (Sesion sesion : lista) {
+                LocalDate fechainicio = sesion.getFechaHoraInicio().toLocalDate();
+                LocalDate fechafin = sesion.getFechaHoraFin().toLocalDate();
+                Date fechaCalendarioInicio = jDate1.getDate();
+                LocalDate fechaCalendarioInicioFinal = LocalDate.now();
+                if (fechaCalendarioInicio != null) {
+                    fechaCalendarioInicioFinal = fechaCalendarioInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                }
+                Date fechaCalendarioFin = jDate2.getDate();
+                LocalDate fechaCalendarioFinFinal = LocalDate.now();
+                if (fechaCalendarioInicio != null) {
+                    fechaCalendarioFinFinal = fechaCalendarioFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                }
+                if (fechainicio.isEqual(fechaCalendarioInicioFinal) && fechafin.isEqual(fechaCalendarioFinFinal)) {
+                    ArrayList<Instalacion> aux = sesion.getInstalacion();
+                    for (Instalacion instalacion : aux) {
+                        if (!inst.contains(instalacion)) {
+                            inst.add(instalacion);
+                        }
+                    }
+                }
             }
-            Date fechaCalendarioFin = jDate2.getDate();
-            LocalDate fechaCalendarioFinFinal = LocalDate.now();
-            if (fechaCalendarioInicio != null) {
-                fechaCalendarioFinFinal = fechaCalendarioFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            }
-            if(fechainicio.isEqual(fechaCalendarioInicioFinal) && fechafin.isEqual(fechaCalendarioFinFinal)){
-                ArrayList<Instalacion> aux = sesion.getInstalacion();
-                for(Instalacion instalacion : aux){
-                    if(!inst.contains(instalacion)){
-                    inst.add(instalacion);
+        } else {
+            for (Sesion sesion : lista) {
+                ArrayList<Instalacion> a = sesion.getInstalacion();
+                for (Instalacion aux : a) {
+                    if (!inst.contains(aux)) {
+                        inst.add(aux);
                     }
                 }
             }
@@ -239,9 +253,67 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        modelo.setRowCount(0);
+        ArrayList<Sesion> listaSesiones = sd.obtenerSesiones();
+
+        if (listaSesiones.isEmpty()) {
+            return;
+        }
+        List<Instalacion> todasLasInstalaciones = new ArrayList<>();
+        for (Sesion sesion : listaSesiones) {
+            todasLasInstalaciones.addAll(sesion.getInstalacion());
+        }
+
+        if (todasLasInstalaciones.isEmpty()) {
+            return;
+        }
+        int maxContador = 0;
+        List<Instalacion> masSolicitadas = new ArrayList<>();
+        for (Instalacion instalacionActual : todasLasInstalaciones) {
+            int idActual = instalacionActual.getIdInstalacion();
+            int contador = 0;
+            for (Instalacion i : todasLasInstalaciones) {
+                if (i.getIdInstalacion() == idActual) {
+                    contador++;
+                }
+            }
+            if (contador > maxContador) {
+                maxContador = contador;
+                masSolicitadas.clear();
+                masSolicitadas.add(instalacionActual);
+            } else if (contador == maxContador) {
+                boolean yaExiste = false;
+                for (Instalacion instalacionExistente : masSolicitadas) {
+                    if (instalacionExistente.getIdInstalacion() == idActual) {
+                        yaExiste = true;
+                        break;
+                    }
+                }
+
+                if (!yaExiste) {
+                    masSolicitadas.add(instalacionActual);
+                }
+            }
+        }
+        for (Instalacion aux : masSolicitadas) {
+            Object[] filas = {
+                aux.getIdInstalacion(),
+                aux.getNombre(),
+                aux.getDetalleUso(),
+                aux.getPrecioPorHora(),
+                aux.isEstado(),
+                maxContador
+            };
+            modelo.addRow(filas);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDate1;
     private com.toedter.calendar.JDateChooser jDate2;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -251,7 +323,6 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 
     private void columnas() {
@@ -260,6 +331,7 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
         modelo.addColumn("Detalles");
         modelo.addColumn("Precio por Hora");
         modelo.addColumn("Estado");
+        modelo.addColumn("Cantidad De Uso");
         jTable.setModel(modelo);
     }
 

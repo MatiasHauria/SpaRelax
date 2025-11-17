@@ -219,4 +219,40 @@ public class InstalacionData {
         }
         return listaDeInstalacion;
     }
+    
+    public Instalacion buscarInstalacionNombre(String nombre) {
+        Instalacion a = null;
+        Connection con = null;
+        String sql = "SELECT * FROM instalacion WHERE nombre=?";
+        try {
+            con = Conexion.establecerConexion();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                a = new Instalacion(
+                        rs.getString("nombre"),
+                        rs.getString("detalle_de_uso"),
+                        rs.getInt("precio_hr")
+                );
+                a.setIdInstalacion(rs.getInt("id_instalacion"));
+                a.setEstado(rs.getBoolean("estado"));
+                System.out.println("Encontrado: " + a.getNombre());
+            } else {
+                System.out.println("No se encontró la instalacion con el nombre " + nombre);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException s) {
+                    s.printStackTrace();
+                }
+            }
+        }
+        return a;
+    }
 }
