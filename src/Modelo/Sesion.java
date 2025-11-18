@@ -27,6 +27,8 @@ public class Sesion {
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
     private boolean estado;
+    
+    public Sesion(){}
 
     public Sesion(Consultorio consultorio, Tratamiento tratamiento, ArrayList<Instalacion> instalacion, Masajista masajista, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, boolean estado) {
         this.consultorio = consultorio;

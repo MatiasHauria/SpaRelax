@@ -1,30 +1,36 @@
 package Vista;
 
-import java.sql.*;
 import Modelo.Sesion;
 import Modelo.Consultorio;
 import Modelo.Tratamiento;
 import Modelo.Masajista;
 import Persistencia.SesionData;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class jifGestionSesion extends javax.swing.JInternalFrame {
     private SesionData sesionData;
+    private Sesion sesion;
     private boolean aux = false;
     private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
     private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
-    private List<Sesion> sesion;
+    private DefaultTableModel modeloTabla = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
     public jifGestionSesion() {
         initComponents();
         this.sesionData = new SesionData();
-        this.sesion = new ArrayList<>();
+        this.sesion = new Sesion();
         cargarSesionIds();
         cargarConsultoriosIds();
         cargarTratamientosIds();
-        camposEditables();
     }
     
 
@@ -65,6 +71,9 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaSesiones = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBoxInstalaciones = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Nimbus Sans", 1, 30)); // NOI18N
         jLabel1.setText("Gestión de Sesiones");
@@ -124,7 +133,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jComboBoxTratamientosId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addContainerGap())
         );
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -155,7 +164,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBoxConsultoriosId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42))
+                .addContainerGap())
         );
 
         jComboBoxMatriculas.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -208,15 +217,15 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBoxMatriculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                .addContainerGap())
         );
 
         jTablaSesiones.setModel(new javax.swing.table.DefaultTableModel(
@@ -231,6 +240,35 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(jTablaSesiones);
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel8.setText("Instalaciones:");
+
+        jComboBoxInstalaciones.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jComboBoxInstalaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una instalacion" }));
+        jComboBoxInstalaciones.setBorder(null);
+        jComboBoxInstalaciones.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxInstalaciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBoxInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,7 +291,8 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
@@ -278,7 +317,9 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -292,7 +333,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                     .addComponent(jButtonHabilitar)
                     .addComponent(jButtonDeshabilitar)
                     .addComponent(jButtonBorrar))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -319,18 +360,26 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             } else if (jComboBoxTratamientosId.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(this, "Seleccione un ID del tratamiento antes de continuar.");
                 return;
+            } else if (jComboBoxInstalaciones.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Seleccione una instalacion antes de continuar.");
+                return;
             }
             
-            Calendar fIni = Calendar.getInstance();
-            fIni.setTime(jDateChooserFechaInicio.getDate());
-            Timestamp iniTimeStamp = new Timestamp(fIni.getTimeInMillis());
-            Calendar fFin = Calendar.getInstance();
-            fFin.setTime(jDateChooserFechaFin.getDate());
-            Timestamp finTimestamp = new Timestamp(fFin.getTimeInMillis());
+            LocalDateTime iniDateTime = jDateChooserFechaInicio.getDate()
+            .toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+            .atStartOfDay();
+            LocalDateTime finDateTime = jDateChooserFechaFin.getDate()
+            .toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+            .atStartOfDay();
             Consultorio consultorio = (Consultorio) jComboBoxConsultoriosId.getSelectedItem();
             Tratamiento tratamiento = (Tratamiento) jComboBoxTratamientosId.getSelectedItem();
             Masajista matricula = (Masajista) jComboBoxMatriculas.getSelectedItem();
-//            sesionData.insertarSesion(new Sesion(consultorio, tratamiento, instalaciones, matricula, LocalDateTime.MIN, LocalDateTime.MIN, isIcon));
+            
+            sesionData.insertarSesion(new Sesion(consultorio, tratamiento, instalaciones, matricula, iniDateTime, finDateTime, false));
             
         }
     }//GEN-LAST:event_jButtonCargarActionPerformed
@@ -354,6 +403,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonDeshabilitar;
     private javax.swing.JButton jButtonHabilitar;
     private javax.swing.JComboBox<String> jComboBoxConsultoriosId;
+    private javax.swing.JComboBox<String> jComboBoxInstalaciones;
     private javax.swing.JComboBox<String> jComboBoxMatriculas;
     private javax.swing.JComboBox<String> jComboBoxTratamientosId;
     private com.toedter.calendar.JDateChooser jDateChooserFechaFin;
@@ -364,9 +414,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaSesiones;
     // End of variables declaration//GEN-END:variables
@@ -385,6 +437,12 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private void cargarTratamientosIds() {
         for (Sesion sesion : sesionData.obtenerSesiones()) {
             jComboBoxTratamientosId.addItem(String.valueOf(sesion.getCodTratamiento()));
+        }
+    }
+    
+    private void cargarInstalaciones() {
+        for (String nombres : sesion.getNombresInstalacion()) {
+            jComboBoxInstalaciones.addItem(nombres);
         }
     }
     
@@ -426,9 +484,6 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jButtonDeshabilitar.setEnabled(false);
     }
     
-    private void camposEditables() {
-    }
-    
     private void columns() {
         modeloTabla.addColumn("ID_Sesion");
         modeloTabla.addColumn("ID_Consu");
@@ -439,7 +494,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("FechaInicio");
         modeloTabla.addColumn("FechaFin");
         modeloTabla.addColumn("Estado");
-        jTablaTratamientos.setModel(modeloTabla);
+        jTablaSesiones.setModel(modeloTabla);
     }
     
     private void rows() {
@@ -461,5 +516,4 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             }
         }
     }
-
 }
