@@ -46,6 +46,8 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         cargarTratamientosIds();
         cargarInstalaciones();
         cargarMatriculas();
+        columns();
+        rows();
     }
 
 //    private void cargarCantidadInstalaciones() { No sé como hacer este JComboBox porque la logica del arraylist de instalaciones, básicamente no tiene lógica.
@@ -103,6 +105,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
 
         jButtonBorrar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonBorrar.setText("Borrar sesión");
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -115,9 +122,19 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
 
         jButtonDeshabilitar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonDeshabilitar.setText("Deshabilitar sesión");
+        jButtonDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeshabilitarActionPerformed(evt);
+            }
+        });
 
         jButtonHabilitar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonHabilitar.setText("Habilitar sesión");
+        jButtonHabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHabilitarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setText("ID de tratamiento:");
@@ -415,6 +432,59 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             aux = false;
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonHabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHabilitarActionPerformed
+        if (jTablaSesiones.getSelectedRow() != -1) {
+            Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
+            for (Sesion s : sesionData.obtenerSesiones()) {
+                if (idSesion == s.getCodSesion() && s.isEstado() == true) {
+                    JOptionPane.showMessageDialog(this, "La sesion ya se encuentra activa.");
+                    return;
+                } else if (idSesion == s.getCodSesion() && s.isEstado() == false) {
+                    sesionData.altaSesion(idSesion);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        rows();
+    }//GEN-LAST:event_jButtonHabilitarActionPerformed
+
+    private void jButtonDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeshabilitarActionPerformed
+        if (jTablaSesiones.getSelectedRow() != -1) {
+            Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
+            for (Sesion s : sesionData.obtenerSesiones()) {
+                if (idSesion == s.getCodSesion() && s.isEstado() == false) {
+                    JOptionPane.showMessageDialog(this, "La sesion ya se encuentra inactiva.");
+                    return;
+                } else if (idSesion == s.getCodSesion() && s.isEstado() == true) {
+                    sesionData.bajaSesion(idSesion);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        rows();
+    }//GEN-LAST:event_jButtonDeshabilitarActionPerformed
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        if (jTablaSesiones.getSelectedRow() != -1) {
+            Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que desea borrar la sesion \nde la base de datos?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            switch (confirm) {
+                case JOptionPane.NO_OPTION:
+                    return;
+                case JOptionPane.YES_OPTION:
+                    sesionData.borrarSesion(idSesion);
+                    break;
+                default:
+                    return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }             
+        rows();
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

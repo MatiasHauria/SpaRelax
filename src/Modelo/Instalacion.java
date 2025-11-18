@@ -55,7 +55,7 @@ public class Instalacion {
     }
 
     public String toString() {
-        return "Nro de instalación: " + " | " + "Nombre: " + this.nombre;
+        return this.nombre;
     }
 
 }
