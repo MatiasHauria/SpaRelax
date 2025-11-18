@@ -1,10 +1,15 @@
 package Vista;
 
+import Modelo.Instalacion;
 import Modelo.Sesion;
 import Modelo.Consultorio;
 import Modelo.Tratamiento;
 import Modelo.Masajista;
 import Persistencia.SesionData;
+import Persistencia.ConsultorioData;
+import Persistencia.InstalacionData;
+import Persistencia.MasajistaData;
+import Persistencia.TratamientoData;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -13,8 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class jifGestionSesion extends javax.swing.JInternalFrame {
+
     private SesionData sesionData;
-    private Sesion sesion;
+    private ConsultorioData consultorioData;
+    private MasajistaData masajistaData;
+    private TratamientoData tratamientoData;
+    private InstalacionData instalacionData;
     private boolean aux = false;
     private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
     private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
@@ -24,17 +33,21 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             return false;
         }
     };
+
     public jifGestionSesion() {
         initComponents();
         this.sesionData = new SesionData();
-        this.sesion = new Sesion();
+        this.consultorioData = new ConsultorioData();
+        this.masajistaData = new MasajistaData();
+        this.tratamientoData = new TratamientoData();
+        this.instalacionData = new InstalacionData();
         cargarSesionIds();
         cargarConsultoriosIds();
         cargarTratamientosIds();
+        cargarInstalaciones();
+        cargarMatriculas();
     }
-    
 
-    
 //    private void cargarCantidadInstalaciones() { No sé como hacer este JComboBox porque la logica del arraylist de instalaciones, básicamente no tiene lógica.
 //        String[] arr = {
 //            "1",
@@ -44,7 +57,6 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
 //            "5"
 //        }; // En proceso.
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -345,8 +357,8 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             deshabilitarBotones();
             jButtonCargar.setEnabled(true);
             jButtonCancelar.setEnabled(true);
-            aux = true; 
-            jButtonCargar.setText("Guardar");
+            aux = true;
+            jButtonCargar.setText("Guardar sesión");
             return;
         }
 
@@ -364,23 +376,33 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Seleccione una instalacion antes de continuar.");
                 return;
             }
-            
+
             LocalDateTime iniDateTime = jDateChooserFechaInicio.getDate()
-            .toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate()
-            .atStartOfDay();
+                    .toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate()
+                    .atStartOfDay();
             LocalDateTime finDateTime = jDateChooserFechaFin.getDate()
-            .toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate()
-            .atStartOfDay();
-            Consultorio consultorio = (Consultorio) jComboBoxConsultoriosId.getSelectedItem();
-            Tratamiento tratamiento = (Tratamiento) jComboBoxTratamientosId.getSelectedItem();
-            Masajista matricula = (Masajista) jComboBoxMatriculas.getSelectedItem();
-            
-            sesionData.insertarSesion(new Sesion(consultorio, tratamiento, instalaciones, matricula, iniDateTime, finDateTime, false));
-            
+                    .toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate()
+                    .atStartOfDay();
+            String idConsultorio = (String) jComboBoxConsultoriosId.getSelectedItem();
+            Consultorio consultorio = consultorioData.buscarConsultorio(Integer.parseInt(idConsultorio));
+            String idTratamiento = (String) jComboBoxTratamientosId.getSelectedItem();
+            Tratamiento tratamiento = tratamientoData.buscarTratamiento(Integer.parseInt(idTratamiento));
+            String matricula = (String) jComboBoxMatriculas.getSelectedItem();
+            Masajista masajista = masajistaData.buscarMasajista(Integer.parseInt(matricula));
+            String nombreInstalacion = (String) jComboBoxInstalaciones.getSelectedItem();
+            Instalacion instalacion = instalacionData.buscarInstalacionNombre(nombreInstalacion);
+            ArrayList<Instalacion> instalaciones = new ArrayList<>();
+            instalaciones.add(instalacion);
+            sesionData.insertarSesion(new Sesion(consultorio, tratamiento, instalaciones, masajista, iniDateTime, finDateTime, false));
+            limpiezaCampos();
+            deshabilitarCampos();
+            habilitarBotones();
+            jButtonCargar.setText("Cargar sesión");
+            aux = false;
         }
     }//GEN-LAST:event_jButtonCargarActionPerformed
 
@@ -423,51 +445,62 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTablaSesiones;
     // End of variables declaration//GEN-END:variables
 
-        private void cargarSesionIds() {
+    private void cargarSesionIds() {
         for (Sesion sesion : sesionData.obtenerSesiones()) {
         }
     }
-    
+
     private void cargarConsultoriosIds() {
         for (Sesion sesion : sesionData.obtenerSesiones()) {
             jComboBoxConsultoriosId.addItem(String.valueOf(sesion.getCodConsultorio()));
         }
     }
-    
+
     private void cargarTratamientosIds() {
         for (Sesion sesion : sesionData.obtenerSesiones()) {
             jComboBoxTratamientosId.addItem(String.valueOf(sesion.getCodTratamiento()));
         }
     }
-    
+
     private void cargarInstalaciones() {
-        for (String nombres : sesion.getNombresInstalacion()) {
-            jComboBoxInstalaciones.addItem(nombres);
+        for (Sesion sesiones : sesionData.obtenerSesiones()) {
+            for (Instalacion instalacion : sesiones.getInstalacion()) {
+                jComboBoxInstalaciones.addItem(instalacion.getNombre());
+            }
         }
     }
     
+    private void cargarMatriculas() {
+        for (Sesion sesiones : sesionData.obtenerSesiones()) {
+            jComboBoxMatriculas.addItem(String.valueOf(sesiones.getMatricula()));
+        }
+    }
+
     private void deshabilitarCampos() {
         jComboBoxConsultoriosId.setEnabled(false);
         jComboBoxMatriculas.setEnabled(false);
         jComboBoxTratamientosId.setEnabled(false);
+        jComboBoxInstalaciones.setEnabled(false);
         jDateChooserFechaInicio.setEnabled(false);
         jDateChooserFechaFin.setEnabled(false);
     }
-    
+
     private void limpiezaCampos() {
         jComboBoxTratamientosId.setSelectedIndex(0);
         jComboBoxMatriculas.setSelectedIndex(0);
         jComboBoxConsultoriosId.setSelectedIndex(0);
+        jComboBoxInstalaciones.setSelectedIndex(0);
     }
-    
+
     private void habilitarCampos() {
         jComboBoxConsultoriosId.setEnabled(true);
         jComboBoxMatriculas.setEnabled(true);
         jComboBoxTratamientosId.setEnabled(true);
+        jComboBoxInstalaciones.setEnabled(true);
         jDateChooserFechaInicio.setEnabled(true);
         jDateChooserFechaFin.setEnabled(true);
     }
-    
+
     private void habilitarBotones() {
         jButtonCargar.setEnabled(true);
         jButtonActualizar.setEnabled(true);
@@ -475,7 +508,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jButtonHabilitar.setEnabled(true);
         jButtonDeshabilitar.setEnabled(true);
     }
-    
+
     private void deshabilitarBotones() {
         jButtonCargar.setEnabled(false);
         jButtonActualizar.setEnabled(false);
@@ -483,7 +516,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jButtonHabilitar.setEnabled(false);
         jButtonDeshabilitar.setEnabled(false);
     }
-    
+
     private void columns() {
         modeloTabla.addColumn("ID_Sesion");
         modeloTabla.addColumn("ID_Consu");
@@ -496,24 +529,23 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Estado");
         jTablaSesiones.setModel(modeloTabla);
     }
-    
+
     private void rows() {
         modeloTabla.setRowCount(0);
         List<Sesion> listaSesiones = new ArrayList<>(sesionData.obtenerSesiones());
         for (Sesion sesion : listaSesiones) {
-                Object[] filas = {
-                    sesion.getCodSesion(),
-                    sesion.getCodConsultorio(),
-                    sesion.getCodTratamiento(),
-                    sesion.getCodPack(),
-                    sesion.getInstalacion(),
-                    sesion.getMatricula(),
-                    sesion.getFechaHoraInicio(),
-                    sesion.getFechaHoraFin(),
-                    (sesion.isEstado() ? "Activo" : "Inactivo")
-                };
-                modeloTabla.addRow(filas);
-            }
+            Object[] filas = {
+                sesion.getCodSesion(),
+                sesion.getCodConsultorio(),
+                sesion.getCodTratamiento(),
+                sesion.getCodPack(),
+                sesion.getInstalacion(),
+                sesion.getMatricula(),
+                sesion.getFechaHoraInicio(),
+                sesion.getFechaHoraFin(),
+                (sesion.isEstado() ? "Activo" : "Inactivo")
+            };
+            modeloTabla.addRow(filas);
         }
     }
 }
