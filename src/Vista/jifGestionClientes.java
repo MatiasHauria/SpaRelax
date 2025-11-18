@@ -395,7 +395,6 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
     private void jtTablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTablaClientesMouseClicked
         int filaSeleccionada = jtTablaClientes.getSelectedRow();
         if (filaSeleccionada != -1) {
-            jbNuevo.setEnabled(false);
             jbActualizar.setEnabled(true);
             jbBorrar.setEnabled(true);
         }
