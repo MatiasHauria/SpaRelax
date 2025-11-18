@@ -428,6 +428,38 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     
     private void camposEditables() {
     }
-
+    
+    private void columns() {
+        modeloTabla.addColumn("ID_Sesion");
+        modeloTabla.addColumn("ID_Consu");
+        modeloTabla.addColumn("ID_Tratamiento");
+        modeloTabla.addColumn("ID_Pack");
+        modeloTabla.addColumn("Instalaciones");
+        modeloTabla.addColumn("Matricula");
+        modeloTabla.addColumn("FechaInicio");
+        modeloTabla.addColumn("FechaFin");
+        modeloTabla.addColumn("Estado");
+        jTablaTratamientos.setModel(modeloTabla);
+    }
+    
+    private void rows() {
+        modeloTabla.setRowCount(0);
+        List<Sesion> listaSesiones = new ArrayList<>(sesionData.obtenerSesiones());
+        for (Sesion sesion : listaSesiones) {
+                Object[] filas = {
+                    sesion.getCodSesion(),
+                    sesion.getCodConsultorio(),
+                    sesion.getCodTratamiento(),
+                    sesion.getCodPack(),
+                    sesion.getInstalacion(),
+                    sesion.getMatricula(),
+                    sesion.getFechaHoraInicio(),
+                    sesion.getFechaHoraFin(),
+                    (sesion.isEstado() ? "Activo" : "Inactivo")
+                };
+                modeloTabla.addRow(filas);
+            }
+        }
+    }
 
 }
