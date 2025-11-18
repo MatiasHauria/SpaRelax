@@ -13,15 +13,16 @@ public class TratamientoData {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();
-            String query = "INSERT INTO tratamiento (nombre, detalle, productos, duracion, costo, activo) VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO tratamiento (nombre, tipo, detalle, productos, duracion, costo, activo) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tratamiento.getNombre());
-            ps.setString(2, tratamiento.getDetalle());
+            ps.setString(2, tratamiento.getTipo());
+            ps.setString(3, tratamiento.getDetalle());
             String listaProductos = String.join(", ", tratamiento.getProductos());
-            ps.setString(3, listaProductos);
-            ps.setInt(4, tratamiento.getDuracion());
-            ps.setDouble(5, tratamiento.getCosto());
-            ps.setBoolean(6, tratamiento.isActivo());
+            ps.setString(4, listaProductos);
+            ps.setInt(5, tratamiento.getDuracion());
+            ps.setDouble(6, tratamiento.getCosto());
+            ps.setBoolean(7, tratamiento.isActivo());
             int filas = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -63,6 +64,7 @@ public class TratamientoData {
                 List<String> listaProductos = Arrays.asList(arrayProductos);
                 Tratamiento tratamiento = new Tratamiento(
                         rs.getString("nombre"),
+                        rs.getString("tipo"),
                         rs.getString("detalle"),
                         listaProductos,
                         rs.getInt("duracion"),
@@ -87,18 +89,19 @@ public class TratamientoData {
         return listaTratamientos;
     }
     
-    public void actualizarTratamiento(int idTratamiento, String nombre, String detalle, String productos, int duracion, double costo) {
+    public void actualizarTratamiento(int idTratamiento, String nombre, String tipo, String detalle, String productos, int duracion, double costo) {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();
-            String query = "UPDATE tratamiento SET nombre=?, detalle=?, productos=?, duracion=?, costo=? WHERE id_tratamiento=?";
+            String query = "UPDATE tratamiento SET nombre=?, tipo=?, detalle=?, productos=?, duracion=?, costo=? WHERE id_tratamiento=?";
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, nombre);
-            ps.setString(2, detalle);
-            ps.setString(3, productos);
-            ps.setInt(4, duracion);
-            ps.setDouble(5, costo);
-            ps.setInt(6, idTratamiento);
+            ps.setString(2, tipo);
+            ps.setString(3, detalle);
+            ps.setString(4, productos);
+            ps.setInt(5, duracion);
+            ps.setDouble(6, costo);
+            ps.setInt(7, idTratamiento);
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 JOptionPane.showMessageDialog(null, "Tratamiento actualizado exitosamente.");
@@ -215,6 +218,7 @@ public class TratamientoData {
                 List<String> listaProductos = Arrays.asList(arrayProductos);
                 tratamiento = new Tratamiento(
                         rs.getString("nombre"),
+                        rs.getString("tipo"),
                         rs.getString("detalle"),
                         listaProductos,
                         rs.getInt("duracion"),

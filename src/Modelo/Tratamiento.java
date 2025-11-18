@@ -7,19 +7,29 @@ public class Tratamiento {
 
     private int idTratamiento = -1;
     private String nombre;
+    private String tipo;
     private String detalle;
     private List<String> productos;
     private int duracion;
     private double costo;
     private boolean activo;
 
-    public Tratamiento(String nombre, String detalle, List<String> productos, int duracion, double costo) {
+    public Tratamiento(String nombre, String tipo, String detalle, List<String> productos, int duracion, double costo) {
         this.nombre = nombre;
+        this.tipo = tipo;
         this.detalle = detalle;
         this.productos = new ArrayList<>(productos);
         this.duracion = duracion;
         this.costo = costo;
         this.activo = false;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public int getIdTratamiento() {

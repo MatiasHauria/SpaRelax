@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 /**
  *
  * @author dannita
@@ -39,6 +41,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             jButtonActualizarLista.setEnabled(false);
         }
         cargarId(); // Carga el Combo Box de los ID de los tratamientos.
+        cargarTipos(); // Carga el Combo Box con los tipos de tratamientos.
         columns(); // Setea columnas de la tabla.
         rows(); // Setea filas de la tabla. Excepciones controladas en 'TratamientoData'.
     }
@@ -60,11 +63,13 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jComboBoxIds = new javax.swing.JComboBox<>();
-        jTextFieldNombre = new javax.swing.JTextField();
         jTextFieldDetalle = new javax.swing.JTextField();
         jTextFieldDuracion = new javax.swing.JTextField();
         jTextFieldCosto = new javax.swing.JTextField();
         jTextFieldProductos = new javax.swing.JTextField();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBoxTipos = new javax.swing.JComboBox<>();
         jButtonActualizarTratamiento = new javax.swing.JButton();
         jButtonBorrarTratamiento = new javax.swing.JButton();
         jButtonCargarTratamiento = new javax.swing.JButton();
@@ -110,8 +115,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jComboBoxIds.setBorder(null);
         jComboBoxIds.setEnabled(false);
 
-        jTextFieldNombre.setEnabled(false);
-
         jTextFieldDetalle.setEnabled(false);
 
         jTextFieldDuracion.setEnabled(false);
@@ -119,6 +122,15 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jTextFieldCosto.setEnabled(false);
 
         jTextFieldProductos.setEnabled(false);
+
+        jTextFieldNombre.setEnabled(false);
+
+        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel8.setText("Nombre:");
+
+        jComboBoxTipos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jComboBoxTipos.setBorder(null);
+        jComboBoxTipos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,17 +146,20 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel7)
-                                .addComponent(jLabel3))
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel8))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jComboBoxIds, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextFieldDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldNombre)))
+                                    .addComponent(jTextFieldProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBoxIds, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextFieldDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldNombre)))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
@@ -162,10 +177,14 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBoxIds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel8)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,7 +382,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                         .addComponent(jButtonActualizarTratamiento)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar)))
-                .addGap(22, 22, 22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -387,7 +406,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                     .addComponent(jButtonTratamientoOn)
                     .addComponent(jButtonTratamientoOff)
                     .addComponent(jButtonBorrarTratamiento))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -424,10 +443,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Costo'.");
                 return;
             }
-
+            
+            String tipo = (String) jComboBoxTipos.getSelectedItem();
             List<String> productos = new ArrayList<>();
             productos.add(jTextFieldProductos.getText());
-            tratamientoData.agregarTratamiento(new Tratamiento(jTextFieldNombre.getText(), jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText())));
+            tratamientoData.agregarTratamiento(new Tratamiento(jTextFieldNombre.getText(), tipo, jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText())));
             limpiarCampos();
             deshabilitarCampos();
             habilitarBotones();
@@ -466,6 +486,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 for (Tratamiento tratamiento : tratamientoData.mostrarTratamientos()) {
                     if (idTratamiento == tratamiento.getIdTratamiento()) {
                         jComboBoxIds.setSelectedItem(tratamiento.getIdTratamiento());
+                        jComboBoxTipos.setSelectedItem(tratamiento.getTipo());
                         jTextFieldNombre.setText(tratamiento.getNombre());
                         jTextFieldDetalle.setText(tratamiento.getDetalle());
                         jTextFieldProductos.setText(tratamiento.getProductosT());
@@ -476,10 +497,27 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 }
             }
             
+            if (!jTextFieldNombre.getText().matches(regex) || jTextFieldNombre.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Nombre'.");
+                return;
+            } else if (!jTextFieldDetalle.getText().matches(regex) || jTextFieldDetalle.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Detalle'.");
+                return;
+            } else if (!jTextFieldProductos.getText().matches(regex) || jTextFieldProductos.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Productos'.");
+                return;
+            } else if (!jTextFieldDuracion.getText().matches(regex2) || jTextFieldDuracion.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Duracion'.");
+                return;
+            } else if (!jTextFieldCosto.getText().matches(regex2) || jTextFieldCosto.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Asegurese de ingresar datos correctos en el campo de 'Costo'.");
+                return;
+            }
             
+            String seleccionTipo = (String) jComboBoxTipos.getSelectedItem();
             int seleccionId = (int) jComboBoxIds.getSelectedItem();
             String productos = jTextFieldProductos.getText();
-            tratamientoData.actualizarTratamiento(seleccionId, jTextFieldNombre.getText(), jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText()));
+            tratamientoData.actualizarTratamiento(seleccionId, jTextFieldNombre.getText(), seleccionTipo, jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText()));
             limpiarCampos();
             deshabilitarCampos();
             habilitarBotones();
@@ -570,6 +608,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);
+        jComboBoxTipos.setEnabled(false);
         jTextFieldNombre.setEnabled(false);
         jTextFieldDetalle.setEnabled(false);
         jTextFieldProductos.setEnabled(false);
@@ -579,6 +618,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     
     private void habilitarCampos() {
         jComboBoxIds.setEnabled(true);
+        jComboBoxTipos.setEnabled(true);
         jTextFieldNombre.setEnabled(true);
         jTextFieldDetalle.setEnabled(true);
         jTextFieldProductos.setEnabled(true);
@@ -616,8 +656,20 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
     }
     
+    private void cargarTipos() {
+        Set<String> tipos = new HashSet<>();
+        for (Tratamiento tratamiento : tratamientoData.mostrarTratamientos()) {
+            tipos.add(tratamiento.getTipo());
+        }
+        for (String tipo : tipos) {
+            jComboBoxTipos.addItem(tipo);
+        }
+    }
+    
+    
     private void columns() {
         modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Tipo");
         modeloTabla.addColumn("Detalle");
         modeloTabla.addColumn("Productos");
@@ -645,7 +697,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             }
             if (aux) {
                 Object[] filas = {
-                    trats.getIdTratamiento(), trats.getNombre(), trats.getDetalle(), trats.getProductosT(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
+                    trats.getIdTratamiento(), trats.getNombre(), trats.getTipo(), trats.getDetalle(), trats.getProductosT(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
                 };
                 modeloTabla.addRow(filas);
             }
@@ -664,6 +716,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonTratamientoOff;
     private javax.swing.JButton jButtonTratamientoOn;
     private javax.swing.JComboBox<Integer> jComboBoxIds;
+    private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -671,6 +724,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonCorporal;
