@@ -387,22 +387,38 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            cd.altaConsultorio(id);
+            JOptionPane.showMessageDialog(null, "Se ha dado la alta correctamente a la instalacion seleccionada.");
+            btnActualizar.setEnabled(false);
+        } else if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila porfavor.");
+        }
         if ("false".equals(jtfApto.getText())) {
             jtfApto.setText("true");
-            aptoLogicoCambiado = true;
         } else {
-            JOptionPane.showMessageDialog(this, "El estado logico del consultorio ya es true, para cambiarlo a false debe usar el boton Baja. Croto.",
-                    "Error de logica", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El Estado ya es true, para cambiarlo a false usar el boton 'Baja'",
+                     "Error de Logica", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+            cd.bajaConsultorio(id);
+            JOptionPane.showMessageDialog(null, "Se ha dado la baja correctamente a la instalacion seleccionada.");
+            btnActualizar.setEnabled(false);
+        } else if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila porfavor.");
+        }
         if ("true".equals(jtfApto.getText())) {
             jtfApto.setText("false");
-            aptoLogicoCambiado = true;
         } else {
-            JOptionPane.showMessageDialog(this, "El estado logico del consultorio ya es false, para cambiarlo a true debe usar el boton Alta. Croto.",
-                    "Error de logica", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El Estado ya es false, para cambiarlo a true usar el boton 'Alta'",
+                     "Error de Logica", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBajaActionPerformed
 
