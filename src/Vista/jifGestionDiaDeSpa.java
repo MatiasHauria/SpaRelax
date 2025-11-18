@@ -191,10 +191,10 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
 
         comboSesion = new javax.swing.JComboBox<>();
         jtfSesiones = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jtfId = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         comboCliente = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -219,6 +219,9 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
 
         comboSesion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel3.setText("Codigo Pack:");
+
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Nimbus Sans", 1, 36)); // NOI18N
@@ -226,9 +229,6 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         jLabel1.setText("Dia de Spa");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ingreso de datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 14))); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jLabel3.setText("Codigo Pack:");
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setText("Cliente:");
@@ -282,12 +282,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSesion)
                         .addGap(0, 8, Short.MAX_VALUE))
@@ -299,34 +294,30 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
                     .addComponent(comboSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
                     .addComponent(btnSesion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfSesionesVisual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(14, 14, 14))
+                .addGap(41, 41, 41))
         );
 
         btnNuevo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -446,7 +437,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
                         .addComponent(btnGuardar)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
@@ -459,42 +450,46 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-          if (!validarCampos()) return;
+           if (!validarCampos()) return;
 
-        try {
-            Cliente cliente = listaClientes.get(comboCliente.getSelectedIndex());
-            LocalDateTime fecha = jDateChooser1.getDate().toInstant()
-                    .atZone(ZoneId.systemDefault()).toLocalDateTime();
-            String preferencias = jtfPreferencias.getText();
-            double monto = Double.parseDouble(jtfMonto.getText());
-            
-            List<Sesion> sesiones = new ArrayList<>();
-            for (String codigo : sesionesSeleccionadas) {
-                Sesion sesion = sesionData.buscarSesion(Integer.parseInt(codigo));
-                if (sesion != null) {
-                    sesiones.add(sesion);
-                }
+    try {
+        Cliente cliente = listaClientes.get(comboCliente.getSelectedIndex());
+        LocalDateTime fecha = jDateChooser1.getDate().toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDateTime();
+        String preferencias = jtfPreferencias.getText();
+        double monto = Double.parseDouble(jtfMonto.getText());
+        
+        List<Sesion> sesiones = new ArrayList<>();
+        for (String codigo : sesionesSeleccionadas) {
+            Sesion sesion = sesionData.buscarSesion(Integer.parseInt(codigo));
+            if (sesion != null) {
+                sesiones.add(sesion);
             }
-
-            DiaDeSpa dia = new DiaDeSpa(cliente, sesiones, fecha, preferencias, monto);
-
-            if ("NUEVO".equals(operacion)) {
-                diaData.generarDiaDeSpa(dia);
-                mostrarExito("Día de Spa creado exitosamente");
-            } else if ("ACTUALIZAR".equals(operacion)) {
-                dia.setCodPack(idSeleccionado);
-                diaData.actualizarDiaDeSpa(idSeleccionado, dia);
-                mostrarExito("Día de Spa actualizado exitosamente");
-            }
-
-            cargarTabla();
-            limpiarCampos();
-            deshabilitarCampos();
-            operacion = "";
-
-        } catch (Exception e) {
-            mostrarError("Error al guardar: " + e.getMessage());
         }
+
+        DiaDeSpa dia = new DiaDeSpa(cliente, sesiones, fecha, preferencias, monto);
+
+        if ("NUEVO".equals(operacion)) {
+            int idGenerado = diaData.generarDiaDeSpa(dia);
+            if (idGenerado != -1) {
+                mostrarExito("Día de Spa creado exitosamente. ID Pack: " + idGenerado);
+            } else {
+                mostrarError("Error al crear el Día de Spa");
+            }
+        } else if ("ACTUALIZAR".equals(operacion)) {
+            diaData.actualizarDiaDeSpa(idSeleccionado, dia);
+            mostrarExito("Día de Spa actualizado exitosamente");
+        }
+
+        cargarTabla();
+        limpiarCampos();
+        deshabilitarCampos();
+        operacion = "";
+
+    } catch (Exception e) {
+        mostrarError("Error al guardar: " + e.getMessage());
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
@@ -531,13 +526,13 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         }
 
         int confirmacion = JOptionPane.showConfirmDialog(this,
-                "¿Está seguro de eliminar este día de spa?",
+                "¿Esta seguro de eliminar este dia de spa?",
                 "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
             int id = (int) tablaSpa.getValueAt(fila, 0);
             diaData.borrarDiaDeSpa(id);
-            mostrarExito("Día de spa eliminado exitosamente");
+            mostrarExito("Dia de spa eliminado exitosamente");
             cargarTabla();
             limpiarCampos();
         }
