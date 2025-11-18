@@ -36,7 +36,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             deshabilitarBotones();
             deshabilitarCampos();
             jTablaTratamientos.setEnabled(false);
-            jTextFieldBusquedaId.setEnabled(false);
             jButtonActualizarLista.setEnabled(false);
         }
         cargarId(); // Carga el Combo Box de los ID de los tratamientos.
@@ -72,16 +71,15 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jButtonTratamientoOn = new javax.swing.JButton();
         jButtonTratamientoOff = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jTextFieldBusquedaId = new javax.swing.JTextField();
         jButtonActualizarLista = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaTratamientos = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButtonFacial = new javax.swing.JRadioButton();
+        jRadioButtonCorporal = new javax.swing.JRadioButton();
+        jRadioButtonRelajacion = new javax.swing.JRadioButton();
+        jRadioButtonEstetico = new javax.swing.JRadioButton();
+        jRadioButtonTodos = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -236,15 +234,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jLabel8.setText("Buscar tratamiento por ID:");
-
-        jTextFieldBusquedaId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextFieldBusquedaIdKeyReleased(evt);
-            }
-        });
-
         jButtonActualizarLista.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonActualizarLista.setText("Actualizar lista");
         jButtonActualizarLista.addActionListener(new java.awt.event.ActionListener() {
@@ -270,21 +259,51 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Tipos de tratamientos ");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jRadioButton1.setText("Facial");
+        buttonGroup1.add(jRadioButtonFacial);
+        jRadioButtonFacial.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButtonFacial.setText("Facial");
+        jRadioButtonFacial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonFacialMouseClicked(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jRadioButton2.setText("Corporal");
+        buttonGroup1.add(jRadioButtonCorporal);
+        jRadioButtonCorporal.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButtonCorporal.setText("Corporal");
+        jRadioButtonCorporal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonCorporalMouseClicked(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jRadioButton3.setText("Relajación");
+        buttonGroup1.add(jRadioButtonRelajacion);
+        jRadioButtonRelajacion.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButtonRelajacion.setText("Relajación");
+        jRadioButtonRelajacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonRelajacionMouseClicked(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jRadioButton4.setText("Estético");
+        buttonGroup1.add(jRadioButtonEstetico);
+        jRadioButtonEstetico.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButtonEstetico.setText("Estético");
+        jRadioButtonEstetico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonEsteticoMouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButtonTodos);
+        jRadioButtonTodos.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jRadioButtonTodos.setSelected(true);
+        jRadioButtonTodos.setText("Todos");
+        jRadioButtonTodos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonTodosMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -292,40 +311,41 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(171, 171, 171)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(204, 204, 204)
+                                .addComponent(jLabel9)))
+                        .addGap(146, 146, 146))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(87, 87, 87)
-                            .addComponent(jButtonTratamientoOn)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonTratamientoOff)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonBorrarTratamiento))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(171, 171, 171)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(204, 204, 204)
-                            .addComponent(jLabel9)
-                            .addGap(34, 34, 34)
-                            .addComponent(jLabel8)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jRadioButton3)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButton4, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addComponent(jRadioButtonRelajacion)
+                                .addComponent(jRadioButtonCorporal, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButtonFacial, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButtonEstetico, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jButtonCargarTratamiento)
                                 .addComponent(jButtonActualizarTratamiento)
-                                .addComponent(jButtonCancelar)
-                                .addComponent(jButtonActualizarLista)
-                                .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButtonCancelar)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButtonTratamientoOn)
+                            .addGap(40, 40, 40)
+                            .addComponent(jButtonTratamientoOff)
+                            .addGap(45, 45, 45)
+                            .addComponent(jButtonBorrarTratamiento))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(225, 225, 225)
+                            .addComponent(jButtonActualizarLista))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -342,37 +362,32 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonActualizarTratamiento)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonCancelar)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButtonActualizarLista)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldBusquedaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)))
+                        .addComponent(jButtonCancelar)))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jRadioButton1)
+                        .addGap(20, 20, 20)
+                        .addComponent(jRadioButtonTodos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(jRadioButtonFacial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton3)
+                        .addComponent(jRadioButtonCorporal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton4)))
-                .addGap(30, 30, 30)
+                        .addComponent(jRadioButtonRelajacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButtonEstetico)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonActualizarLista)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonTratamientoOff)
                     .addComponent(jButtonTratamientoOn)
+                    .addComponent(jButtonTratamientoOff)
                     .addComponent(jButtonBorrarTratamiento))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
@@ -473,14 +488,6 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonActualizarTratamientoActionPerformed
 
-    private void jTextFieldBusquedaIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaIdKeyReleased
-        rows(); // Listener para buscar tratamientos por id en tabla. Permite buscar mientras se tipea, sin necesidad de un boton que lo ejecute.
-    }//GEN-LAST:event_jTextFieldBusquedaIdKeyReleased
-
-    private void jButtonActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarListaActionPerformed
-        rows();
-    }//GEN-LAST:event_jButtonActualizarListaActionPerformed
-
     private void jButtonTratamientoOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTratamientoOnActionPerformed
         if (jTablaTratamientos.getSelectedRow() != -1) {
             int id = 0;
@@ -536,6 +543,30 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
         }
         rows();
     }//GEN-LAST:event_jButtonBorrarTratamientoActionPerformed
+
+    private void jRadioButtonTodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonTodosMouseClicked
+        rows();
+    }//GEN-LAST:event_jRadioButtonTodosMouseClicked
+
+    private void jRadioButtonFacialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonFacialMouseClicked
+        rows();
+    }//GEN-LAST:event_jRadioButtonFacialMouseClicked
+
+    private void jRadioButtonCorporalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonCorporalMouseClicked
+        rows();
+    }//GEN-LAST:event_jRadioButtonCorporalMouseClicked
+
+    private void jRadioButtonRelajacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonRelajacionMouseClicked
+        rows();
+    }//GEN-LAST:event_jRadioButtonRelajacionMouseClicked
+
+    private void jRadioButtonEsteticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonEsteticoMouseClicked
+        rows();
+    }//GEN-LAST:event_jRadioButtonEsteticoMouseClicked
+
+    private void jButtonActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarListaActionPerformed
+        rows();
+    }//GEN-LAST:event_jButtonActualizarListaActionPerformed
 
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);
@@ -597,17 +628,22 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     }
     
     private void rows() {
-        String id = jTextFieldBusquedaId.getText();
-        if (!id.matches(regex2) && !id.isBlank()) { // Si no esta vacio (si hay texto para ejecutar el listener) y si ese mismo no matchea digitos.
-            JOptionPane.showMessageDialog(this, "No ingrese letras en el ID, solo digitos.");
-            jTextFieldBusquedaId.setText(null);
-            return; // Corto flujo.
-        }
         modeloTabla.setRowCount(0);
         List<Tratamiento> listaTratamientos = new ArrayList<>(tratamientoData.mostrarTratamientos());
         for (Tratamiento trats : listaTratamientos) {
-            String aux = String.valueOf(trats.getIdTratamiento());
-            if (aux.contains(id) || id.isBlank()) { // Cualquiera de las dos formas, la tabla se encontrara cargada.
+            boolean aux = false;
+            if (jRadioButtonTodos.isSelected()) {
+                aux = true;
+            } else if (jRadioButtonRelajacion.isSelected() && trats.getNombre().equalsIgnoreCase("relajación")) {
+                aux = true;
+            } else if (jRadioButtonFacial.isSelected() && trats.getNombre().equalsIgnoreCase("facial")) {
+                aux = true;
+            } else if (jRadioButtonEstetico.isSelected() && trats.getNombre().equalsIgnoreCase("estético")) {
+                aux = true;
+            } else if (jRadioButtonCorporal.isSelected() && trats.getNombre().equalsIgnoreCase("corporal")) {
+                aux = true;
+            }
+            if (aux) {
                 Object[] filas = {
                     trats.getIdTratamiento(), trats.getNombre(), trats.getDetalle(), trats.getProductosT(), trats.getDuracion(), trats.getCosto(), (trats.isActivo() ? "Activo" : "Inactivo")
                 };
@@ -635,16 +671,15 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButtonCorporal;
+    private javax.swing.JRadioButton jRadioButtonEstetico;
+    private javax.swing.JRadioButton jRadioButtonFacial;
+    private javax.swing.JRadioButton jRadioButtonRelajacion;
+    private javax.swing.JRadioButton jRadioButtonTodos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaTratamientos;
-    private javax.swing.JTextField jTextFieldBusquedaId;
     private javax.swing.JTextField jTextFieldCosto;
     private javax.swing.JTextField jTextFieldDetalle;
     private javax.swing.JTextField jTextFieldDuracion;
