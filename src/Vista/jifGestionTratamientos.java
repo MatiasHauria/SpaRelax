@@ -686,13 +686,13 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             boolean aux = false;
             if (jRadioButtonTodos.isSelected()) {
                 aux = true;
-            } else if (jRadioButtonRelajacion.isSelected() && trats.getNombre().equalsIgnoreCase("relajación")) {
+            } else if (jRadioButtonRelajacion.isSelected() && trats.getTipo().equalsIgnoreCase("relajación")) {
                 aux = true;
-            } else if (jRadioButtonFacial.isSelected() && trats.getNombre().equalsIgnoreCase("facial")) {
+            } else if (jRadioButtonFacial.isSelected() && trats.getTipo().equalsIgnoreCase("facial")) {
                 aux = true;
-            } else if (jRadioButtonEstetico.isSelected() && trats.getNombre().equalsIgnoreCase("estético")) {
+            } else if (jRadioButtonEstetico.isSelected() && trats.getTipo().equalsIgnoreCase("estético")) {
                 aux = true;
-            } else if (jRadioButtonCorporal.isSelected() && trats.getNombre().equalsIgnoreCase("corporal")) {
+            } else if (jRadioButtonCorporal.isSelected() && trats.getTipo().equalsIgnoreCase("corporal")) {
                 aux = true;
             }
             if (aux) {
