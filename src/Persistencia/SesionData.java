@@ -334,9 +334,11 @@ public class SesionData {
                     Masajista m = new Masajista(
                             mat,
                             rs.getString("nombre_completo"),
-                            rs.getInt("telefono"),
+                            rs.getLong("telefono"),
                             rs.getString("especialidad")
+                            
                     );
+                    m.setEstado(rs.getBoolean("estado"));
                     libres.add(m);
                 }
             }

@@ -158,7 +158,7 @@ public class jifMasajistasLibres extends javax.swing.JInternalFrame {
                 .atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         listaMasajista = sd.obtenerMasajistasLibres(inicio, fin);
-
+        armarFilas();
     }//GEN-LAST:event_jBuscarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -193,7 +193,7 @@ public class jifMasajistasLibres extends javax.swing.JInternalFrame {
         try {
             modelo.setRowCount(0);
             if (!listaMasajista.isEmpty() || listaMasajista != null) {
-                for (Masajista aux : listaMasajista) {
+                for (Masajista aux : listaMasajista){
                     Object[] fila = {
                         aux.getMatricula(),
                         aux.getNombreCompleto(),
