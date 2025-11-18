@@ -27,13 +27,15 @@ public class Sesion {
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
     private boolean estado;
+    
+    public Sesion(){}
 
     public Sesion(Consultorio consultorio, Tratamiento tratamiento, ArrayList<Instalacion> instalacion, Masajista masajista, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, boolean estado) {
         this.consultorio = consultorio;
         this.codConsultorio = consultorio.getNroConsultorio();
         this.tratamiento = tratamiento;
         this.codTratamiento = tratamiento.getIdTratamiento();
-        this.instalacion = instalacion;
+        this.instalacion = new ArrayList<>(instalacion);
         this.nombresInstalacion = new ArrayList<>();
         for (Instalacion instalacion1 : instalacion) {
             nombresInstalacion.add(instalacion1.getNombre());
