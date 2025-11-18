@@ -33,7 +33,7 @@ public class Sesion {
         this.codConsultorio = consultorio.getNroConsultorio();
         this.tratamiento = tratamiento;
         this.codTratamiento = tratamiento.getIdTratamiento();
-        this.instalacion = instalacion;
+        this.instalacion = new ArrayList<>(instalacion);
         this.nombresInstalacion = new ArrayList<>();
         for (Instalacion instalacion1 : instalacion) {
             nombresInstalacion.add(instalacion1.getNombre());

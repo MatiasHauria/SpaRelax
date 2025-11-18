@@ -516,7 +516,8 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             
             String seleccionTipo = (String) jComboBoxTipos.getSelectedItem();
             int seleccionId = (int) jComboBoxIds.getSelectedItem();
-            String productos = jTextFieldProductos.getText();
+            List<String> productos = new ArrayList<>();
+            productos.add(jTextFieldProductos.getText());
             tratamientoData.actualizarTratamiento(seleccionId, jTextFieldNombre.getText(), seleccionTipo, jTextFieldDetalle.getText(), productos, Integer.parseInt(jTextFieldDuracion.getText()), Double.parseDouble(jTextFieldCosto.getText()));
             limpiarCampos();
             deshabilitarCampos();
