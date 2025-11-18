@@ -159,7 +159,8 @@ public class SesionData {
                 boolean estado = rs.getBoolean("estado");
 
                 Sesion sesion = new Sesion(c, t, listaInstalaciones, m, fechaInicio, fechaFinal, estado);
-                sesion.setCodConsultorio(codSesion);
+                sesion.setCodSesion(codSesion);
+                sesion.setCodConsultorio(codConsultorio);
                 sesion.setDiadespa(i);
                 listaDeSesiones.add(sesion);
             }
@@ -355,4 +356,5 @@ public class SesionData {
         }
         return libres;
     }
+    
 }

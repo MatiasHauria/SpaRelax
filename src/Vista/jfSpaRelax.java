@@ -153,6 +153,11 @@ public class jfSpaRelax extends javax.swing.JFrame {
         jmSesiones.setText("Sesiones");
 
         jmiSesiones.setText("Gestion de Sesiones");
+        jmiSesiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSesionesActionPerformed(evt);
+            }
+        });
         jmSesiones.add(jmiSesiones);
 
         jmbBarraMenu.add(jmSesiones);
@@ -271,6 +276,15 @@ public class jfSpaRelax extends javax.swing.JFrame {
         ds.moveToFront();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jmiSesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSesionesActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        jifGestionSesion gestionSesion  = new jifGestionSesion();
+        jdpEscritorio.add(gestionSesion);
+        gestionSesion.setVisible(true);
+        gestionSesion.moveToFront();
+    }//GEN-LAST:event_jmiSesionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,7 +341,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiGestionTratamientos;
     private javax.swing.JMenuItem jmiSesiones;
     // End of variables declaration//GEN-END:variables
-class DesktopConFondo extends JDesktopPane {
+    class DesktopConFondo extends JDesktopPane {
         private Image imagen;
         public DesktopConFondo(String rutaImagen) {
             java.net.URL imgURL = getClass().getResource(rutaImagen);
