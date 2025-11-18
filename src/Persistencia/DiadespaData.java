@@ -107,14 +107,28 @@ public class DiadespaData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String sesiones = rs.getString("sesiones");
-                String[] arraySesiones = sesiones.split(",");
-                int[] codigosSesiones = new int[arraySesiones.length];
                 List<Sesion> listaSesiones = new ArrayList<>();
-                for (int i = 0; i < arraySesiones.length; i++) {
-                    codigosSesiones[i] = Integer.parseInt(arraySesiones[i]);
-                    Sesion sesion = this.sesion.buscarSesion(codigosSesiones[i]);
-                    listaSesiones.add(sesion);
+                List<String> sesionesCodigos = new ArrayList<>();
+                
+                if (sesiones != null && !sesiones.trim().isEmpty()) {
+                    String[] arraySesiones = sesiones.split("\\s*,\\s*");
+                    
+                    for (String sesionStr : arraySesiones) {
+                        if (!sesionStr.trim().isEmpty()) {
+                            try {
+                                int codigoSesion = Integer.parseInt(sesionStr.trim());
+                                Sesion sesionObj = this.sesion.buscarSesion(codigoSesion);
+                                if (sesionObj != null) {
+                                    listaSesiones.add(sesionObj);
+                                    sesionesCodigos.add(sesionStr.trim());
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Error: código de sesión inválido: " + sesionStr);
+                            }
+                        }
+                    }
                 }
+                
                 Cliente cliente = this.cliente.buscarCliente(rs.getInt("id_cliente"));
                 dia = new DiaDeSpa(
                         cliente,
@@ -125,6 +139,7 @@ public class DiadespaData {
                 );
                 dia.setCodPack(rs.getInt("id_pack"));
                 dia.setEstado(rs.getBoolean("estado"));
+                dia.setSesionesCodigos(sesionesCodigos);
             }
         } catch (SQLException s) {
             s.printStackTrace();
@@ -223,12 +238,11 @@ public class DiadespaData {
         Connection con = null;
         String query = "SELECT * FROM dia_de_spa";
         try {
-            con = (Connection) Conexion.establecerConexion();
+            con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                // Obtener datos básicos
                 int idPack = rs.getInt("id_pack");
                 int idCliente = rs.getInt("id_cliente");
                 LocalDateTime fechaHora = rs.getTimestamp("fecha_hora").toLocalDateTime();
@@ -237,30 +251,29 @@ public class DiadespaData {
                 boolean estado = rs.getBoolean("estado");
                 String sesionesStr = rs.getString("sesiones");
 
-                // Obtener el cliente
                 Cliente cliente = this.cliente.buscarCliente(idCliente);
 
-                // Procesar las sesiones
                 List<Sesion> sesiones = new ArrayList<>();
                 List<String> sesionesCodigos = new ArrayList<>();
 
                 if (sesionesStr != null && !sesionesStr.trim().isEmpty()) {
                     String[] codigos = sesionesStr.split("\\s*,\\s*");
                     for (String codigoStr : codigos) {
-                        try {
-                            int codigo = Integer.parseInt(codigoStr.trim());
-                            Sesion sesion = this.sesion.buscarSesion(codigo);
-                            if (sesion != null) {
-                                sesiones.add(sesion);
-                                sesionesCodigos.add(codigoStr.trim());
+                        if (!codigoStr.trim().isEmpty()) {
+                            try {
+                                int codigo = Integer.parseInt(codigoStr.trim());
+                                Sesion sesion = this.sesion.buscarSesion(codigo);
+                                if (sesion != null) {
+                                    sesiones.add(sesion);
+                                    sesionesCodigos.add(codigoStr.trim());
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Código de sesión inválido: " + codigoStr);
                             }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Código de sesión inválido: " + codigoStr);
                         }
                     }
                 }
 
-                // Crear el objeto DiaDeSpa
                 DiaDeSpa dia = new DiaDeSpa(cliente, sesiones, fechaHora, preferencias, monto);
                 dia.setCodPack(idPack);
                 dia.setEstado(estado);

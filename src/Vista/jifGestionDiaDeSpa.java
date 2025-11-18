@@ -16,14 +16,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
 
-    private DefaultTableModel modeloTabla;
+      private DefaultTableModel modeloTabla;
     private DiadespaData diaData;
     private ClienteData clienteData;
     private SesionData sesionData;
     private List<Cliente> listaClientes;
     private List<DiaDeSpa> listaDias;
+    private List<Sesion> listaSesiones;
     private String operacion = "";
     private int idSeleccionado = -1;
+    private List<String> sesionesSeleccionadas;
 
     public jifGestionDiaDeSpa() {
         initComponents();
@@ -34,14 +36,16 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         this.diaData = new DiadespaData();
         this.clienteData = new ClienteData();
         this.sesionData = new SesionData();
+        this.sesionesSeleccionadas = new ArrayList<>();
         modeloTabla = new DefaultTableModel();
         configurarTabla();
         cargarClientes();
+        cargarSesiones();
         cargarTabla();
         deshabilitarCampos();
     }
     
-      private void configurarTabla() {
+    private void configurarTabla() {
         modeloTabla.addColumn("ID");
         modeloTabla.addColumn("Cliente");
         modeloTabla.addColumn("Sesiones");
@@ -51,15 +55,23 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         tablaSpa.setModel(modeloTabla);
     }
       
-      private void cargarClientes() {
+    private void cargarClientes() {
         listaClientes = clienteData.obtenerClientes();
         comboCliente.removeAllItems();
         for (Cliente c : listaClientes) {
             comboCliente.addItem(c.getNombreCompleto());
         }
     }
+      
+    private void cargarSesiones(){
+        listaSesiones = sesionData.obtenerSesiones();
+        comboSesiones.removeAllItems();
+        for (Sesion s : listaSesiones){
+            comboSesiones.addItem("Sesion " + s.getCodSesion() + " - " + s.getTratamiento().getNombre());
+        }
+    }
     
-   private void cargarTabla() {
+    private void cargarTabla() {
         modeloTabla.setRowCount(0);
         listaDias = diaData.obtenerTodosLosDiasDeSpa();
         
@@ -75,12 +87,13 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         }
     }
 
-      private void habilitarCampos() {
+    private void habilitarCampos() {
         comboCliente.setEnabled(true);
         jDateChooser1.setEnabled(true);
         jtfPreferencias.setEnabled(true);
         jtfMonto.setEnabled(true);
-        jtfSesiones.setEnabled(true);
+        comboSesiones.setEnabled(true);
+        btnSesion.setEnabled(true);
     }
 
     private void deshabilitarCampos() {
@@ -88,16 +101,20 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         jDateChooser1.setEnabled(false);
         jtfPreferencias.setEnabled(false);
         jtfMonto.setEnabled(false);
-        jtfSesiones.setEnabled(false);
+        comboSesiones.setEnabled(false);
+        btnSesion.setEnabled(false);
+        jtfSesionesVisual.setEnabled(false);
     }
 
     private void limpiarCampos() {
         jtfId.setText("");
         jtfPreferencias.setText("");
         jtfMonto.setText("");
-        jtfSesiones.setText("");
         jDateChooser1.setDate(null);
         comboCliente.setSelectedIndex(0);
+        comboSesiones.setSelectedIndex(0);
+        jtfSesionesVisual.setText("");
+        sesionesSeleccionadas.clear();
     }
 
     private boolean validarCampos() {
@@ -117,8 +134,8 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
             mostrarError("Ingrese el monto");
             return false;
         }
-        if (jtfSesiones.getText().trim().isEmpty()) {
-            mostrarError("Ingrese las sesiones");
+        if (sesionesSeleccionadas.isEmpty()) {
+            mostrarError("Seleccione al menos una sesión");
             return false;
         }
         
@@ -132,9 +149,27 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         return true;
     }
 
-    private List<String> obtenerSesiones() {
-        String texto = jtfSesiones.getText().trim();
-        return Arrays.asList(texto.split("\\s*,\\s*"));
+    private void agregarSesion(){
+        int selectedIndex = comboSesiones.getSelectedIndex();
+        if (selectedIndex < 0){
+            mostrarError("Seleccione una sesión de la lista");
+            return;
+        }
+        
+        Sesion sesionSeleccionada = listaSesiones.get(selectedIndex);
+        String codigoSesion = String.valueOf(sesionSeleccionada.getCodSesion());
+        
+        if (!sesionesSeleccionadas.contains(codigoSesion)) {
+            sesionesSeleccionadas.add(codigoSesion);
+            actualizarVisualSesiones();
+            mostrarExito("Sesión agregada: " + sesionSeleccionada.getTratamiento().getNombre());
+        } else {
+            mostrarError("Esta sesión ya fue agregada");
+        }
+    }
+
+    private void actualizarVisualSesiones() {
+        jtfSesionesVisual.setText(String.join(", ", sesionesSeleccionadas));
     }
 
     private void mostrarError(String mensaje) {
@@ -155,6 +190,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         comboSesion = new javax.swing.JComboBox<>();
+        jtfSesiones = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -168,7 +204,9 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jtfMonto = new javax.swing.JTextField();
-        jtfSesiones = new javax.swing.JTextField();
+        comboSesiones = new javax.swing.JComboBox<>();
+        btnSesion = new javax.swing.JButton();
+        jtfSesionesVisual = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
@@ -209,36 +247,54 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel8.setText("Precio:");
 
+        comboSesiones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnSesion.setText("+");
+        btnSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel7)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel6)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfSesiones)
-                            .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboCliente, 0, 134, Short.MAX_VALUE)
+                                    .addComponent(comboSesiones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtfId, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSesion)
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jtfSesionesVisual)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,20 +310,23 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jtfSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSesion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfSesionesVisual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(14, 14, 14))
         );
 
         btnNuevo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -340,7 +399,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 39, Short.MAX_VALUE)
+                .addGap(0, 111, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
             .addGroup(layout.createSequentialGroup()
@@ -367,7 +426,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +446,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
                         .addComponent(btnGuardar)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
@@ -400,7 +459,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (!validarCampos()) return;
+          if (!validarCampos()) return;
 
         try {
             Cliente cliente = listaClientes.get(comboCliente.getSelectedIndex());
@@ -408,9 +467,9 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
                     .atZone(ZoneId.systemDefault()).toLocalDateTime();
             String preferencias = jtfPreferencias.getText();
             double monto = Double.parseDouble(jtfMonto.getText());
-            List<String> sesionesCodigos = obtenerSesiones();
+            
             List<Sesion> sesiones = new ArrayList<>();
-            for (String codigo : sesionesCodigos) {
+            for (String codigo : sesionesSeleccionadas) {
                 Sesion sesion = sesionData.buscarSesion(Integer.parseInt(codigo));
                 if (sesion != null) {
                     sesiones.add(sesion);
@@ -512,6 +571,10 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void btnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSesionActionPerformed
+        agregarSesion();
+    }//GEN-LAST:event_btnSesionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -520,8 +583,10 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSesion;
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboSesion;
+    private javax.swing.JComboBox<Object> comboSesiones;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -537,6 +602,7 @@ public class jifGestionDiaDeSpa extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfMonto;
     private javax.swing.JTextField jtfPreferencias;
     private javax.swing.JTextField jtfSesiones;
+    private javax.swing.JTextField jtfSesionesVisual;
     private javax.swing.JTable tablaSpa;
     // End of variables declaration//GEN-END:variables
 }

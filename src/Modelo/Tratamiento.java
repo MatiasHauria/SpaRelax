@@ -14,7 +14,7 @@ public class Tratamiento {
     private double costo;
     private boolean activo;
 
-    public Tratamiento(String nombre, String tipo, String detalle, List<String> productos, int duracion, double costo) {
+    public Tratamiento(String nombre, String tipo, String detalle ,List<String> productos, int duracion, double costo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.detalle = detalle;

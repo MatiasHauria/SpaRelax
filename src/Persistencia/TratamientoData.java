@@ -89,7 +89,7 @@ public class TratamientoData {
         return listaTratamientos;
     }
     
-    public void actualizarTratamiento(int idTratamiento, String nombre, String tipo, String detalle, String productos, int duracion, double costo) {
+    public void actualizarTratamiento(int idTratamiento, String nombre, String tipo, String detalle, List<String> productos, int duracion, double costo) {
         Connection conexion = null;
         try {
             conexion = Conexion.establecerConexion();
@@ -98,7 +98,8 @@ public class TratamientoData {
             ps.setString(1, nombre);
             ps.setString(2, tipo);
             ps.setString(3, detalle);
-            ps.setString(4, productos);
+            String listaProductos = String.join(", ", productos);
+            ps.setString(4, listaProductos);
             ps.setInt(5, duracion);
             ps.setDouble(6, costo);
             ps.setInt(7, idTratamiento);
