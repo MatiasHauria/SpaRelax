@@ -340,10 +340,7 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
         jtfAfecciones.setEnabled(true);
 
         jbNuevo.setEnabled(false);
-        jbAlta.setEnabled(true);
-        jbBaja.setEnabled(true);
         jbGuardar.setEnabled(true);
-        jbActualizar.setEnabled(true);
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbMostrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMostrarClientesActionPerformed
@@ -550,6 +547,8 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
 
         jbGuardar.setEnabled(false);
         jbNuevo.setEnabled(true);
+        jbAlta.setEnabled(false);
+        jbBaja.setEnabled(false);
 
         jtfDNI.setEnabled(false);
         jtfNombreCompleto.setEnabled(false);

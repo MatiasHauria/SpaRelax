@@ -70,7 +70,7 @@ public class MasajistaData {
         return a;
     }
 
-    public void actualizarMasajista(int matricula, int parseInt, String nombrecompletonuevo, long telefononuevo, String especialidadnuevo, boolean estadonuevo) {
+    public void actualizarMasajista(int matricula, String nombrecompletonuevo, long telefononuevo, String especialidadnuevo, boolean estadonuevo) {
         String sql = "UPDATE masajista SET  nombre_completo=?,telefono=?,especialidad=?,estado=? WHERE matricula=?";
         Connection con = null;
         try {
