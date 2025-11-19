@@ -70,22 +70,23 @@ public class MasajistaData {
         return a;
     }
 
-    public void actualizarMasajista(int matricula, String nombrecompletonuevo, long telefononuevo, String especialidadnuevo, boolean estadonuevo) {
-        String sql = "UPDATE masajista SET   nombre_completo=?,telefono=?,especialidad=?,estado=? WHERE matricula=?";
+    public void actualizarMasajista(int matriculaNueva,int matriculaOriginal, String nombrecompletonuevo, long telefononuevo, String especialidadnuevo, boolean estadonuevo) {
+        String sql = "UPDATE masajista SET matricula=?,  nombre_completo=?,telefono=?,especialidad=?,estado=? WHERE matricula=?";
         Connection con = null;
         try {
             con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nombrecompletonuevo);
-            ps.setLong(2, telefononuevo);
-            ps.setString(3, especialidadnuevo);
-            ps.setBoolean(4, estadonuevo);
-            ps.setInt(5, matricula);
+            ps.setInt(1, matriculaNueva);
+            ps.setString(2, nombrecompletonuevo);
+            ps.setLong(3, telefononuevo);
+            ps.setString(4, especialidadnuevo);
+            ps.setBoolean(5, estadonuevo);
+            ps.setInt(6, matriculaOriginal);
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Masajista actualizado correctamente");
             } else {
-                System.out.println("No se encuentra el Masajista con matricula " + matricula);
+                System.out.println("No se encuentra el Masajista con matricula " + matriculaNueva);
             }
             ps.close();
         } catch (SQLException ex) {

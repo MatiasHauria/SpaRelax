@@ -577,8 +577,9 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
             Masajista masajistaActualizar = buscarMasajistaPorMatricula(matriculaMasajistaActualizar);
             
             if (masajistaActualizar != null) {
-                cd.actualizarMasajista(
+                cd.actualizarMasajista(    
                     Integer.parseInt(jMatricula.getText()),
+                    matriculaMasajistaActualizar,    
                     jNombrecompleto.getText(),
                     Long.parseLong(jTelefono.getText()),
                     jEspecialidad.getText(),
