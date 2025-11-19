@@ -578,7 +578,7 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
             
             if (masajistaActualizar != null) {
                 cd.actualizarMasajista(
-                    matriculaMasajistaActualizar,
+                    Integer.parseInt(jMatricula.getText()),
                     jNombrecompleto.getText(),
                     Long.parseLong(jTelefono.getText()),
                     jEspecialidad.getText(),
@@ -675,7 +675,7 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
     private void armarFilas() {
         listaMasajista = cd.obtenerMasajista();
         modelo.setRowCount(0);
-
+        if (!listaMasajista.isEmpty() || listaMasajista != null){
         for (Masajista m : listaMasajista) {
             Object[] fila = {
                 m.getMatricula(),
@@ -687,4 +687,5 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
             modelo.addRow(fila);
         }
     }
+ }          
 }

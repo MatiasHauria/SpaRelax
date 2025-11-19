@@ -388,38 +388,73 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
         int filaSeleccionada = jTable1.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
-            cd.altaConsultorio(id);
-            JOptionPane.showMessageDialog(null, "Se ha dado la alta correctamente a la instalacion seleccionada.");
-            btnActualizar.setEnabled(false);
-        } else if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila porfavor.");
-        }
-        if ("false".equals(jtfApto.getText())) {
-            jtfApto.setText("true");
-        } else {
-            JOptionPane.showMessageDialog(this, "El Estado ya es true, para cambiarlo a false usar el boton 'Baja'",
-                     "Error de Logica", JOptionPane.ERROR_MESSAGE);
-        }
+
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "Seleccione una fila por favor.");
+        return;
+    }
+
+    // Estado actual
+    String estadoTexto = jtfApto.getText().trim().toLowerCase();
+
+    // Solo se puede dar ALTA si el estado es FALSE
+    if (estadoTexto.equals("false")) {
+
+        int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+
+        // Llamada a tu método DAO
+        cd.altaConsultorio(id);
+
+        // Cambiar visualmente
+        jtfApto.setText("true");
+
+        JOptionPane.showMessageDialog(null,
+                "Se ha dado el alta correctamente.");
+
+        btnActualizar.setEnabled(false);
+
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "El estado ya es true, para cambiarlo a false use el botón 'Baja'.",
+                "Error de Lógica",
+                JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
-        int filaSeleccionada = jTable1.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
-            cd.bajaConsultorio(id);
-            JOptionPane.showMessageDialog(null, "Se ha dado la baja correctamente a la instalacion seleccionada.");
-            btnActualizar.setEnabled(false);
-        } else if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una fila porfavor.");
-        }
-        if ("true".equals(jtfApto.getText())) {
-            jtfApto.setText("false");
-        } else {
-            JOptionPane.showMessageDialog(this, "El Estado ya es false, para cambiarlo a true usar el boton 'Alta'",
-                     "Error de Logica", JOptionPane.ERROR_MESSAGE);
-        }
+
+    int filaSeleccionada = jTable1.getSelectedRow();
+
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "Seleccione una fila por favor.");
+        return;
+    }
+
+    // Estado actual
+    String estadoTexto = jtfApto.getText().trim().toLowerCase();
+
+    // Solo se puede dar BAJA si el estado es TRUE
+    if (estadoTexto.equals("true")) {
+
+        int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
+
+        // Llamada a tu método DAO
+        cd.bajaConsultorio(id);
+
+        // Cambiar visualmente
+        jtfApto.setText("false");
+
+        JOptionPane.showMessageDialog(null,
+                "Se ha dado la baja correctamente.");
+
+        btnActualizar.setEnabled(false);
+
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "El estado ya es false, para cambiarlo a true use el botón 'Alta'.",
+                "Error de Lógica",
+                JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -471,7 +506,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String regexLetras = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+    String regexLetras = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
     String regexNumeros = "\\d+";
     boolean consultorioExiste = false;
 

@@ -71,7 +71,7 @@ public class MasajistaData {
     }
 
     public void actualizarMasajista(int matricula, String nombrecompletonuevo, long telefononuevo, String especialidadnuevo, boolean estadonuevo) {
-        String sql = "UPDATE masajista SET  nombre_completo=?,telefono=?,especialidad=?,estado=? WHERE matricula=?";
+        String sql = "UPDATE masajista SET   nombre_completo=?,telefono=?,especialidad=?,estado=? WHERE matricula=?";
         Connection con = null;
         try {
             con = Conexion.establecerConexion();
