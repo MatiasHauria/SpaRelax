@@ -606,6 +606,8 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
         jNombrecompleto.setEnabled(false);
         jTelefono.setEnabled(false);
         jEspecialidad.setEnabled(false);
+        jAlta.setEnabled(false);
+        jBaja.setEnabled(false);
 
     }//GEN-LAST:event_jGuardarActionPerformed
 
