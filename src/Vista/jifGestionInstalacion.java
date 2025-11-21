@@ -425,6 +425,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
             }
             estadoOperacion = "Ninguno";
         }
+            
+            cargarTabla();
         
             jTextNombre.setText("");
             jTextDetalles.setText("");
@@ -506,6 +508,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                     return;
                 } else if (id == i.getIdInstalacion() && i.isEstado() == false) {
                     instdat.altaInstalacion(id);
+                    cargarTabla();
                     JOptionPane.showMessageDialog(this, "Instalacion dada de alta exitosamente.");
                 }
             }
@@ -524,6 +527,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                             JOptionPane.ERROR_MESSAGE);
                 } else if (id == i.getIdInstalacion() && i.isEstado() == true) {
                     instdat.bajaInstalacion(id);
+                    cargarTabla();
                     JOptionPane.showMessageDialog(this, "Instalacion dada de baja exitosamente.");
                 }
             }
