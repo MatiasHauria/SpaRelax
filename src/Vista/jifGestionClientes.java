@@ -356,7 +356,6 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbMostrarClientesActionPerformed
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        estadoOperacion = "Actualizar";
         int filaSeleccionada = jtTablaClientes.getSelectedRow();
 
         if (filaSeleccionada != -1) {
@@ -367,6 +366,8 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             Cliente clienteSeleccionado = buscarClientePorCodigo(codigoCliente);
 
             if (clienteSeleccionado != null) {
+                estadoOperacion = "Actualizar";
+                
                 jtfDNI.setText(String.valueOf(clienteSeleccionado.getDni()));
                 jtfNombreCompleto.setText(clienteSeleccionado.getNombreCompleto());
                 jtfTelefono.setText(String.valueOf(clienteSeleccionado.getTelefono()));

@@ -450,7 +450,6 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBorrarActionPerformed
 
     private void jActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarActionPerformed
-        estadoOperacion = "Actualizar";
         int filaSeleccionada = jTable1.getSelectedRow();
 
         if (filaSeleccionada != -1) {
@@ -461,6 +460,8 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
             Masajista masajistaSeleccionado = buscarMasajistaPorMatricula(matriculaMasajista);
 
             if (masajistaSeleccionado != null) {
+                estadoOperacion = "Actualizar";
+                
                 jMatricula.setText(String.valueOf(masajistaSeleccionado.getMatricula()));
                 jNombrecompleto.setText(masajistaSeleccionado.getNombreCompleto());
                 jTelefono.setText(String.valueOf(masajistaSeleccionado.getTelefono()));

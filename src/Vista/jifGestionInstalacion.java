@@ -11,6 +11,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
 
     InstalacionData instdat;
     private boolean tablaVisible = false;
+    private String estadoOperacion = "Ninguno";
+    private int idInstalacionSeleccionada = -1;
     private final DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
@@ -132,6 +134,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         jButton1.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(204, 0, 0));
         jButton1.setText("Borrar Instalacion");
+        jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -212,6 +215,11 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable);
 
         jBotonCerrar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -318,11 +326,24 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         }
     }
     
+    private Instalacion buscarInstalacionPorId(int idInstalacion) {
+        listaInstalaciones = instdat.obtenerInstalaciones();
+
+        for (Instalacion i : listaInstalaciones) {
+            if (i.getIdInstalacion() == idInstalacion) {
+                return i;
+            }
+        }
+        return null;
+    }
+    
     private void jTextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextNombreActionPerformed
 
     private void jBotonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonNuevoActionPerformed
+        estadoOperacion = "Nuevo";
+        
         jTextNombre.setEnabled(true);
         jTextDetalles.setEnabled(true);
         jTextPrecio.setEnabled(true);
@@ -336,32 +357,87 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBotonNuevoActionPerformed
 
     private void jBotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonGuardarActionPerformed
-        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        String regexnombre = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s,.!¡?¿#$%&/()='\"*+-]+$";
+        String regexdetalles = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s,./!¡?¿#$%&()='\"*+-]+$";
+        String regexnum = "^[0-9,.]+$";
+        boolean instalacionExiste = false;
 
-        if (!jTextNombre.getText().matches(regex) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.");
+        if (!jTextNombre.getText().matches(regexnombre) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.", "Error de Formato",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String nombre = jTextNombre.getText();
-        if (jTextDetalles.getText().length() > 50 || jTextDetalles.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.");
+        
+        if (!jTextDetalles.getText().matches(regexdetalles) || jTextDetalles.getText().isEmpty() || 
+                jTextDetalles.getText().matches(regexnum)) {
+                JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.", "Error de Formato",
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String detalles = jTextDetalles.getText();
-        try {
-            double precioh = Double.parseDouble(jTextPrecio.getText());
-            Instalacion instalacion = new Instalacion(nombre, detalles, precioh);
+        
+        if (jTextPrecio.getText().matches(regexnombre) || jTextPrecio.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un precio valido", "Error de Formato",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        listaInstalaciones = instdat.obtenerInstalaciones();
+        
+        if (estadoOperacion.equalsIgnoreCase("Nuevo")) {
+            
+            for(Instalacion i : listaInstalaciones ) {
+                if (i.getNombre().equalsIgnoreCase(jTextNombre.getText()) &&
+                    i.getDetalleUso().equalsIgnoreCase(jTextDetalles.getText())) {
+                    instalacionExiste = true;
+                    break;
+                }
+            }
+            
+            if (instalacionExiste == true) {
+                JOptionPane.showMessageDialog(this, "Ya existe una instalacion con el nombre o los detalles ingresados.", 
+                        "Error. Masajista Existente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            Instalacion instalacion = new Instalacion(jTextNombre.getText(), jTextDetalles.getText(),
+                    Double.parseDouble(jTextPrecio.getText()));
+            
             instdat.insertarInstalacion(instalacion);
             JOptionPane.showMessageDialog(null, "Se ha Guardado Correctamente la Instalacion");
+            
+            estadoOperacion = "Ninguno";
+        } else if (estadoOperacion.equalsIgnoreCase("Actualizar")) {
+            int idInstalacionActualizar = this.idInstalacionSeleccionada;
+            Instalacion InstalacionActualizar = buscarInstalacionPorId(idInstalacionActualizar);
+
+            if (InstalacionActualizar != null) {
+                instdat.actualizarInstalacion(
+                    idInstalacionActualizar, 
+                    jTextNombre.getText(), 
+                    jTextDetalles.getText(),
+                    Double.parseDouble(jTextPrecio.getText())
+                );
+                    JOptionPane.showMessageDialog(this, "Instalacion actualizada con Exito!");
+                    this.idInstalacionSeleccionada = -1;
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontro la Instalacion.", "Error de Busqueda",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            estadoOperacion = "Ninguno";
+        }
+        
             jTextNombre.setText("");
             jTextDetalles.setText("");
             jTextPrecio.setText("");
+            
+            jTextNombre.setEnabled(false);
+            jTextDetalles.setEnabled(false);
+            jTextPrecio.setEnabled(false);
             jBotonGuardar.setEnabled(false);
+            
             jBotonNuevo.setEnabled(true);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por Favor Ingrese un precio valido.");
-        }
-
+            jBotonAlta.setEnabled(false);
+            jBotonBaja.setEnabled(false);
     }//GEN-LAST:event_jBotonGuardarActionPerformed
 
     private void columnas() {
@@ -389,92 +465,117 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBotonCerrarActionPerformed
 
     private void jBotonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonActualizarActionPerformed
-        jBotonNuevo.setEnabled(false);
-        jBotonGuardar.setEnabled(false);
-        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-        int id=0;
         int filaSeleccionada = jTable.getSelectedRow();
-        if(filaSeleccionada != -1){
-           id = (int) jTable.getValueAt(filaSeleccionada, 0);
-        }else if(filaSeleccionada == -1){
-            JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
-            return;
-        }
- 
-        if (!jTextNombre.getText().matches(regex) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.");
-            return;
-        }
-        String nombre = jTextNombre.getText();
-        if (jTextDetalles.getText().length() > 50 || jTextDetalles.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese detalles validos.");
-            return;
-        }
-        String detalles = jTextDetalles.getText();
-        try {
-            double precioh = Double.parseDouble(jTextPrecio.getText());
-            instdat.actualizarInstalacion(id, nombre, detalles, precioh);
-            JOptionPane.showMessageDialog(null, "Se ha actualizado Correctamente la Instalacion");
-            jTextNombre.setText("");
-            jTextDetalles.setText("");
-            jTextPrecio.setText("");
-            jBotonGuardar.setEnabled(false);
-            jBotonNuevo.setEnabled(true);
-            jBotonActualizar.setEnabled(false);
-            modelo.setRowCount(0);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Por Favor Ingrese un precio valido.");
-        }
         
+        if(filaSeleccionada != -1){
+            Object valorId = jTable.getValueAt(filaSeleccionada, 0);
+
+            int idInstalacion = Integer.parseInt(valorId.toString());
+            this.idInstalacionSeleccionada = idInstalacion;
+            Instalacion instalacionSeleccionada = buscarInstalacionPorId(idInstalacion);
+            
+            if (instalacionSeleccionada != null) {
+                estadoOperacion = "Actualizar";
+                
+                jTextNombre.setText(String.valueOf(instalacionSeleccionada.getNombre()));
+                jTextDetalles.setText(instalacionSeleccionada.getDetalleUso());
+                jTextPrecio.setText(String.valueOf(instalacionSeleccionada.getPrecioPorHora()));
+
+                jTextNombre.setEnabled(true);
+                jTextDetalles.setEnabled(true);
+                jTextPrecio.setEnabled(true);
+
+                jBotonGuardar.setEnabled(true);
+                jBotonNuevo.setEnabled(false);
+                jButton1.setEnabled(false);
+                jBotonActualizar.setEnabled(false);
+                jBotonAlta.setEnabled(true);
+                jBotonBaja.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_jBotonActualizarActionPerformed
 
     private void jBotonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAltaActionPerformed
-        
-        int filaSeleccionada = jTable.getSelectedRow();
-        if(filaSeleccionada != -1){
-           int id = (int) jTable.getValueAt(filaSeleccionada, 0);
-           instdat.altaInstalacion(id);
-           JOptionPane.showMessageDialog(null,"Se ha dado la alta correctamente a la instalacion seleccionada.");
-           modelo.setRowCount(0);
-           jBotonAlta.setEnabled(false);
-           jBotonBaja.setEnabled(false);
-           jBotonActualizar.setEnabled(false);
-        }else if(filaSeleccionada == -1){
-            JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+        if (jTable.getSelectedRow() != -1) {
+            int id = (int) jTable.getValueAt(jTable.getSelectedRow(), 0);
+            
+            for (Instalacion i : instdat.obtenerInstalaciones()) {
+                if (id == i.getIdInstalacion() && i.isEstado() == true) {
+                    JOptionPane.showMessageDialog(this, "La Instalacion ya se encuentra activa.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (id == i.getIdInstalacion() && i.isEstado() == false) {
+                    instdat.altaInstalacion(id);
+                    JOptionPane.showMessageDialog(this, "Instalacion dada de alta exitosamente.");
+                }
+            }
+        } else if (jTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null,"Seleccione una fila para continuar.");
         }
-        
     }//GEN-LAST:event_jBotonAltaActionPerformed
 
     private void jBotonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBajaActionPerformed
-         
-        int filaSeleccionada = jTable.getSelectedRow();
-        if(filaSeleccionada != -1){
-           int id = (int) jTable.getValueAt(filaSeleccionada, 0);
-           instdat.bajaInstalacion(id);
-           JOptionPane.showMessageDialog(null,"Se ha dado la baja correctamente a la instalacion seleccionada.");
-           modelo.setRowCount(0);
-           jBotonAlta.setEnabled(false);
-           jBotonBaja.setEnabled(false);
-           jBotonActualizar.setEnabled(false);
-        }else if(filaSeleccionada == -1){
-        JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+        if (jTable.getSelectedRow() != -1) {
+            int id = (int) jTable.getValueAt(jTable.getSelectedRow(), 0);
+            
+            for (Instalacion i : instdat.obtenerInstalaciones()) {
+                if (id == i.getIdInstalacion() && i.isEstado() == false) {
+                    JOptionPane.showMessageDialog(this, "La Instalacion ya se encuentra inactiva.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else if (id == i.getIdInstalacion() && i.isEstado() == true) {
+                    instdat.bajaInstalacion(id);
+                    JOptionPane.showMessageDialog(this, "Instalacion dada de baja exitosamente.");
+                }
+            }
+        } else if (jTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this,"Seleccione una fila para continuar.");
         }
     }//GEN-LAST:event_jBotonBajaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jBotonNuevo.setEnabled(false);
+        jBotonActualizar.setEnabled(false);
+
         int filaSeleccionada = jTable.getSelectedRow();
-        if(filaSeleccionada != -1){
-           int id = (int) jTable.getValueAt(filaSeleccionada, 0);
-           instdat.borrarInstalacion(id);
-           JOptionPane.showMessageDialog(null,"Se ha borrado correctamente a la instalacion seleccionada.");
-           modelo.setRowCount(0);
-           jBotonAlta.setEnabled(false);
-           jBotonBaja.setEnabled(false);
-           jBotonActualizar.setEnabled(false);
-        }else if(filaSeleccionada == -1){
-        JOptionPane.showMessageDialog(null,"Seleccione una fila porfavor.");
+
+        if (filaSeleccionada != -1) {
+            int opcion = JOptionPane.showConfirmDialog(this, "Estas seguro de que queres borrar los datos de la Instalacion?",
+                    "Confirmar Borrado", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                Object valorId = jTable.getValueAt(filaSeleccionada, 0);
+                int idInstalacion = Integer.parseInt(valorId.toString());
+                Instalacion instalacionSeleccionada = buscarInstalacionPorId(idInstalacion);
+
+                if (instalacionSeleccionada != null) {
+                    instdat.borrarInstalacion(instalacionSeleccionada.getIdInstalacion());
+                    JOptionPane.showMessageDialog(this, "Instalacion borrada con exito.");
+
+                    cargarTabla();
+                    jTextNombre.setText("");
+                    jTextDetalles.setText("");
+                    jTextPrecio.setText("");
+                    jButton1.setEnabled(false);
+                    jBotonNuevo.setEnabled(true);
+                    jBotonAlta.setEnabled(false);
+                    jBotonBaja.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontro la Instalacion.", "Error de Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No se Encontro la Fila Seleccionada.", "Error de Busqueda",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
+        int filaSeleccionada = jTable.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            jBotonActualizar.setEnabled(true);
+            jButton1.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
