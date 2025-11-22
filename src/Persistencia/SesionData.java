@@ -145,12 +145,15 @@ public class SesionData {
                 DiaDeSpa i = new DiaDeSpa();
                 i.setCodPack(idSpa);
                 ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
-
                 String instalaciones = rs.getString("instalaciones");
                 String[] partes = instalaciones.split(",");
                 for (String nombre : partes) {
-                    Instalacion a = instalacionData.buscarInstalacionNombre(nombre);
-                    listaInstalaciones.add(a);
+                    Instalacion a = instalacionData.buscarInstalacionNombre(nombre.trim());
+                    if (a != null) {
+                        listaInstalaciones.add(a);
+                    } else {
+                        System.out.println("AVISO: La instalación '" + nombre + "' figura en la sesión pero no existe en la tabla de instalaciones.");
+                    }
                 }
                 int matricula = rs.getInt("matricula");
                 Masajista m = masajista.buscarMasajista(matricula);
@@ -248,10 +251,17 @@ public class SesionData {
             if (rs.next()) {
                 ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
                 String instalaciones = rs.getString("instalaciones");
-                String[] partes = instalaciones.split(",");
-                for (String nombre : partes) {
-                    Instalacion b = instalacionData.buscarInstalacionNombre(nombre);
-                    listaInstalaciones.add(b);
+                
+                if (instalaciones != null && !instalaciones.isEmpty()) {
+                    String[] partes = instalaciones.split(",");
+                    for (String nombre : partes) {
+                        
+                        Instalacion b = instalacionData.buscarInstalacionNombre(nombre.trim());
+                        
+                        if (b != null) {
+                            listaInstalaciones.add(b);
+                        }
+                    }
                 }
                 Consultorio consul = consultorio.buscarConsultorio(rs.getInt("id_consultorio"));
                 int idSpa = rs.getInt("id_pack");

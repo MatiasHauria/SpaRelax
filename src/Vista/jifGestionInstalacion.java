@@ -362,7 +362,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         String regexnum = "^[0-9,.]+$";
         boolean instalacionExiste = false;
 
-        if (!jTextNombre.getText().matches(regexnombre) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 20) {
+        if (!jTextNombre.getText().matches(regexnombre) || jTextNombre.getText().isEmpty() || jTextNombre.getText().length() >= 50) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un nombre valido.", "Error de Formato",
                     JOptionPane.ERROR_MESSAGE);
             return;
