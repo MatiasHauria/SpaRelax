@@ -537,8 +537,10 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
                 seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
                 seleccionarItemPorValor(jComboBoxInstalaciones, SesionSeleccionada.getInstalacion());
+                Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
+                String nombreInst = inst.getNombre();
+                seleccionarInstalacionPorNombre(jComboBoxInstalaciones, nombreInst);
                 
-                seleccionarInstalacionPorId(jComboBoxInstalaciones, SesionSeleccionada.getInstalacion());
                 jComboBoxInstalaciones.setSelectedItem(SesionSeleccionada.getInstalacion());
                 //jComboBoxConsultoriosId.setSelectedItem(SesionSeleccionada.getCodConsultorio());
                 //jComboBoxMatriculas.setSelectedItem(SesionSeleccionada.getMatricula());
@@ -612,14 +614,13 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTablaSesiones;
     // End of variables declaration//GEN-END:variables
 
-    private void seleccionarInstalacionPorId(JComboBox<Instalacion> combo, int idBuscado) {
+    private void seleccionarInstalacionPorNombre(JComboBox<String> combo, String nombreBuscado) {
+
     for (int i = 0; i < combo.getItemCount(); i++) {
-
-        Instalacion inst = combo.getItemAt(i);
-
-        if (inst.getIdInstalacion()== idBuscado) {
+        String item = combo.getItemAt(i);
+        if (item.equals(nombreBuscado)) {
             combo.setSelectedIndex(i);
-            break;
+            return;
         }
     }
 }
