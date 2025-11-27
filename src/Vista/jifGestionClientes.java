@@ -439,7 +439,9 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         jbNuevo.setEnabled(false);
         jbActualizar.setEnabled(false);
-
+        jbAlta.setEnabled(false);
+        jbBaja.setEnabled(false);
+        
         int filaSeleccionada = jtTablaClientes.getSelectedRow();
 
         if (filaSeleccionada != -1) {
@@ -462,8 +464,6 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
                     jtfAfecciones.setText("");
                     jbBorrar.setEnabled(false);
                     jbNuevo.setEnabled(true);
-                    jbAlta.setEnabled(false);
-                    jbBaja.setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontro el Cliente.", "Error de Busqueda",
                             JOptionPane.ERROR_MESSAGE);

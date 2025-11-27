@@ -395,6 +395,11 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         cargarTabla();
+        
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnBorrar.setEnabled(false);
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
@@ -403,71 +408,63 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
             Integer idConsultorio =  (Integer) modelo.getValueAt(jTable1.getSelectedRow(), id);
             
             for (Consultorio c : cd.obtenerConsultorio()) {
-                if (idConsultorio == c.getNroConsultorio() && c.isApto() == true) {
-                    JOptionPane.showMessageDialog(this, "El Consultorio ya es Apto");
+                if (idConsultorio == c.getNroConsultorio() && !c.isApto() == true) {
+                    JOptionPane.showMessageDialog(this, "El Consultorio ya estaba Deshabilitado");
                     return;
-                } else if (idConsultorio == c.getNroConsultorio() && c.isApto() == false) {
-                    cd.altaConsultorio(idConsultorio);
-                    JOptionPane.showMessageDialog(this, "¡Consultorio Habilitado con Exito!");
+                } else if (idConsultorio == c.getNroConsultorio() && !c.isApto() == false) {
+                    cd.bajaConsultorio(idConsultorio);
+                    JOptionPane.showMessageDialog(this, "¡Consultorio Deshabilitado con Exito!");
                 }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         cargarTabla();
+        
+        btnAlta.setEnabled(false);
+        btnBaja.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnBorrar.setEnabled(false);
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         btnNuevo.setEnabled(false);
         btnActualizar.setEnabled(false);
-
+        
         int filaSeleccionada = jTable1.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            Object valorId = jTable1.getValueAt(filaSeleccionada, 0);
-
-            if (valorId == null) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar: el ID del consultorio es null",
-                        "Error de datos", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             int opcion = JOptionPane.showConfirmDialog(this, "Estas seguro de que queres borrar los datos del consultorio?",
                     "Confirmar Borrado", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
-                try {
-                    int codigoCons = Integer.parseInt(valorId.toString());
-                    Consultorio consultorioSeleccionado = buscarConsultorioPorCodigo(codigoCons);
+                Object valorId = jTable1.getValueAt(filaSeleccionada, 0);
+                int codigoCons = Integer.parseInt(valorId.toString());
+                Consultorio consultorioSeleccionado = buscarConsultorioPorCodigo(codigoCons);
 
-                    if (consultorioSeleccionado != null) {
-                        cd.borrarConsultorio(consultorioSeleccionado.getNroConsultorio());
-                        JOptionPane.showMessageDialog(this, "Consultorio borrado con exito.");
+                if (consultorioSeleccionado != null) {
+                    cd.borrarConsultorio(consultorioSeleccionado.getNroConsultorio());
+                    JOptionPane.showMessageDialog(this, "Consultorio borrado con exito.");
 
-                        cargarTabla();
-                        jtfUsos.setText("");
-                        jtfEquipo.setText("");
-                        jtfApto.setText("");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No se encontro el consultorio", "Error de Busqueda",
-                                JOptionPane.ERROR_MESSAGE);
+                    cargarTabla();
+                    jtfUsos.setText("");
+                    jtfEquipo.setText("");
+                    jtfApto.setText("");
+                    btnBorrar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el consultorio", "Error de Busqueda",
+                            JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Error: El ID del consultorio no es válido",
-                            "Error de formato", JOptionPane.ERROR_MESSAGE);
-                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un consultorio de la tabla para eliminar",
                     "Selección requerida", JOptionPane.WARNING_MESSAGE);
         }
-
-        btnNuevo.setEnabled(true);
-        btnActualizar.setEnabled(true);
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    String regexLetras = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-    String regexNumeros = "\\d+";
+    String regexUso = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s,.!¡?¿#$%&/()='\"*+-]+$";
+    String regexEquip = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s,./!¡?¿#$%&()='\"*+-]+$";
     boolean consultorioExiste = false;
 
     if (  jtfEquipo.getText().isEmpty() || jtfApto.getText().isEmpty()) {
@@ -478,7 +475,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         return;
     }
 
-    if (!jtfUsos.getText().matches(regexLetras) || !jtfEquipo.getText().matches(regexLetras)) {
+    if (!jtfUsos.getText().matches(regexUso) || !jtfEquipo.getText().matches(regexEquip)) {
         JOptionPane.showMessageDialog(this, 
             "Los campos 'Usos' y 'Equipamiento' solo deben contener letras y espacios.", 
             "Error de Formato", 
@@ -499,7 +496,8 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
     if (estadoOperacion.equalsIgnoreCase("Nuevo")) {
         for (Consultorio consultorio : listaConsultorios) {
-            if (consultorio.getNroConsultorio() == consultorio.getNroConsultorio()) {
+            if (consultorio.getUsos().equals(jtfUsos.getText()) &&
+                consultorio.getEquipamiento() == jtfEquipo.getText()) {
                 consultorioExiste = true;
                 break;
             }
@@ -507,7 +505,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         if (consultorioExiste) {
             JOptionPane.showMessageDialog(this, 
-                "Ya existe un consultorio con el ID ingresado", 
+                "Este Consultorio ya Existe", 
                 "Error. Consultorio existente", 
                 JOptionPane.ERROR_MESSAGE);
             return;

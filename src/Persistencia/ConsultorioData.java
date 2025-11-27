@@ -103,21 +103,23 @@ public class ConsultorioData {
         return a;
     }
 
-    public void actualizarConsultorio(int idNuevo, String usoNuevo, String equipoNuevo, boolean aptoNuevo) {
-        String sql = "UPDATE Consultorio SET id_consultorio=?,usos=?,equipamento=?,apto=? WHERE id_consultorio=?";
+    public void actualizarConsultorio(int id, String usoNuevo, String equipoNuevo, boolean aptoNuevo) {
+       String sql = "UPDATE consultorio SET usos=?, equipamento=?, apto=? WHERE id_consultorio=?";
         Connection con = null;
         try {
             con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idNuevo);
-            ps.setString(2, usoNuevo);
-            ps.setString(3, equipoNuevo);
-            ps.setBoolean(4, aptoNuevo);
+            ps.setString(1, usoNuevo);
+            ps.setString(2, equipoNuevo);
+            ps.setBoolean(3, aptoNuevo);
+            ps.setInt(4, id);
+            
             int filas = ps.executeUpdate();
+            
             if (filas > 0) {
                 System.out.println("Consultorio actualizado correctamente");
             } else {
-                System.out.println("No se encuentra el consultorio con ID " + idNuevo);
+                System.out.println("No se encuentra el consultorio con ID " + id);
             }
             ps.close();
         } catch (SQLException ex) {
