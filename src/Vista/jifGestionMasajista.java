@@ -476,8 +476,8 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
                 jNuevo.setEnabled(false);
                 jBorrar.setEnabled(false);
                 jActualizar.setEnabled(false);
-                jAlta.setEnabled(true);
-                jBaja.setEnabled(true);
+                jAlta.setEnabled(false);
+                jBaja.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jActualizarActionPerformed
@@ -630,6 +630,8 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
         if (filaSeleccionada != -1) {
             jActualizar.setEnabled(true);
             jBorrar.setEnabled(true);
+            jAlta.setEnabled(true);
+            jBaja.setEnabled(true);
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

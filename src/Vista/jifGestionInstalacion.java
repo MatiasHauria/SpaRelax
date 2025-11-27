@@ -320,7 +320,7 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 aux.getNombre(),
                 aux.getDetalleUso(),
                 aux.getPrecioPorHora(),
-                aux.isEstado()
+                (aux.isEstado() ? "Activa" : "Inactiva")
             };
             modelo.addRow(filas);
         }
@@ -491,8 +491,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
                 jBotonNuevo.setEnabled(false);
                 jButton1.setEnabled(false);
                 jBotonActualizar.setEnabled(false);
-                jBotonAlta.setEnabled(true);
-                jBotonBaja.setEnabled(true);
+                jBotonAlta.setEnabled(false);
+                jBotonBaja.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jBotonActualizarActionPerformed
@@ -578,6 +578,8 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         if (filaSeleccionada != -1) {
             jBotonActualizar.setEnabled(true);
             jButton1.setEnabled(true);
+            jBotonAlta.setEnabled(true);
+            jBotonBaja.setEnabled(true);
         }
     }//GEN-LAST:event_jTableMouseClicked
 

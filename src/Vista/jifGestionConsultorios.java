@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
     ConsultorioData cd;
-    private String aptoOperacion = "ninguno";
+    private String estadoOperacion = "ninguno";
     private int idConsultorioSeleccionado = -1;
     private boolean tablaVisible = false;
     private boolean aptoLogicoCambiado = false;
@@ -26,36 +26,20 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         initComponents();
         this.cd = new ConsultorioData();
         armarCabecera();
-        jTable1.setModel(modelo);
-        cargarTabla();
-
-        jtfUsos.setEnabled(false);
-        jtfEquipo.setEnabled(false);
-        jtfApto.setEnabled(false);
-
     }
 
     private void cargarTabla() {
-        try {
-            listaConsultorios = cd.obtenerConsultorio();
-            modelo.setRowCount(0);
-            if (listaConsultorios != null && !listaConsultorios.isEmpty()) {
-                for (Consultorio c : listaConsultorios) {
-                    Object[] fila = {
-                        c.getNroConsultorio(),
-                        c.getUsos(),
-                        c.getEquipamiento(),
-                        c.isApto()
-                    };
-                    modelo.addRow(fila);
-                }
-            } else {
-                System.out.println("No se encontraron consultorios para mostrar");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar los consultorios: " + e.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+        listaConsultorios = cd.obtenerConsultorio();
+        modelo.setRowCount(0);
+        
+        for (Consultorio c : listaConsultorios) {
+            Object[] fila = {
+                c.getNroConsultorio(),
+                c.getUsos(),
+                c.getEquipamiento(),
+                (c.isApto() ? "Apto" : "No Apto")
+            };
+            modelo.addRow(fila);
         }
     }
 
@@ -108,6 +92,12 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         jLabel1.setText("Gestión de Consultorios");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingreso de datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Ubuntu", 0, 14))); // NOI18N
+
+        jtfUsos.setEnabled(false);
+
+        jtfEquipo.setEnabled(false);
+
+        jtfApto.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setText("Usos:");
@@ -163,6 +153,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         btnActualizar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.setEnabled(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -171,6 +162,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         btnBorrar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btnBorrar.setText("Borrar");
+        btnBorrar.setEnabled(false);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -179,6 +171,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         btnAlta.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btnAlta.setText("Alta");
+        btnAlta.setEnabled(false);
         btnAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAltaActionPerformed(evt);
@@ -187,6 +180,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         btnBaja.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btnBaja.setText("Baja");
+        btnBaja.setEnabled(false);
         btnBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBajaActionPerformed(evt);
@@ -195,6 +189,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
 
         btnGuardar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -320,17 +315,14 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        aptoOperacion = "Nuevo";
+        estadoOperacion = "Nuevo";
         jtfUsos.setText("");
         jtfEquipo.setText("");
         jtfApto.setText("false");
         jtfUsos.setEnabled(true);
         jtfEquipo.setEnabled(true);
-        jtfApto.setEnabled(true);
 
         btnNuevo.setEnabled(false);
-        btnAlta.setEnabled(true);
-        btnBaja.setEnabled(true);
         btnGuardar.setEnabled(true);
 
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -339,17 +331,13 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         if (tablaVisible == false) {
             cargarTabla();
             tablaVisible = true;
-            btnMostrar.setText("Ocultar Consultorios");
+            btnMostrar.setText("Actualizar Tabla");
         } else {
-            modelo.setRowCount(0);
-            btnMostrar.setText("Mostrar Consultorios");
-            tablaVisible = false;
+            cargarTabla();
         }
     }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        aptoOperacion = "Actualizar";
-
         int filaSeleccionada = jTable1.getSelectedRow();
 
         if (filaSeleccionada != -1) {
@@ -360,6 +348,8 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
             Consultorio consultorioSeleccionado = buscarConsultorioPorCodigo(codigoCons);
 
             if (consultorioSeleccionado != null) {
+                estadoOperacion = "Actualizar";
+                
                 jtfUsos.setText(consultorioSeleccionado.getUsos());
                 jtfEquipo.setText(consultorioSeleccionado.getEquipamiento());
                 jtfApto.setText(String.valueOf(consultorioSeleccionado.isApto()));
@@ -371,8 +361,8 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
                 btnGuardar.setEnabled(true);
                 btnBorrar.setEnabled(false);
                 btnActualizar.setEnabled(false);
-                btnAlta.setEnabled(true);
-                btnBaja.setEnabled(true);
+                btnAlta.setEnabled(false);
+                btnBaja.setEnabled(false);
             }
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -380,81 +370,51 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int filaSeleccionada = jTable1.getSelectedRow();
         if (filaSeleccionada != -1) {
-            btnNuevo.setEnabled(false);
             btnBorrar.setEnabled(true);
             btnActualizar.setEnabled(true);
+            btnAlta.setEnabled(true);
+            btnBaja.setEnabled(true);
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaActionPerformed
-        int filaSeleccionada = jTable1.getSelectedRow();
-
-    if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(null, "Seleccione una fila por favor.");
-        return;
-    }
-
-    // Estado actual
-    String estadoTexto = jtfApto.getText().trim().toLowerCase();
-
-    // Solo se puede dar ALTA si el estado es FALSE
-    if (estadoTexto.equals("false")) {
-
-        int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
-
-        // Llamada a tu método DAO
-        cd.altaConsultorio(id);
-
-        // Cambiar visualmente
-        jtfApto.setText("true");
-
-        JOptionPane.showMessageDialog(null,
-                "Se ha dado el alta correctamente.");
-
-        btnActualizar.setEnabled(false);
-
-    } else {
-        JOptionPane.showMessageDialog(this,
-                "El estado ya es true, para cambiarlo a false use el botón 'Baja'.",
-                "Error de Lógica",
-                JOptionPane.ERROR_MESSAGE);
-    }
+        if (jTable1.getSelectedRow() !=  -1) {
+            int id = 0;
+            Integer idConsultorio =  (Integer) modelo.getValueAt(jTable1.getSelectedRow(), id);
+            
+            for (Consultorio c : cd.obtenerConsultorio()) {
+                if (idConsultorio == c.getNroConsultorio() && c.isApto() == true) {
+                    JOptionPane.showMessageDialog(this, "El Consultorio ya es Apto");
+                    return;
+                } else if (idConsultorio == c.getNroConsultorio() && c.isApto() == false) {
+                    cd.altaConsultorio(idConsultorio);
+                    JOptionPane.showMessageDialog(this, "¡Consultorio Habilitado con Exito!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        cargarTabla();
     }//GEN-LAST:event_btnAltaActionPerformed
 
     private void btnBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaActionPerformed
-
-    int filaSeleccionada = jTable1.getSelectedRow();
-
-    if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(null, "Seleccione una fila por favor.");
-        return;
-    }
-
-    // Estado actual
-    String estadoTexto = jtfApto.getText().trim().toLowerCase();
-
-    // Solo se puede dar BAJA si el estado es TRUE
-    if (estadoTexto.equals("true")) {
-
-        int id = (int) jTable1.getValueAt(filaSeleccionada, 0);
-
-        // Llamada a tu método DAO
-        cd.bajaConsultorio(id);
-
-        // Cambiar visualmente
-        jtfApto.setText("false");
-
-        JOptionPane.showMessageDialog(null,
-                "Se ha dado la baja correctamente.");
-
-        btnActualizar.setEnabled(false);
-
-    } else {
-        JOptionPane.showMessageDialog(this,
-                "El estado ya es false, para cambiarlo a true use el botón 'Alta'.",
-                "Error de Lógica",
-                JOptionPane.ERROR_MESSAGE);
-    }
+        if (jTable1.getSelectedRow() !=  -1) {
+            int id = 0;
+            Integer idConsultorio =  (Integer) modelo.getValueAt(jTable1.getSelectedRow(), id);
+            
+            for (Consultorio c : cd.obtenerConsultorio()) {
+                if (idConsultorio == c.getNroConsultorio() && c.isApto() == true) {
+                    JOptionPane.showMessageDialog(this, "El Consultorio ya es Apto");
+                    return;
+                } else if (idConsultorio == c.getNroConsultorio() && c.isApto() == false) {
+                    cd.altaConsultorio(idConsultorio);
+                    JOptionPane.showMessageDialog(this, "¡Consultorio Habilitado con Exito!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
+        }
+        cargarTabla();
     }//GEN-LAST:event_btnBajaActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -537,7 +497,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
     listaConsultorios = cd.obtenerConsultorio();
     boolean aptoValor = Boolean.parseBoolean(jtfApto.getText());
 
-    if (aptoOperacion.equalsIgnoreCase("Nuevo")) {
+    if (estadoOperacion.equalsIgnoreCase("Nuevo")) {
         for (Consultorio consultorio : listaConsultorios) {
             if (consultorio.getNroConsultorio() == consultorio.getNroConsultorio()) {
                 consultorioExiste = true;
@@ -559,9 +519,9 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         cd.insertarConsultorio(nuevoConsultorio);
         JOptionPane.showMessageDialog(this, "Consultorio agregado exitosamente.");
 
-        aptoOperacion = "Ninguno";
+        estadoOperacion = "Ninguno";
 
-    } else if (aptoOperacion.equalsIgnoreCase("Actualizar")) {
+    } else if (estadoOperacion.equalsIgnoreCase("Actualizar")) {
         int codConsultorioActualizar = this.idConsultorioSeleccionado;
         Consultorio consultorioActualizar = buscarConsultorioPorCodigo(codConsultorioActualizar);
 
@@ -572,7 +532,7 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No se encontró el consultorio.", 
                 "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
         }
-        aptoOperacion = "Ninguno";
+        estadoOperacion = "Ninguno";
     }
 
     cargarTabla();
@@ -593,6 +553,8 @@ public class jifGestionConsultorios extends javax.swing.JInternalFrame {
         modelo.addColumn("Usos");
         modelo.addColumn("Equipamento");
         modelo.addColumn("Apto");
+        
+        jTable1.setModel(modelo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

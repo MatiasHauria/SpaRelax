@@ -503,7 +503,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         //obtengo el id de la sesion y lo borro con opciones
         if (jTablaSesiones.getSelectedRow() != -1) {
             Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que desea borrar la sesion \nde la base de datos?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que desea borrar la sesion de la base de datos?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             switch (confirm) {
                 case JOptionPane.NO_OPTION:
                     return;
@@ -520,7 +520,6 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        // TODO add your handling code here:
         int filaSeleccionada = jTablaSesiones.getSelectedRow();
 
         if (filaSeleccionada != -1) {
@@ -539,12 +538,6 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
                 String nombreInst = inst.getNombre();
                 seleccionarInstalacionPorNombre(jComboBoxInstalaciones, nombreInst);
-                
-                
-                //jComboBoxConsultoriosId.setSelectedItem(SesionSeleccionada.getCodConsultorio());
-                //jComboBoxMatriculas.setSelectedItem(SesionSeleccionada.getMatricula());
-                //jComboBoxTratamientosId.setSelectedItem(SesionSeleccionada.getCodTratamiento());
-                
                 
                 LocalDateTime ldt = SesionSeleccionada.getFechaHoraFin();
                 Date dateFin = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
@@ -565,8 +558,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 jButtonCancelar.setEnabled(true);
                 jDateChooserFechaFin.setEnabled(true);
                 jDateChooserFechaInicio.setEnabled(true);
-
-               
+                
+                jButtonCargar.setEnabled(false);
+                jButtonBorrar.setEnabled(false);
+                jButtonHabilitar.setEnabled(false);
+                jButtonDeshabilitar.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
@@ -582,10 +578,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             jButtonBorrar.setEnabled(true);
             jButtonDeshabilitar.setEnabled(true);
             jButtonHabilitar.setEnabled(true);
-            
-            
         }
-
     }//GEN-LAST:event_jTablaSesionesMouseClicked
 
 
@@ -748,7 +741,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 sesion.getMatricula(),
                 sesion.getFechaHoraInicio(),
                 sesion.getFechaHoraFin(),
-                (sesion.isEstado() ? "Activo" : "Inactivo")
+                (sesion.isEstado() ? "Activa" : "Inactiva")
             };
             modeloTabla.addRow(filas);
         }

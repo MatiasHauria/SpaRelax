@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
-
 
 public class Consultorio {
     private int idConsultorio;
@@ -54,7 +49,4 @@ public class Consultorio {
     public String toString() {
         return "Consultorio{" + "idConsultorio=" + idConsultorio + ", usos=" + usos + ", equipamiento=" + equipamiento + ", apto=" + apto + '}';
     }
-    
-    
-    
 }

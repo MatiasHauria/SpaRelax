@@ -200,8 +200,7 @@ public class jifMasajistasLibres extends javax.swing.JInternalFrame {
                         aux.getNombreCompleto(),
                         aux.getEspecialidad(),
                         aux.getTelefono(),
-                        aux.isEstado(),
-
+                        (aux.isEstado() ? "Activo" : "Inactivo")
                     };
                     modelo.addRow(fila);
                 }

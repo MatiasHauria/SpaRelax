@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
 import Modelo.Instalacion;
@@ -17,10 +13,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author matute
- */
 public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
 
     private final SesionData sd;
@@ -205,6 +197,7 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
         modelo.setRowCount(0);
         ArrayList<Sesion> lista = sd.obtenerSesiones();
         ArrayList<Instalacion> inst = new ArrayList<>();
+        
         if (lista.isEmpty()) {
             return;
         } else if (!lista.isEmpty() && jDate1.getDate() != null && jDate2.getDate() != null) {
@@ -214,16 +207,21 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
                 LocalDate fechafin = sesion.getFechaHoraFin().toLocalDate();
                 Date fechaCalendarioInicio = jDate1.getDate();
                 LocalDate fechaCalendarioInicioFinal = LocalDate.now();
+                
                 if (fechaCalendarioInicio != null) {
                     fechaCalendarioInicioFinal = fechaCalendarioInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 }
+                
                 Date fechaCalendarioFin = jDate2.getDate();
                 LocalDate fechaCalendarioFinFinal = LocalDate.now();
+                
                 if (fechaCalendarioFin != null) {
                     fechaCalendarioFinFinal = fechaCalendarioFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 }
+                
                 if ((fechainicio.isEqual(fechaCalendarioInicioFinal) || fechainicio.isAfter(fechaCalendarioInicioFinal)) && (fechafin.isEqual(fechaCalendarioFinFinal) || fechafin.isBefore(fechaCalendarioFinFinal))) {
                     ArrayList<Instalacion> aux = sesion.getInstalacion();
+                    
                     for (Instalacion instalacion : aux) {
                         if (!inst.contains(instalacion)) {
                             inst.add(instalacion);
@@ -247,7 +245,7 @@ public class jifInstalacionesHorarios extends javax.swing.JInternalFrame {
                 aux.getNombre(),
                 aux.getDetalleUso(),
                 aux.getPrecioPorHora(),
-                aux.isEstado()
+                (aux.isEstado() ? "Activa" : "Inactiva")
             };
             modelo.addRow(filas);
         }

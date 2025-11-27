@@ -347,11 +347,9 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
         if (tablaVisible == false) {
             cargarTabla();
             tablaVisible = true;
-            jbMostrarClientes.setText("Ocultar Clientes");
+            jbMostrarClientes.setText("Actualiar Tabla");
         } else {
-            modelo.setRowCount(0);
-            jbMostrarClientes.setText("Mostrar Clientes");
-            tablaVisible = false;
+            cargarTabla();
         }
     }//GEN-LAST:event_jbMostrarClientesActionPerformed
 
@@ -384,8 +382,8 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
                 jbNuevo.setEnabled(false);
                 jbBorrar.setEnabled(false);
                 jbActualizar.setEnabled(false);
-                jbAlta.setEnabled(true);
-                jbBaja.setEnabled(true);
+                jbAlta.setEnabled(false);
+                jbBaja.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jbActualizarActionPerformed
@@ -395,6 +393,8 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
         if (filaSeleccionada != -1) {
             jbActualizar.setEnabled(true);
             jbBorrar.setEnabled(true);
+            jbAlta.setEnabled(true);
+            jbBaja.setEnabled(true);
         }
     }//GEN-LAST:event_jtTablaClientesMouseClicked
 
