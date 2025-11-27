@@ -536,12 +536,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 seleccionarItemPorValor(jComboBoxConsultoriosId, SesionSeleccionada.getCodConsultorio());
                 seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
                 seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
-                seleccionarItemPorValor(jComboBoxInstalaciones, SesionSeleccionada.getInstalacion());
                 Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
                 String nombreInst = inst.getNombre();
                 seleccionarInstalacionPorNombre(jComboBoxInstalaciones, nombreInst);
                 
-                jComboBoxInstalaciones.setSelectedItem(SesionSeleccionada.getInstalacion());
+                
                 //jComboBoxConsultoriosId.setSelectedItem(SesionSeleccionada.getCodConsultorio());
                 //jComboBoxMatriculas.setSelectedItem(SesionSeleccionada.getMatricula());
                 //jComboBoxTratamientosId.setSelectedItem(SesionSeleccionada.getCodTratamiento());
@@ -563,7 +562,9 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 jComboBoxInstalaciones.setEnabled(true);
                 jComboBoxConsultoriosId.setEnabled(true);
                 jComboBoxTratamientosId.setEnabled(true);
-                
+                jButtonCancelar.setEnabled(true);
+                jDateChooserFechaFin.setEnabled(true);
+                jDateChooserFechaInicio.setEnabled(true);
 
                
             }
@@ -581,6 +582,8 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             jButtonBorrar.setEnabled(true);
             jButtonDeshabilitar.setEnabled(true);
             jButtonHabilitar.setEnabled(true);
+            
+            
         }
 
     }//GEN-LAST:event_jTablaSesionesMouseClicked
@@ -690,6 +693,8 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jComboBoxMatriculas.setSelectedIndex(0);
         jComboBoxConsultoriosId.setSelectedIndex(0);
         jComboBoxInstalaciones.setSelectedIndex(0);
+        jDateChooserFechaFin.setDate(null);
+        jDateChooserFechaInicio.setDate(null);
     }
 
     private void habilitarCampos() {
