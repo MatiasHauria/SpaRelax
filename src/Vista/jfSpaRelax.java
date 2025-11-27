@@ -8,6 +8,7 @@ import Modelo.Cliente;
 import Modelo.Consultorio;
 import Modelo.Instalacion;
 import Modelo.Masajista;
+import Modelo.Sesion;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class jfSpaRelax extends javax.swing.JFrame {
     public static ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
     public static ArrayList<Consultorio> listaConsultorios = new ArrayList<>();
     public static ArrayList<Masajista> listaMasajista=new ArrayList<>();
+    public static ArrayList<Sesion>  listaSesiones=new ArrayList<>();
 
     /**
      * Creates new form SpaRelax

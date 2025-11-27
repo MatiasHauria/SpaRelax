@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static Vista.jfSpaRelax.listaSesiones;
+import java.util.Date;
+import javax.swing.JComboBox;
 
 public class jifGestionSesion extends javax.swing.JInternalFrame {
 
@@ -24,6 +27,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private MasajistaData masajistaData;
     private TratamientoData tratamientoData;
     private InstalacionData instalacionData;
+    private int idSesionSeleccionada = 0;
     private boolean aux = false;
     private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
     private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
@@ -89,11 +93,19 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jComboBoxInstalaciones = new javax.swing.JComboBox<>();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Nimbus Sans", 1, 30)); // NOI18N
         jLabel1.setText("Gestión de Sesiones");
 
         jButtonActualizar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonActualizar.setText("Actualizar sesión");
+        jButtonActualizar.setEnabled(false);
+        jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualizarActionPerformed(evt);
+            }
+        });
 
         jButtonCargar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonCargar.setText("Cargar sesión");
@@ -105,6 +117,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
 
         jButtonBorrar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonBorrar.setText("Borrar sesión");
+        jButtonBorrar.setEnabled(false);
         jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBorrarActionPerformed(evt);
@@ -122,6 +135,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
 
         jButtonDeshabilitar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonDeshabilitar.setText("Deshabilitar sesión");
+        jButtonDeshabilitar.setEnabled(false);
         jButtonDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeshabilitarActionPerformed(evt);
@@ -130,6 +144,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
 
         jButtonHabilitar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jButtonHabilitar.setText("Habilitar sesión");
+        jButtonHabilitar.setEnabled(false);
         jButtonHabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonHabilitarActionPerformed(evt);
@@ -172,6 +187,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jComboBoxConsultoriosId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el ID" }));
         jComboBoxConsultoriosId.setBorder(null);
         jComboBoxConsultoriosId.setEnabled(false);
+        jComboBoxConsultoriosId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxConsultoriosIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -268,6 +288,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablaSesiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaSesionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablaSesiones);
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -393,7 +418,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Seleccione una instalacion antes de continuar.");
                 return;
             }
-
+            //parseo de fecha-hora-inicio/final
             LocalDateTime iniDateTime = jDateChooserFechaInicio.getDate()
                     .toInstant()
                     .atZone(ZoneId.systemDefault())
@@ -404,16 +429,21 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                     .atZone(ZoneId.systemDefault())
                     .toLocalDate()
                     .atStartOfDay();
+            //obtener consultorio
             String idConsultorio = (String) jComboBoxConsultoriosId.getSelectedItem();
             Consultorio consultorio = consultorioData.buscarConsultorio(Integer.parseInt(idConsultorio));
+            //obtener el tratamiento
             String idTratamiento = (String) jComboBoxTratamientosId.getSelectedItem();
             Tratamiento tratamiento = tratamientoData.buscarTratamiento(Integer.parseInt(idTratamiento));
+            //obtener matricula del masajista
             String matricula = (String) jComboBoxMatriculas.getSelectedItem();
             Masajista masajista = masajistaData.buscarMasajista(Integer.parseInt(matricula));
+            //obtener la instalacion
             String nombreInstalacion = (String) jComboBoxInstalaciones.getSelectedItem();
             Instalacion instalacion = instalacionData.buscarInstalacionNombre(nombreInstalacion);
             ArrayList<Instalacion> instalaciones = new ArrayList<>();
             instalaciones.add(instalacion);
+            //insertamos en la sesion
             sesionData.insertarSesion(new Sesion(consultorio, tratamiento, instalaciones, masajista, iniDateTime, finDateTime, false));
             limpiezaCampos();
             deshabilitarCampos();
@@ -434,6 +464,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonHabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHabilitarActionPerformed
+        //obtengo el id de la sesion y lo doy de alta
         if (jTablaSesiones.getSelectedRow() != -1) {
             Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
             for (Sesion s : sesionData.obtenerSesiones()) {
@@ -451,6 +482,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonHabilitarActionPerformed
 
     private void jButtonDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeshabilitarActionPerformed
+        //obtengo el id de la sesion y lo doy de baja
         if (jTablaSesiones.getSelectedRow() != -1) {
             Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
             for (Sesion s : sesionData.obtenerSesiones()) {
@@ -468,6 +500,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonDeshabilitarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        //obtengo el id de la sesion y lo borro con opciones
         if (jTablaSesiones.getSelectedRow() != -1) {
             Integer idSesion = (Integer) modeloTabla.getValueAt(jTablaSesiones.getSelectedRow(), 0);
             int confirm = JOptionPane.showConfirmDialog(this, "¿Esta seguro de que desea borrar la sesion \nde la base de datos?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -485,6 +518,70 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         }             
         rows();
     }//GEN-LAST:event_jButtonBorrarActionPerformed
+
+    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada = jTablaSesiones.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            Object valorSesion = jTablaSesiones.getValueAt(filaSeleccionada, 0);
+
+            int idSesion = Integer.parseInt(valorSesion.toString());
+            this.idSesionSeleccionada = idSesion;
+            Sesion SesionSeleccionada = buscarSesionPorCodigo(idSesionSeleccionada);
+
+            if (SesionSeleccionada != null) {
+                
+                
+                seleccionarItemPorValor(jComboBoxConsultoriosId, SesionSeleccionada.getCodConsultorio());
+                seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
+                seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
+                seleccionarItemPorValor(jComboBoxInstalaciones, SesionSeleccionada.getInstalacion());
+                
+                seleccionarInstalacionPorId(jComboBoxInstalaciones, SesionSeleccionada.getInstalacion());
+                jComboBoxInstalaciones.setSelectedItem(SesionSeleccionada.getInstalacion());
+                //jComboBoxConsultoriosId.setSelectedItem(SesionSeleccionada.getCodConsultorio());
+                //jComboBoxMatriculas.setSelectedItem(SesionSeleccionada.getMatricula());
+                //jComboBoxTratamientosId.setSelectedItem(SesionSeleccionada.getCodTratamiento());
+                
+                
+                LocalDateTime ldt = SesionSeleccionada.getFechaHoraFin();
+                Date dateFin = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+                jDateChooserFechaFin.setDate(dateFin);
+                
+                LocalDateTime ldtInicio = SesionSeleccionada.getFechaHoraInicio();
+                Date dateInicio = Date.from(ldtInicio.atZone(ZoneId.systemDefault()).toInstant());
+                jDateChooserFechaInicio.setDate(dateInicio);
+                
+                jDateChooserFechaFin.setDate(dateFin);
+                jDateChooserFechaInicio.setDate(dateInicio);
+                
+                //habilitar campos
+                jComboBoxMatriculas.setEnabled(true);
+                jComboBoxInstalaciones.setEnabled(true);
+                jComboBoxConsultoriosId.setEnabled(true);
+                jComboBoxTratamientosId.setEnabled(true);
+                
+
+               
+            }
+        }
+    }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void jComboBoxConsultoriosIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxConsultoriosIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxConsultoriosIdActionPerformed
+
+    private void jTablaSesionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaSesionesMouseClicked
+        int filaSeleccionada = jTablaSesiones.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            jButtonActualizar.setEnabled(true);
+            jButtonBorrar.setEnabled(true);
+            jButtonDeshabilitar.setEnabled(true);
+            jButtonHabilitar.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_jTablaSesionesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -515,6 +612,38 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTablaSesiones;
     // End of variables declaration//GEN-END:variables
 
+    private void seleccionarInstalacionPorId(JComboBox<Instalacion> combo, int idBuscado) {
+    for (int i = 0; i < combo.getItemCount(); i++) {
+
+        Instalacion inst = combo.getItemAt(i);
+
+        if (inst.getIdInstalacion()== idBuscado) {
+            combo.setSelectedIndex(i);
+            break;
+        }
+    }
+}
+    private void seleccionarItemPorValor(JComboBox combo, Object valorBuscado) {
+    for (int i = 0; i < combo.getItemCount(); i++) {
+        Object item = combo.getItemAt(i);
+        if (item.toString().equals(valorBuscado.toString())) {
+            combo.setSelectedIndex(i);
+            return;
+            }
+        }
+   
+    }
+    private Sesion buscarSesionPorCodigo(int SesionSeleccionada) {
+        
+        listaSesiones = sesionData.obtenerSesiones();
+
+        for (Sesion m : listaSesiones) {
+            if (m.getCodSesion()== SesionSeleccionada) {
+                return m;
+            }
+        }
+        return null;
+    }
     private void cargarSesionIds() {
         for (Sesion sesion : sesionData.obtenerSesiones()) {
         }
