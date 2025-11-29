@@ -500,6 +500,10 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
         }
         armarFilas();
         
+        jAlta.setEnabled(false);
+        jBaja.setEnabled(false);
+        jActualizar.setEnabled(false);
+        jBorrar.setEnabled(false);
     }//GEN-LAST:event_jAltaActionPerformed
 
     private void jBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBajaActionPerformed
@@ -519,6 +523,11 @@ public class jifGestionMasajista extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         armarFilas();
+        
+        jAlta.setEnabled(false);
+        jBaja.setEnabled(false);
+        jActualizar.setEnabled(false);
+        jBorrar.setEnabled(false);
     }//GEN-LAST:event_jBajaActionPerformed
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed

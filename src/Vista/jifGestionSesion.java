@@ -27,7 +27,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private MasajistaData masajistaData;
     private TratamientoData tratamientoData;
     private InstalacionData instalacionData;
-    private int idSesionSeleccionada = 0;
+    private int idSesionSeleccionada = -1;
     private boolean aux = false;
     private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
     private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
@@ -99,7 +99,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jLabel1.setText("Gestión de Sesiones");
 
         jButtonActualizar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jButtonActualizar.setText("Actualizar sesión");
+        jButtonActualizar.setText("Actualizar Sesion");
         jButtonActualizar.setEnabled(false);
         jButtonActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         });
 
         jButtonCargar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jButtonCargar.setText("Cargar sesión");
+        jButtonCargar.setText("Cargar Sesion");
         jButtonCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCargarActionPerformed(evt);
@@ -116,7 +116,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         });
 
         jButtonBorrar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jButtonBorrar.setText("Borrar sesión");
+        jButtonBorrar.setText("Borrar Sesion");
         jButtonBorrar.setEnabled(false);
         jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +134,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         });
 
         jButtonDeshabilitar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jButtonDeshabilitar.setText("Deshabilitar sesión");
+        jButtonDeshabilitar.setText("Deshabilitar Sesion");
         jButtonDeshabilitar.setEnabled(false);
         jButtonDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +143,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         });
 
         jButtonHabilitar.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jButtonHabilitar.setText("Habilitar sesión");
+        jButtonHabilitar.setText("Habilitar Sesion");
         jButtonHabilitar.setEnabled(false);
         jButtonHabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,42 +239,42 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxMatriculas, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxMatriculas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBoxMatriculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jComboBoxMatriculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(16, 16, 16))
         );
 
         jTablaSesiones.setModel(new javax.swing.table.DefaultTableModel(
@@ -359,7 +359,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(241, 241, 241)
                         .addComponent(jLabel1)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,14 +367,14 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCargar)
@@ -387,7 +387,7 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                     .addComponent(jButtonHabilitar)
                     .addComponent(jButtonDeshabilitar)
                     .addComponent(jButtonBorrar))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
@@ -456,7 +456,13 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         limpiezaCampos();
         deshabilitarCampos();
-        habilitarBotones();
+        jButtonCargar.setEnabled(true);
+        jButtonCargar.setText("Cargar Sesion");
+        jButtonBorrar.setEnabled(false);
+        jButtonHabilitar.setEnabled(false);
+        jButtonDeshabilitar.setEnabled(false);
+        jButtonActualizar.setEnabled(false);
+        jButtonActualizar.setText("Actualizar Sesion");
         jButtonCancelar.setEnabled(false);
         if (aux == true) {
             aux = false;
@@ -520,50 +526,100 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        int filaSeleccionada = jTablaSesiones.getSelectedRow();
+        switch(jButtonActualizar.getText()) {
+            case "Actualizar Sesion":
+                int filaSeleccionada = jTablaSesiones.getSelectedRow();
+                
+                if (filaSeleccionada != -1) {
+                    Object valorSesion = jTablaSesiones.getValueAt(filaSeleccionada, 0);
+                
+                    int idSesion = Integer.parseInt(valorSesion.toString());
+                    this.idSesionSeleccionada = idSesion;
+                    Sesion SesionSeleccionada = buscarSesionPorCodigo(idSesionSeleccionada);
 
-        if (filaSeleccionada != -1) {
-            Object valorSesion = jTablaSesiones.getValueAt(filaSeleccionada, 0);
+                    if (SesionSeleccionada != null) {
+                
+                
+                        seleccionarItemPorValor(jComboBoxConsultoriosId, SesionSeleccionada.getCodConsultorio());
+                        seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
+                        seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
+                        Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
+                        String nombreInst = inst.getNombre();
+                        seleccionarInstalacionPorNombre(jComboBoxInstalaciones, nombreInst);
+                
+                        LocalDateTime ldt = SesionSeleccionada.getFechaHoraFin();
+                        Date dateFin = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+                        jDateChooserFechaFin.setDate(dateFin);
+                
+                        LocalDateTime ldtInicio = SesionSeleccionada.getFechaHoraInicio();
+                        Date dateInicio = Date.from(ldtInicio.atZone(ZoneId.systemDefault()).toInstant());
+                        jDateChooserFechaInicio.setDate(dateInicio);
+                
+                        jDateChooserFechaFin.setDate(dateFin);
+                        jDateChooserFechaInicio.setDate(dateInicio);
+                
+                        //habilitar campos
+                        jComboBoxMatriculas.setEnabled(true);
+                        jComboBoxInstalaciones.setEnabled(true);
+                        jComboBoxConsultoriosId.setEnabled(true);
+                        jComboBoxTratamientosId.setEnabled(true);
+                        jButtonCancelar.setEnabled(true);
+                        jDateChooserFechaFin.setEnabled(true);
+                        jDateChooserFechaInicio.setEnabled(true);
+                
+                        jButtonCargar.setEnabled(false);
+                        jButtonBorrar.setEnabled(false);
+                        jButtonHabilitar.setEnabled(false);
+                        jButtonDeshabilitar.setEnabled(false);
+                
+                        jButtonActualizar.setText("Guardar Sesion");
+                    }
+                }
+                break;
+            case "Guardar Sesion":
+                int idSesionActualizar = this.idSesionSeleccionada;
+                Sesion sesionActualizar = buscarSesionPorCodigo(idSesionActualizar);
 
-            int idSesion = Integer.parseInt(valorSesion.toString());
-            this.idSesionSeleccionada = idSesion;
-            Sesion SesionSeleccionada = buscarSesionPorCodigo(idSesionSeleccionada);
+                if (sesionActualizar != null) {
+                    sesionData.actualizarSesion(
+                        idSesionActualizar, 
+                        jComboBoxConsultoriosId.getSelectedItem(), 
+                        jComboBoxTratamientosId.getSelectedItem(), 
+                        Long.parseLong(jtfTelefono.getText()), 
+                        Integer.parseInt(jtfEdad.getText()), 
+                        jtfAfecciones.getText()
+                    );
+                        JOptionPane.showMessageDialog(this, "Cliente actualizado con Exito!");
+                        this.codClienteSeleccionado = -1;
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el Cliente.", "Error de Busqueda", JOptionPane.ERROR_MESSAGE);
+                }
+                estadoOperacion = "Ninguno";
+            
 
-            if (SesionSeleccionada != null) {
-                
-                
-                seleccionarItemPorValor(jComboBoxConsultoriosId, SesionSeleccionada.getCodConsultorio());
-                seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
-                seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
-                Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
-                String nombreInst = inst.getNombre();
-                seleccionarInstalacionPorNombre(jComboBoxInstalaciones, nombreInst);
-                
-                LocalDateTime ldt = SesionSeleccionada.getFechaHoraFin();
-                Date dateFin = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-                jDateChooserFechaFin.setDate(dateFin);
-                
-                LocalDateTime ldtInicio = SesionSeleccionada.getFechaHoraInicio();
-                Date dateInicio = Date.from(ldtInicio.atZone(ZoneId.systemDefault()).toInstant());
-                jDateChooserFechaInicio.setDate(dateInicio);
-                
-                jDateChooserFechaFin.setDate(dateFin);
-                jDateChooserFechaInicio.setDate(dateInicio);
-                
-                //habilitar campos
-                jComboBoxMatriculas.setEnabled(true);
-                jComboBoxInstalaciones.setEnabled(true);
-                jComboBoxConsultoriosId.setEnabled(true);
-                jComboBoxTratamientosId.setEnabled(true);
-                jButtonCancelar.setEnabled(true);
-                jDateChooserFechaFin.setEnabled(true);
-                jDateChooserFechaInicio.setEnabled(true);
-                
-                jButtonCargar.setEnabled(false);
-                jButtonBorrar.setEnabled(false);
-                jButtonHabilitar.setEnabled(false);
-                jButtonDeshabilitar.setEnabled(false);
+            if (jbMostrarClientes.getText().equalsIgnoreCase("Mostrar Clientes")) {
+                cargarTabla();
+                jbMostrarClientes.setText("Ocultar Clientes");
+            } else if (jbMostrarClientes.getText().equalsIgnoreCase("Ocultar Clientes")) {
+                cargarTabla();
             }
+
+            jtfDNI.setText("");
+            jtfNombreCompleto.setText("");
+            jtfTelefono.setText("");
+            jtfEdad.setText("");
+            jtfAfecciones.setText("");
+
+            jbGuardar.setEnabled(false);
+            jbNuevo.setEnabled(true);
+            jbAlta.setEnabled(false);
+            jbBaja.setEnabled(false);
+
+            jtfDNI.setEnabled(false);
+            jtfNombreCompleto.setEnabled(false);
+            jtfTelefono.setEnabled(false);
+            jtfEdad.setEnabled(false);
+            jtfAfecciones.setEnabled(false);
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 

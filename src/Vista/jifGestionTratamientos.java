@@ -17,7 +17,7 @@ import java.util.Set;
 public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private TratamientoData tratamientoData;
     private boolean aux = false; // Me ayuda a manejar el flujo de mi codigo en los eventos de los botones.
-    private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ,\\s]+$"; // Expresion regular para letras.
+    private String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s,.!¡?¿#$%&/()='\"*+-]+$"; // Expresion regular para letras.
     private String regex2 = "^[\\d.]+$"; // Expresion regular para digitos numericos.
     Connection conexion = Conexion.establecerConexion(); // Guardo el resultado. Si null, ejecuto flujo de linea 35, no permitiendole al usuario continuar hasta que establezca la conexion a la bd.
     private DefaultTableModel modeloTabla = new DefaultTableModel() {
@@ -26,9 +26,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    /**
-     * Creates new form jifGestionTratamientos
-     */
+    
     public jifGestionTratamientos() {
         initComponents();
         this.tratamientoData = new TratamientoData();
@@ -206,6 +204,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonActualizarTratamiento.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonActualizarTratamiento.setText("Actualizar tratamiento");
+        jButtonActualizarTratamiento.setEnabled(false);
         jButtonActualizarTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonActualizarTratamientoActionPerformed(evt);
@@ -214,6 +213,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonBorrarTratamiento.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonBorrarTratamiento.setText("Borrar tratamiento");
+        jButtonBorrarTratamiento.setEnabled(false);
         jButtonBorrarTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBorrarTratamientoActionPerformed(evt);
@@ -230,6 +230,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonTratamientoOn.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonTratamientoOn.setText("Habilitar tratamiento");
+        jButtonTratamientoOn.setEnabled(false);
         jButtonTratamientoOn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTratamientoOnActionPerformed(evt);
@@ -238,6 +239,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
 
         jButtonTratamientoOff.setFont(new java.awt.Font("Ubuntu", 0, 13)); // NOI18N
         jButtonTratamientoOff.setText("Deshabilitar tratamiento");
+        jButtonTratamientoOff.setEnabled(false);
         jButtonTratamientoOff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTratamientoOffActionPerformed(evt);
@@ -272,6 +274,11 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablaTratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaTratamientosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablaTratamientos);
 
         jLabel9.setFont(new java.awt.Font("Nimbus Sans", 1, 24)); // NOI18N
@@ -451,6 +458,7 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             limpiarCampos();
             deshabilitarCampos();
             habilitarBotones();
+            jButtonCancelar.setEnabled(false);
             aux = false;
         }
     }//GEN-LAST:event_jButtonCargarTratamientoActionPerformed
@@ -458,8 +466,12 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         limpiarCampos();
         deshabilitarCampos();
-        habilitarBotones();
+        jButtonCargarTratamiento.setEnabled(true);
+        jButtonActualizarTratamiento.setEnabled(false);
         jButtonCancelar.setEnabled(false);
+        jButtonTratamientoOn.setEnabled(false);
+        jButtonTratamientoOff.setEnabled(false);
+        jButtonBorrarTratamiento.setEnabled(false);
         if (aux == true) {
             aux = false;
         }
@@ -543,6 +555,12 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         rows();
+        
+        jButtonTratamientoOn.setEnabled(false);
+        jButtonTratamientoOff.setEnabled(false);
+        jButtonActualizarTratamiento.setEnabled(false);
+        jButtonBorrarTratamiento.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
     }//GEN-LAST:event_jButtonTratamientoOnActionPerformed
 
     private void jButtonTratamientoOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTratamientoOffActionPerformed
@@ -561,6 +579,12 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         rows();
+        
+        jButtonTratamientoOn.setEnabled(false);
+        jButtonTratamientoOff.setEnabled(false);
+        jButtonActualizarTratamiento.setEnabled(false);
+        jButtonBorrarTratamiento.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
     }//GEN-LAST:event_jButtonTratamientoOffActionPerformed
 
     private void jButtonBorrarTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarTratamientoActionPerformed
@@ -581,6 +605,12 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         rows();
+        
+        jButtonTratamientoOn.setEnabled(false);
+        jButtonTratamientoOff.setEnabled(false);
+        jButtonActualizarTratamiento.setEnabled(false);
+        jButtonBorrarTratamiento.setEnabled(false);
+        jButtonCancelar.setEnabled(false);
     }//GEN-LAST:event_jButtonBorrarTratamientoActionPerformed
 
     private void jRadioButtonTodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonTodosMouseClicked
@@ -606,6 +636,16 @@ public class jifGestionTratamientos extends javax.swing.JInternalFrame {
     private void jButtonActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarListaActionPerformed
         rows();
     }//GEN-LAST:event_jButtonActualizarListaActionPerformed
+
+    private void jTablaTratamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaTratamientosMouseClicked
+        int filaSeleccionada = jTablaTratamientos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            jButtonActualizarTratamiento.setEnabled(true);
+            jButtonBorrarTratamiento.setEnabled(true);
+            jButtonTratamientoOn.setEnabled(true);
+            jButtonTratamientoOff.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTablaTratamientosMouseClicked
 
     private void deshabilitarCampos() {
         jComboBoxIds.setEnabled(false);

@@ -515,6 +515,10 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         } else if (jTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null,"Seleccione una fila para continuar.");
         }
+        jBotonAlta.setEnabled(false);
+        jBotonBaja.setEnabled(false);
+        jBotonActualizar.setEnabled(false);
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jBotonAltaActionPerformed
 
     private void jBotonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonBajaActionPerformed
@@ -534,6 +538,10 @@ public class jifGestionInstalacion extends javax.swing.JInternalFrame {
         } else if (jTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this,"Seleccione una fila para continuar.");
         }
+        jBotonAlta.setEnabled(false);
+        jBotonBaja.setEnabled(false);
+        jBotonActualizar.setEnabled(false);
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jBotonBajaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

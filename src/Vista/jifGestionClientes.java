@@ -415,6 +415,11 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         cargarTabla();
+        
+        jbAlta.setEnabled(false);
+        jbBaja.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        jbBorrar.setEnabled(false);
     }//GEN-LAST:event_jbAltaActionPerformed
 
     private void jbBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBajaActionPerformed
@@ -434,6 +439,11 @@ public class jifGestionClientes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una fila antes de continuar.");
         }
         cargarTabla();
+        
+        jbAlta.setEnabled(false);
+        jbBaja.setEnabled(false);
+        jbActualizar.setEnabled(false);
+        jbBorrar.setEnabled(false);
     }//GEN-LAST:event_jbBajaActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
