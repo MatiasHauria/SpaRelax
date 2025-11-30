@@ -445,6 +445,11 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
             instalaciones.add(instalacion);
             //insertamos en la sesion
             sesionData.insertarSesion(new Sesion(consultorio, tratamiento, instalaciones, masajista, iniDateTime, finDateTime, false));
+            //refrescar la tabla
+            rows();
+            //recargar combos
+            recargarCombos();
+            //limpieza
             limpiezaCampos();
             deshabilitarCampos();
             habilitarBotones();
@@ -666,7 +671,9 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaSesiones;
     // End of variables declaration//GEN-END:variables
-
+    
+    
+    
     private void seleccionarInstalacionPorNombre(JComboBox<String> combo, String nombreBuscado) {
 
     for (int i = 0; i < combo.getItemCount(); i++) {
@@ -704,31 +711,47 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
     }
 
     private void cargarConsultoriosIds() {
-        for (Sesion sesion : sesionData.obtenerSesiones()) {
-            jComboBoxConsultoriosId.addItem(String.valueOf(sesion.getCodConsultorio()));
-        }
-    }
+    jComboBoxConsultoriosId.removeAllItems();
+    jComboBoxConsultoriosId.addItem("Seleccione el ID");
 
-    private void cargarTratamientosIds() {
-        for (Sesion sesion : sesionData.obtenerSesiones()) {
-            jComboBoxTratamientosId.addItem(String.valueOf(sesion.getCodTratamiento()));
-        }
+    for (Consultorio c : consultorioData.obtenerConsultorio()) {
+        jComboBoxConsultoriosId.addItem(String.valueOf(c.getNroConsultorio()));
     }
+}
+
+   private void cargarTratamientosIds() {
+    jComboBoxTratamientosId.removeAllItems();
+    jComboBoxTratamientosId.addItem("Seleccione el ID");
+
+    for (Tratamiento t : tratamientoData.mostrarTratamientos()) {
+        jComboBoxTratamientosId.addItem(String.valueOf(t.getIdTratamiento()));
+    }
+}
 
     private void cargarInstalaciones() {
-        for (Sesion sesiones : sesionData.obtenerSesiones()) {
-            for (Instalacion instalacion : sesiones.getInstalacion()) {
-                jComboBoxInstalaciones.addItem(instalacion.getNombre());
-            }
-        }
+    jComboBoxInstalaciones.removeAllItems();
+    jComboBoxInstalaciones.addItem("Seleccione una instalacion");
+
+    for (Instalacion inst : instalacionData.obtenerInstalaciones()) {
+        jComboBoxInstalaciones.addItem(inst.getNombre());
     }
+}
     
     private void cargarMatriculas() {
-        for (Sesion sesiones : sesionData.obtenerSesiones()) {
-            jComboBoxMatriculas.addItem(String.valueOf(sesiones.getMatricula()));
-        }
-    }
+    jComboBoxMatriculas.removeAllItems();
+    jComboBoxMatriculas.addItem("Seleccione la matricula");
 
+    for (Masajista m : masajistaData.obtenerMasajista()) {
+        jComboBoxMatriculas.addItem(String.valueOf(m.getMatricula()));
+    }
+}
+
+    private void recargarCombos() {
+    cargarConsultoriosIds();
+    cargarTratamientosIds();
+    cargarInstalaciones();
+    cargarMatriculas();
+}
     private void deshabilitarCampos() {
         jComboBoxConsultoriosId.setEnabled(false);
         jComboBoxMatriculas.setEnabled(false);
