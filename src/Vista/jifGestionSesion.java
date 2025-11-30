@@ -581,12 +581,13 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 Sesion sesionActualizar = buscarSesionPorCodigo(idSesionActualizar);
 
                 if (sesionActualizar != null) {
+                    Instalacion instalacionActualizar = instalacionData.buscarInstalacionNombre(jComboBoxInstalaciones.getSelectedItem().toString());
                     sesionData.actualizarSesion(
                         idSesionActualizar, 
                         jComboBoxConsultoriosId.getSelectedItem(), 
                         jComboBoxTratamientosId.getSelectedItem(), 
-                        Long.parseLong(jtfTelefono.getText()), 
-                        Integer.parseInt(jtfEdad.getText()), 
+                        null, 
+                        , instalacionActualizar ,
                         jtfAfecciones.getText()
                     );
                         JOptionPane.showMessageDialog(this, "Cliente actualizado con Exito!");
