@@ -9,6 +9,7 @@ import Modelo.DiaDeSpa;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SesionData {
 
@@ -89,21 +90,37 @@ public class SesionData {
     }
 
     public void ActualizarSesiones(int id, Sesion s) {
-        String sql = "UPDATE sesion SET id_consultorio=?, id_tratamiento=?,id_pack=?,instalaciones=?,matricula=?, fecha_hora_inicio=?, fecha_hora_fin=?, estado=? WHERE id_sesion=?";
+        String sql = "UPDATE sesion SET id_consultorio=?, id_tratamiento=?, id_pack=?, instalaciones=?, matricula=?, fecha_hora_inicio=?, fecha_hora_fin=?, estado=? WHERE id_sesion=?";
         Connection con = null;
         try {
             con = Conexion.establecerConexion();
             PreparedStatement ps = con.prepareStatement(sql);
+        
             ps.setInt(1, s.getCodConsultorio());
             ps.setInt(2, s.getCodTratamiento());
-            ps.setInt(3, s.getCodPack());
-            String listaInstalacion = String.join(",", s.getNombresInstalacion());
-            ps.setString(4, listaInstalacion);
+            
+            if (s.getCodPack() > 0) {
+                ps.setInt(3, s.getCodPack());
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            
+            String nombresInstalaciones = "";
+            if (s.getInstalacion() != null && !s.getInstalacion().isEmpty()) {
+                List<String> listaNombres = new ArrayList<>();
+                for (Instalacion i : s.getInstalacion()) {
+                    listaNombres.add(i.getNombre());
+                }
+                nombresInstalaciones = String.join(",", listaNombres);
+            }
+            ps.setString(4, nombresInstalaciones);
             ps.setInt(5, s.getMatricula());
             ps.setTimestamp(6, Timestamp.valueOf(s.getFechaHoraInicio()));
             ps.setTimestamp(7, Timestamp.valueOf(s.getFechaHoraFin()));
             ps.setBoolean(8, s.isEstado());
+        
             ps.setInt(9, id);
+
             int filas = ps.executeUpdate();
             if (filas > 0) {
                 System.out.println("Sesion actualizada correctamente");
