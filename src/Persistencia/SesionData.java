@@ -142,62 +142,88 @@ public class SesionData {
     }
 
     public ArrayList<Sesion> obtenerSesiones() {
-        ArrayList<Sesion> listaDeSesiones = new ArrayList<>();
-        String sql = "Select * FROM sesion";
-        Connection con = null;
-        try {
-            con = Conexion.establecerConexion();
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            if (this.diadespa == null) {
-                this.diadespa = new DiadespaData();
-            }
-            while (rs.next()) {
-                int codSesion = rs.getInt("id_sesion");
-                int codConsultorio = rs.getInt("id_consultorio");
-                Consultorio c = consultorio.buscarConsultorio(codConsultorio);
-                int idTratamiento = rs.getInt("id_tratamiento");
-                Tratamiento t = tratamiento.buscarTratamiento(idTratamiento);
-                int idSpa = rs.getInt("id_pack");
-                DiaDeSpa i = new DiaDeSpa();
-                i.setCodPack(idSpa);
-                ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
-                String instalaciones = rs.getString("instalaciones");
-                String[] partes = instalaciones.split(",");
+    ArrayList<Sesion> listaDeSesiones = new ArrayList<>();
+    String sql = "Select * FROM sesion";
+    Connection con = null;
+    try {
+        con = Conexion.establecerConexion();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        
+        if (this.diadespa == null) {
+            this.diadespa = new DiadespaData();
+        }
+
+        while (rs.next()) {
+            ArrayList<Instalacion> listaInstalaciones = new ArrayList<>();
+            String instalacionesStr = rs.getString("instalaciones");
+            
+            if (instalacionesStr != null && !instalacionesStr.isEmpty()) {
+                String[] partes = instalacionesStr.split(",");
                 for (String nombre : partes) {
                     Instalacion a = instalacionData.buscarInstalacionNombre(nombre.trim());
                     if (a != null) {
                         listaInstalaciones.add(a);
-                    } else {
-                        System.out.println("AVISO: La instalación '" + nombre + "' figura en la sesión pero no existe en la tabla de instalaciones.");
                     }
                 }
-                int matricula = rs.getInt("matricula");
-                Masajista m = masajista.buscarMasajista(matricula);
-                LocalDateTime fechaInicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
-                LocalDateTime fechaFinal = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
-                boolean estado = rs.getBoolean("estado");
-
-                Sesion sesion = new Sesion(c, t, listaInstalaciones, m, fechaInicio, fechaFinal, estado);
-                sesion.setCodSesion(codSesion);
-                sesion.setCodConsultorio(codConsultorio);
-                sesion.setDiadespa(i);
-                listaDeSesiones.add(sesion);
             }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            
+            int codConsultorio = rs.getInt("id_consultorio");
+            Consultorio c = consultorio.buscarConsultorio(codConsultorio);
+            if (c == null) {
+                c = new Consultorio("ELIMINADO", "ELIMINADO"); 
+                c.setNroConsultorio(codConsultorio);
+                System.out.println("ADVERTENCIA: Sesión " + rs.getInt("id_sesion") + " tiene Consultorio borrado.");
+            }
+
+            int idTratamiento = rs.getInt("id_tratamiento");
+            Tratamiento t = tratamiento.buscarTratamiento(idTratamiento);
+            if (t == null) {
+                ArrayList<String> prodVacios = new ArrayList<>();
+                t = new Tratamiento("TRATAMIENTO ELIMINADO", "N/A", "N/A", prodVacios, 0, 0);
+                t.setIdTratamiento(idTratamiento);
+                System.out.println("ADVERTENCIA: Sesión " + rs.getInt("id_sesion") + " tiene Tratamiento borrado.");
+            }
+
+            int matricula = rs.getInt("matricula");
+            Masajista m = masajista.buscarMasajista(matricula);
+            if (m == null) {
+                // BLINDAJE
+                m = new Masajista(matricula, "MASAJISTA ELIMINADO", 0, "N/A");
+                System.out.println("ADVERTENCIA: Sesión " + rs.getInt("id_sesion") + " tiene Masajista borrado.");
+            }
+            
+            int codSesion = rs.getInt("id_sesion");
+            int idSpa = rs.getInt("id_pack");
+            DiaDeSpa i = new DiaDeSpa();
+            i.setCodPack(idSpa); 
+
+            LocalDateTime fechaInicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
+            LocalDateTime fechaFinal = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
+            boolean estado = rs.getBoolean("estado");
+
+            Sesion sesion = new Sesion(c, t, listaInstalaciones, m, fechaInicio, fechaFinal, estado);
+            sesion.setCodSesion(codSesion);
+            sesion.setCodConsultorio(codConsultorio);
+            sesion.setDiadespa(i);
+            sesion.setCodPack(idSpa);
+            
+            listaDeSesiones.add(sesion);
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    } finally {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
-        return listaDeSesiones;
     }
+    return listaDeSesiones;
+}
 
     public void bajaSesion(int id) {
         String sql = "UPDATE sesion SET estado=false WHERE id_sesion=?";

@@ -541,33 +541,47 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                 
                 if (filaSeleccionada != -1) {
                     Object valorSesion = jTablaSesiones.getValueAt(filaSeleccionada, 0);
-                
                     int idSesion = Integer.parseInt(valorSesion.toString());
                     this.idSesionSeleccionada = idSesion;
-                    Sesion SesionSeleccionada = buscarSesionPorCodigo(idSesionSeleccionada);
+                    
+                    Sesion SesionSeleccionada = buscarSesionPorCodigo(idSesion); 
 
                     if (SesionSeleccionada != null) {
-                
-                
-                        seleccionarItemPorValor(jComboBoxConsultoriosId, SesionSeleccionada.getCodConsultorio());
-                        seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
-                        seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
-                        Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
-                        String nombreInst = inst.getNombre();
-                        seleccionarInstalacionPorNombre(jComboBoxInstalaciones, nombreInst);
-                
+                        
+                        if (SesionSeleccionada.getConsultorio() != null) {
+                            seleccionarItemPorValor(jComboBoxConsultoriosId, SesionSeleccionada.getCodConsultorio());
+                        } else {
+                            jComboBoxConsultoriosId.setSelectedIndex(0);
+                        }
+                        
+                        if (SesionSeleccionada.getMasajista() != null) {
+                            seleccionarItemPorValor(jComboBoxMatriculas, SesionSeleccionada.getMatricula());
+                        } else {
+                            jComboBoxMatriculas.setSelectedIndex(0);
+                        }
+                        
+                        if (SesionSeleccionada.getTratamiento() != null) {
+                            seleccionarItemPorValor(jComboBoxTratamientosId, SesionSeleccionada.getCodTratamiento());
+                        } else {
+                            jComboBoxTratamientosId.setSelectedIndex(0);
+                        }
+                        
+                        if (SesionSeleccionada.getInstalacion() != null && !SesionSeleccionada.getInstalacion().isEmpty()) {
+                            Instalacion inst = SesionSeleccionada.getInstalacion().get(0);
+                            seleccionarInstalacionPorNombre(jComboBoxInstalaciones, inst.getNombre());
+                        } else {
+                            jComboBoxInstalaciones.setSelectedIndex(0);
+                        }
+                        
                         LocalDateTime ldt = SesionSeleccionada.getFechaHoraFin();
-                        Date dateFin = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+                        java.util.Date dateFin = java.util.Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
                         jDateChooserFechaFin.setDate(dateFin);
-                
+                        
                         LocalDateTime ldtInicio = SesionSeleccionada.getFechaHoraInicio();
-                        Date dateInicio = Date.from(ldtInicio.atZone(ZoneId.systemDefault()).toInstant());
+                        java.util.Date dateInicio = java.util.Date.from(ldtInicio.atZone(ZoneId.systemDefault()).toInstant());
                         jDateChooserFechaInicio.setDate(dateInicio);
-                
-                        jDateChooserFechaFin.setDate(dateFin);
-                        jDateChooserFechaInicio.setDate(dateInicio);
-                
-                        //habilitar campos
+                        
+                        
                         jComboBoxMatriculas.setEnabled(true);
                         jComboBoxInstalaciones.setEnabled(true);
                         jComboBoxConsultoriosId.setEnabled(true);
@@ -575,16 +589,17 @@ public class jifGestionSesion extends javax.swing.JInternalFrame {
                         jButtonCancelar.setEnabled(true);
                         jDateChooserFechaFin.setEnabled(true);
                         jDateChooserFechaInicio.setEnabled(true);
-                
+                        
                         jButtonCargar.setEnabled(false);
                         jButtonBorrar.setEnabled(false);
                         jButtonHabilitar.setEnabled(false);
                         jButtonDeshabilitar.setEnabled(false);
-                
+                        
                         jButtonActualizar.setText("Guardar Sesion");
                     }
                 }
                 break;
+                
             case "Guardar Sesion":
                 int idSesionActualizar = this.idSesionSeleccionada;
                 Sesion sesionActualizar = buscarSesionPorCodigo(idSesionActualizar); 
